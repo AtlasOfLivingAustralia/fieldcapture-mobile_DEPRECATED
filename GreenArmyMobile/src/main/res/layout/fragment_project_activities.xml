@@ -1,0 +1,91 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/activities_heading"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="@color/abc_search_url_text_normal"-->
+
+        <!-->-->
+        <!--<TextView-->
+            <!--android:id="@+id/activities_title"-->
+            <!--style="?android:attr/textAppearanceLarge"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="0.6"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="16dp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:textIsSelectable="false"-->
+            <!--android:background="@color/abc_search_url_text_normal"-->
+
+            <!--android:text="@string/activities_heading"-->
+            <!--tools:context="org.ala.fieldcapture.merit_mobile_test.ProjectActivitiesFragment" />-->
+        <!--<TextView-->
+            <!--android:id="@+id/activites_instruction"-->
+            <!--style="?android:attr/textAppearanceSmall"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="0.4"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:padding="16dp"-->
+            <!--android:gravity="right"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:singleLine="false"-->
+            <!--android:textIsSelectable="false"-->
+            <!--android:text="@string/activities_instructions"-->
+            <!--tools:context="org.ala.fieldcapture.merit_mobile_test.ProjectActivitiesFragment" />-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+        android:id="@+id/no_activities"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:background="@android:color/black">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:id="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/ic_launcher"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:text="@string/no_activities_text"
+            android:gravity="center_vertical|center_horizontal"
+            android:autoText="false" />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/project_activities_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:visibility="gone"
+        android:divider="@null"
+        >
+
+    </ListView>
+</FrameLayout>

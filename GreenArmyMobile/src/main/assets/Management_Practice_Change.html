@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        input[type=checkbox] {
+            -webkit-transform: scale(1.5); margin:50px;
+        }
+    </style>
+    
+    <script src="fieldcapture/static/UGoJGyG3j2UCffTg3vnOdi0FsnS2OvrmrsZD6WxaXGy.js" type="text/javascript" ></script>
+<link href="fieldcapture/static/090onaZX1M508oSWqGmMeETZ9NkUA9p4CCTW3MUpRPc.css" type="text/css" rel="stylesheet" media="screen, projection" />
+
+<link href="fieldcapture/static/CidRUyEAqkZsnDRPRiaGZBy7vd4DOlnRqweu4CsVcIG.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="fieldcapture/static/tDKPE9VWZfBnSnxBkPC52ml2dXticvlQDl9aR8VpM2o.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<!--[if lt IE 7]><link href="fieldcapture/static/v1vjA9BeNpSU8cuoTuVhTEUm6boSzwYQcgfPKKMkqgv.css" type="text/css" rel="stylesheet" media="screen, projection" /><![endif]-->
+
+<link href="fieldcapture/static/Eu8FNKwJJQI8mVJO3VIshatRN1bunflYHvvdqk06tbf.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<link href="http://www.ala.org.au/wp-content/themes/ala2011/images/favicon.ico" rel="shortcut icon" />
+<!--[if lt IE 9]><script src="fieldcapture/static/Yh1Txee3hFzExJ4P1str7tGV24zQMEYtxqtlYJ5ukR0.js" type="text/javascript" ></script><![endif]-->
+<link href="fieldcapture/static/6tuLClj7N5eYCZpx7vLn8juIbQUXBkCnWRUJFY7UDCz.css" type="text/css" rel="stylesheet" media="screen,print" />
+<link href="/fieldcapture/static/7ARiB2rJgSkfi68hxnSlcG9Ot0gQ863DYxkCmSHQweE.png" rel="shortcut icon" />
+<link href="/fieldcapture/static/14SWTr4VqVh6tnlUlgBtue6IJZ7gwE1y42RT7ya5GGW.png" rel="shortcut icon" />
+
+<link href="fieldcapture/static/KYGDEVRRaKjNbTXJkHmicmzo9vFrnnzCnGLcxKjR04f.css" type="text/css" rel="stylesheet" media="screen,print" />
+
+<link href="fieldcapture/static/uUQBvO5ITMKwLfoRb2u62GbHXEzxtsbrSWq8MBAOrbX.css" type="text/css" rel="stylesheet" media="screen,print" />
+<link href="fieldcapture/static/2OXdKoom668LE7PLl0qjJCaLG7Pu7Jv869tAsS4e1oT.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<link href="fieldcapture/static/AcXIjLTuc87n8sfxBjJRQSoBIUwP9RnCyK8Sv82i7eV.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<script type="text/javascript">
+    var fcConfig = {
+        serverUrl: "http://devt.ala.org.au:8087/fieldcapture",
+        activityUpdateUrl: "/fieldcapture/activity/ajaxUpdate",
+        activityDeleteUrl: "/fieldcapture/activity/ajaxDelete",
+        projectViewUrl: "/fieldcapture/project/index/",
+        siteViewUrl: "/fieldcapture/site/index/",
+        bieUrl: "http://bie.ala.org.au",
+        speciesProfileUrl: "/fieldcapture/proxy/speciesProfile"
+        },
+        here = document.location.href;
+    </script>
+    
+
+    <meta name="layout" content="mobile"/>
+
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&language=en"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+    
+    
+
+</head>
+
+<body>
+
+<div id="content" class="clearfix">
+    
+<div class="container-fluid validationEngineContainer" id="validation-container">
+<div id="koActivityMainBlock">
+
+    <div class="row-fluid">
+        <div class="span9">
+            <!-- Common activity fields -->
+
+            <div class="row-fluid space-after">
+                <div class="span6">
+                    <label for="theme">Major theme</label>
+                    <select id="theme" data-bind="value:mainTheme, options:transients.themes, optionsCaption:'Choose..'" class="input-xlarge">
+                    </select>
+                </div>
+                <div class="span6">
+                    <label class="for-readonly">Description</label>
+                    <span class="readonly-text" data-bind="text:description"></span>
+                </div>
+            </div>
+
+            <div class="row-fluid space-after">
+
+                <div class="span6">
+                    <label class="for-readonly inline">Activity progress</label>
+                    <button type="button" class="btn btn-small"
+                            data-bind="css: {'btn-warning':progress()=='planned','btn-success':progress()=='started','btn-info':progress()=='finished','btn-danger':progress()=='deferred','btn-inverse':progress()=='cancelled'}"
+                            style="line-height:16px;cursor:default;color:white">
+                        <span data-bind="text: progress"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row-fluid space-after">
+                <div class="span6">
+                    <label class="for-readonly inline">Planned start date</label>
+                    <span class="readonly-text" data-bind="text:plannedStartDate.formattedDate"></span>
+                </div>
+                <div class="span6">
+                    <label class="for-readonly inline">Planned end date</label>
+                    <span class="readonly-text" data-bind="text:plannedEndDate.formattedDate"></span>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6 required">
+                    <label for="startDate"><b>Actual start date</b>
+                        <a href='#' class='helphover' data-original-title='Start date' data-placement='top' data-content='Date the activity was started.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a>
+                    </label>
+
+
+                    <div class="input-append">
+                        <input data-bind='datepicker:startDate.date' name='startDate' id='startDate' type='text' size='16' class='input-xlarge' targetField='startDate.date' data-validation-engine='validate[required]' />
+<span class='add-on open-datepicker'>
+  <i class='icon-th'>&nbsp;</i>
+</span>
+                    </div>
+
+                </div>
+                <div class="span6 required">
+                    <label for="endDate"><b>Actual end date</b>
+                        <a href='#' class='helphover' data-original-title='End date' data-placement='top' data-content='Date the activity finished.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a>
+                    </label>
+
+                    <div class="input-append">
+                        <input data-bind='datepicker:endDate.date' name='endDate' id='endDate' type='text' size='16' class='input-xlarge' targetField='endDate.date' data-validation-engine='validate[future[startDate]]' />
+<span class='add-on open-datepicker'>
+  <i class='icon-th'>&nbsp;</i>
+</span>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        
+            <div class="span3">
+                <div id="smallMap" style="width:100%"></div>
+            </div>
+        
+    </div>
+
+</div>
+
+<!-- ko stopBinding: true -->
+
+    
+    
+    <style type="text/css">
+        table.practiceChange th {white-space:normal;}
+        table.practiceChange td:nth-child(1) {width:25%;}
+        table.practiceChange td:nth-child(1) select {width:100%;}
+        table.practiceChange td:nth-child(4) {width:20%;}
+        table.practiceChange td:nth-child(4) select {width:100%;}
+        table.practiceChange td:nth-child(5) {width:10%;text-align:center;}
+        table.practiceChange td:nth-child(5) select {width:100%;}
+        table.practiceChange td:nth-child(6) {width:10%;text-align:center;}
+        table.practiceChange td:nth-child(6) select {width:100%;}
+        table.practiceChange td:last-child {width:4%;text-align:center;}
+        table.practiceChange textarea {width:98%;}
+    </style>
+    <div class="output-block" id="koManagement_Practice_Change_Details">
+        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Management Practice Change Details<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
+        <!-- add the dynamic components -->
+        <div class="row-fluid output-section">
+            <table class="table table-bordered practiceChange " >
+                <thead><tr><th class="required">Reason for changing management practices:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The purpose for which changed practices are implemented'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th class="required">Industry:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of industry in which changed practices are implemented'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th class="required">Resource condition prior to action:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The condition of the resource at the time when changed practices are implemented'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th class="required">Practice change action:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The practice change action applied to address the resource condition issue.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th class="required">Area treated by practice change (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area of land in hectares on which changed management practices are implemented'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th class="required">No. of farming entities adopting this practice change:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of farming entities adopting the specified changed management practices'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'practiceChangeviewTmpl', foreach: data.practiceChange}"></tbody>
+                <script id="practiceChangeviewTmpl" type="text/html"><tr>
+                    <td><select data-bind='value:changePurpose,options:transients.changePurposeConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></td>
+                    <td><select data-bind='value:industryType,options:transients.industryTypeConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></td>
+                    <td><select data-bind='value:resourceCondition,options:transients.resourceConditionConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></td>
+                    <td><select data-bind='value:practiceChangeAction,options:transients.practiceChangeActionConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></td>
+                    <td><input class="input-mini" style="text-align:center" data-bind='value:changePracticeTreatedArea' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-mini" style="text-align:center" data-bind='value:entitiesAdoptingChange' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removepracticeChangeRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr>
+                    <td colspan='2'><span ></span></td>
+                    <td><span >Total area of adopted changed practices (Ha)</span></td>
+                    <td><span  class="value" data-bind='text:data.totalChangePracticeTreatedArea'></span></td>
+                    <td><span >Total No. of farming entities</span></td>
+                    <td><span  class="value" data-bind='text:data.totalEntitiesAdoptingChange'></span></td>
+                    <td></td>
+                </tr>
+                <tr><td colspan="7" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addpracticeChangeRow">
+                        <i class="icon-plus"></i> Add a row</button>
+                        <button type="button" class="btn btn-small" data-bind="click:showpracticeChangeTableDataUpload"><i class="icon-upload"></i> Upload data for this table</button>
+
+
+                    </td></tr>
+<tr data-bind="visible:practiceChangeTableDataUploadVisible"><td colspan="7">
+                <div class="text-error text-left">
+                    Note: Only valid exact scientific names will be matched and populated from the database (indicated by a green tick). Unmatched species will load, but will be indicated by a green <b>?</b>. Please check your uploaded data and correct as required.
+                </div>
+                <div class="text-left" style="margin:5px">
+                    <a href="/fieldcapture/proxy/excelOutputTemplate?type=Management Practice Change Details&listName=practiceChange" target="practiceChangeTemplateDownload" class="btn">Step 1 - Download template (.xlsx)</a>
+                </div>
+                <div class="text-left" style="margin:5px;">
+                    <input type="checkbox" data-bind="checked:appendTableRows" style="margin-right:5px">Append uploaded data to table (unticking this checkbox will result in all table rows being replaced)
+                </div>
+
+                <div class="btn fileinput-button" style="margin-left:5px">
+                        <input id="practiceChangeTableDataUpload" type="file" name="data" data-bind="fileUploadNoImage:practiceChangeTableDataUploadOptions">
+                        Step 2 - Upload populated template
+                </div>
+
+                    </td></tr> <script id="practiceChangetemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="practiceChangetemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+<div class="row-fluid space-after output-section" >
+<div class="span6">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Area of land directly benefiting from the practice change:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area of land in hectares over which environmental benefits are attained from the changed management practices'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.benefitAreaHa' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Length of fence installed for managing stock access to water:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Length of fence in kilometres erected to control stock access to watering points'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.lengthOfFenceStockWatering' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div><div class="span6">
+<div class="row-fluid"><span class="span12">    <span  class="span4 checkbox-list-label  preLabel"><label>Expected outcomes from changed practices:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Targeted outcomes to be attained from the changed management practices'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span>
+            <ul class="checkbox-list" data-bind="foreach: transients.targetOutcomesConstraints">
+                <li>
+                    <input type="checkbox" name="data.targetOutcomes" data-bind="value:$data,checked:$root.data.targetOutcomes" /><span data-bind="text:$data"></span>
+                </li>
+            </ul>
+        </span></div></div></div>
+<div class="row-fluid space-after output-section" >
+<span class="span12">    <span  class="preLabel"><label>Comments / Notes</label></span><textarea  class="span12" data-bind='value:data.notes'></textarea></span></div>
+
+        
+    </div>
+
+    
+    
+    <style type="text/css">
+        table.sustainableInitiatives td:nth-child(1) {width:25%;}
+        table.sustainableInitiatives td:nth-child(1) select {width:100%;}
+        table.sustainableInitiatives td:nth-child(3) {width:10%;text-align:center;}
+        table.sustainableInitiatives td:nth-child(3) select {width:100%;}
+        table.sustainableInitiatives td:last-child {width:4%;text-align:center;}
+        table.sustainableInitiatives textarea {width:98%;}
+    </style>
+    <div class="output-block" id="koSustainable_Practice_Initiatives">
+        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Sustainable Practice Initiatives<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
+        <!-- add the dynamic components -->
+        <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12">Please list the different types of sustainable practice initiatives implemented and the numbers of people influenced by each type. (Note that individuals should be counted only once across all initiative types).</span></span></div>
+<div class="row-fluid output-section">
+            <table class="table table-bordered sustainableInitiatives " >
+                <thead><tr><th>Type of initiative:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of sustainable practice initiative implemented.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th>Description of sustainable practice initiative:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Brief description of the initiative used to promote sustainable practices.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th>No. of individuals influenced:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of unique individuals influenced by implementation of a particular sustainable practice initiative. (Note that individuals should be counted only once across all listed initiatives)'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'sustainableInitiativesviewTmpl', foreach: data.sustainableInitiatives}"></tbody>
+                <script id="sustainableInitiativesviewTmpl" type="text/html"><tr>
+                    <td><input  class="input-medium" data-bind='value:initiativeType'  type='text' class='input-small'/></td>
+                    <td><textarea  data-bind='value:initiativeDescription'></textarea></td>
+                    <td><input class="input-mini" style="text-align:center" data-bind='value:noInfluenced' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removesustainableInitiativesRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr>
+                    <td><span ></span></td>
+                    <td><span >Total No. of individuals influenced:</span></td>
+                    <td><span  class="value" data-bind='text:data.noInfluencedTotal'></span></td>
+                    <td></td>
+                </tr>
+                <tr><td colspan="4" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addsustainableInitiativesRow">
+                        <i class="icon-plus"></i> Add a row</button>
+                        <button type="button" class="btn btn-small" data-bind="click:showsustainableInitiativesTableDataUpload"><i class="icon-upload"></i> Upload data for this table</button>
+
+
+                    </td></tr>
+<tr data-bind="visible:sustainableInitiativesTableDataUploadVisible"><td colspan="4">
+                <div class="text-error text-left">
+                    Note: Only valid exact scientific names will be matched and populated from the database (indicated by a green tick). Unmatched species will load, but will be indicated by a green <b>?</b>. Please check your uploaded data and correct as required.
+                </div>
+                <div class="text-left" style="margin:5px">
+                    <a href="/fieldcapture/proxy/excelOutputTemplate?type=Sustainable Practice Initiatives&listName=sustainableInitiatives" target="sustainableInitiativesTemplateDownload" class="btn">Step 1 - Download template (.xlsx)</a>
+                </div>
+                <div class="text-left" style="margin:5px;">
+                    <input type="checkbox" data-bind="checked:appendTableRows" style="margin-right:5px">Append uploaded data to table (unticking this checkbox will result in all table rows being replaced)
+                </div>
+
+                <div class="btn fileinput-button" style="margin-left:5px">
+                        <input id="sustainableInitiativesTableDataUpload" type="file" name="data" data-bind="fileUploadNoImage:sustainableInitiativesTableDataUploadOptions">
+                        Step 2 - Upload populated template
+                </div>
+
+                    </td></tr> <script id="sustainableInitiativestemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="sustainableInitiativestemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+
+        
+    </div>
+
+<!-- /ko -->
+
+</div>
+
+
+
+
+</div>
+
+<script src="fieldcapture/static/DzazZ2ePykd4QRUJlInoAO1LMvzeVxjM2JRcis2usBm.js" type="text/javascript" ></script>
+
+
+
+<script src="fieldcapture/static/gfz9yoFSoT3bDIgFJCbjPP9WLeFgekRHSp7KxcpYrwj.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/HpQC03jqzgdovdmQNni1bswagCkkBPaWGDIzgICGcvq.js" type="text/javascript" ></script>
+
+
+
+
+
+
+
+
+
+<!--[if gte IE 8]><script src="fieldcapture/static/knxjs4G9Cquc79O3iYW107XikPB1Z1ii8QWrtBpzlSP.js" type="text/javascript" ></script><![endif]-->
+<script src="fieldcapture/static/kSJb30BxnBzyoP0WndxrtZbaNWzT8x6LP2Cp7xI9PH4.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/N1Pu1Yy1dAP26vjRfEw0sZtbZhL03ir303dL4C7EaVF.js" type="text/javascript" ></script>
+
+<script src="fieldcapture/static/NbeGWZssK95I6Y1Oz4lzxzRtDzf9dyFLZiTstPEonQa.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/L85LaBY6yhQwMk24PuXWgqwvtkfvbmMZ3ExPR9xK96.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/MZjUSqmNLHqbPwhDcAMpejU18pr9ndMRCGKpPBHdSDL.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/1nCsTsYbdgqupwL47F4n7c98ss299Uck5fAVxaO9UuE.js" type="text/javascript" ></script>
+
+
+
+
+
+<script src="fieldcapture/static/7l2mDQFFpMnG14cXQPTKd94AN71T8yUF6dHUA2LCJIo.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/ZbrF5cz3bJrkAqBXLrAlOmoaIYntVDIKpviQs5E8Rhy.js" type="text/javascript" ></script>
+<script src="fieldcapture/static/yzVPTi9KJTOMgo1ytEFVw7JiBXXkkbj5dU3cYZoIuS.js" type="text/javascript" ></script>
+
+<script src="fieldcapture/static/IZCc6ZgD3MepYbz4UqlDLzMDNNghSCivcfGebmF9V2d.js" type="text/javascript" ></script>
+<script type="text/javascript">
+        $(function(){
+
+            var viewModelName = "Management_Practice_Change_DetailsViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                    var PracticeChangeRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.changePurpose = ko.observable(orBlank(data['changePurpose']));
+            self.transients.changePurposeConstraints = ["Sustainable farm practice","Sustainable fishing and aquaculture practice","Innovative farming and fishing practices","Reduce run-off into the Great Barrier Reef","Wetland, riparian and mangrove protection and restoration along the Great Barrier Reef","Other (specify in notes)"];
+            this.industryType = ko.observable(orBlank(data['industryType']));
+            self.transients.industryTypeConstraints = ["Sugarcane","Grazing","Grains","Grapes","Vegetables","Fruit trees","Berries","Dairy","Cotton","Forestry","Aquaculture","Fishing","Other (specify in notes)"];
+            this.resourceCondition = ko.observable(orBlank(data['resourceCondition']));
+            self.transients.resourceConditionConstraints = ["Lack of ground cover","Soil acidity","Soil erosion (wind)","Soil erosion (water)","Soil health (biology)","Soil health (other)","Quality of wastewater (aquaculture)","Marine quality (fishing)","Nutrient loads","Sediment loads","Pesticide loads","Vegetation condition","Other (specify in notes)"];
+            this.practiceChangeAction = ko.observable(orBlank(data['practiceChangeAction']));
+            self.transients.practiceChangeActionConstraints = ["Retaining ground cover","Soil testing","Minimum-to-no till farming","Composting/mulching","Planting cover crops","Farm planning","Soil conditioning","Managing soil nutrients","Establishing wind breaks","Planning","By-catch reduction","Industry environmental management plan","Industry codes of practice","Reduced stocking rates/selective grazing","Fence off stock to watering points","Consistent wheel tracks","Crop rotation improvements","Nitrogen budget developed","Chemical application considered with rain forecast","Revegetation","Restoration","Riparian fencing","Management of invasive species","Improved technologies in management","Other (specify in notes)"];
+            this.changePracticeTreatedArea = ko.observable(orZero(data['changePracticeTreatedArea']));
+            this.entitiesAdoptingChange = ko.observable(orZero(data['entitiesAdoptingChange']));
+        };
+        var speciesLists = [];
+        var site = {};
+
+
+            this[viewModelName] = function (output) {
+                var self = this;
+                self.name = "Management Practice Change Details";
+                self.outputId = "";
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+            
+            self.data.practiceChange = ko.observableArray([]);
+            self.selectedpracticeChangeRow = ko.observable();
+        
+
+            self.loadpracticeChange = function (data, append) {
+                if (!append) {
+                    self.data.practiceChange([]);
+                }
+                if (data === undefined) {
+                    self.addpracticeChangeRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.practiceChange.push(new PracticeChangeRow(obj));
+                    });
+                }
+            };
+
+            self.addpracticeChangeRow = function () {
+                var newRow = new PracticeChangeRow();
+                self.data.practiceChange.push(newRow);
+                
+            };
+            self.removepracticeChangeRow = function (row) {
+                self.data.practiceChange.remove(row);
+                
+            };
+            self.practiceChangerowCount = function () {
+                return self.data.practiceChange().length;
+            };
+
+            self.practiceChangeTableDataUploadVisible = ko.observable(false);
+            self.showpracticeChangeTableDataUpload = function() {
+                self.practiceChangeTableDataUploadVisible(!self.practiceChangeTableDataUploadVisible());
+            };
+
+            self.practiceChangeTableDataUploadOptions = {
+                    url:'/fieldcapture/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadpracticeChange(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "practiceChangetemplate-upload",
+                    downloadTemplateId: "practiceChangetemplate-download",
+                    formData:{type:'Management Practice Change Details', listName:'practiceChange'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.benefitAreaHa = ko.observable();
+                self.data.targetOutcomes=ko.observableArray([]);
+            self.transients.targetOutcomesConstraints = ["Reduced transport of nutrients off-farm","Reduced transport of soils / sediment off-farm","Reduced transport of pesticides off-farm","Reduced transport of farm chemicals off-farm","Improved soil structure, health and fertility / productivity","Enhanced habitat for native flora and fauna","Other (specify in notes)"];
+                
+        self.loadtargetOutcomes = function (data) {
+            if (data !== undefined) {
+                $.each(data, function (i, obj) {
+                    self.data.targetOutcomes.push(obj);
+                });
+        }};
+        
+            self.data.lengthOfFenceStockWatering = ko.observable();
+
+            self.data.totalChangePracticeTreatedArea = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.practiceChange().length; i++) {
+                    var value = self.data.practiceChange()[i].changePracticeTreatedArea();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+
+            self.data.totalEntitiesAdoptingChange = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.practiceChange().length; i++) {
+                    var value = self.data.practiceChange()[i].entitiesAdoptingChange();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+
+            self.data.notes = ko.observable();
+            self.transients.site = site;
+
+            // this will be called when generating a savable model to remove transient properties
+            self.removeBeforeSave = function (jsData) {
+                // add code to remove any transients added by the dynamic tags
+                            delete jsData.selectedpracticeChangeRow;
+                delete jsData.practiceChangeTableDataUploadOptions
+                delete jsData.practiceChangeTableDataUploadVisible
+
+            delete jsData.activityType;
+            delete jsData.transients;
+            return jsData;
+        };
+
+        // this returns a JS object ready for saving
+        self.modelForSaving = function () {
+            // get model as a plain javascript object
+            var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+            // get rid of any transient observables
+            return self.removeBeforeSave(jsData);
+        };
+
+        // this is a version of toJSON that just returns the model as it will be saved
+        // it is used for detecting when the model is modified (in a way that should invoke a save)
+        // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+        self.modelAsJSON = function () {
+            return JSON.stringify(self.modelForSaving());
+        };
+
+        self.loadData = function (outputId, data) {
+            self.outputId = outputId;
+            // load dynamic data
+                            self.loadpracticeChange(data.practiceChange);
+                self.data['benefitAreaHa'](orZero(data['benefitAreaHa']));
+                self.loadtargetOutcomes(data['targetOutcomes']);
+                self.data['lengthOfFenceStockWatering'](orZero(data['lengthOfFenceStockWatering']));
+                self.data['notes'](data['notes']);
+
+
+            // if there is no data in tables then add an empty row for the user to add data
+            if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                self.addRow();
+            }
+            self.transients.dummy.notifySubscribers();
+        };
+    };
+
+    window[viewModelInstance] = new this[viewModelName]();
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koManagement_Practice_Change_Details"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+             window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+
+            // Check for locally saved data for this output - this will happen in the event of a session timeout
+            // for example.
+            var savedData = activity;
+            if (!savedData.outputs) {
+                savedData.outputs = [];
+            }
+            console.log(savedData);
+            var savedOutput = null;
+            var savedOutputId = null;
+            if (savedData) {
+
+                $.each(savedData.outputs, function(i, tmpOutput) {
+                    if (tmpOutput.name === 'Management Practice Change Details') {
+                        if (tmpOutput.data) {
+                            savedOutput = tmpOutput.data;
+
+                        }
+                    }
+                });
+            }
+            if (savedOutput) {
+                window[viewModelInstance].loadData(savedOutputId, savedOutput);
+            }
+        });
+
+        
+        $(function(){
+
+            var viewModelName = "Sustainable_Practice_InitiativesViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                    var SustainableInitiativesRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.initiativeType = ko.observable(orBlank(data['initiativeType']));
+            this.initiativeDescription = ko.observable(orBlank(data['initiativeDescription']));
+            this.noInfluenced = ko.observable(orZero(data['noInfluenced']));
+        };
+        var speciesLists = [];
+        var site = {};
+
+
+            this[viewModelName] = function (output) {
+                var self = this;
+                self.name = "Sustainable Practice Initiatives";
+                self.outputId = "";
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+            
+            self.data.sustainableInitiatives = ko.observableArray([]);
+            self.selectedsustainableInitiativesRow = ko.observable();
+        
+
+            self.loadsustainableInitiatives = function (data, append) {
+                if (!append) {
+                    self.data.sustainableInitiatives([]);
+                }
+                if (data === undefined) {
+                    self.addsustainableInitiativesRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.sustainableInitiatives.push(new SustainableInitiativesRow(obj));
+                    });
+                }
+            };
+
+            self.addsustainableInitiativesRow = function () {
+                var newRow = new SustainableInitiativesRow();
+                self.data.sustainableInitiatives.push(newRow);
+                
+            };
+            self.removesustainableInitiativesRow = function (row) {
+                self.data.sustainableInitiatives.remove(row);
+                
+            };
+            self.sustainableInitiativesrowCount = function () {
+                return self.data.sustainableInitiatives().length;
+            };
+
+            self.sustainableInitiativesTableDataUploadVisible = ko.observable(false);
+            self.showsustainableInitiativesTableDataUpload = function() {
+                self.sustainableInitiativesTableDataUploadVisible(!self.sustainableInitiativesTableDataUploadVisible());
+            };
+
+            self.sustainableInitiativesTableDataUploadOptions = {
+                    url:'/fieldcapture/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadsustainableInitiatives(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "sustainableInitiativestemplate-upload",
+                    downloadTemplateId: "sustainableInitiativestemplate-download",
+                    formData:{type:'Sustainable Practice Initiatives', listName:'sustainableInitiatives'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.noInfluencedTotal = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.sustainableInitiatives().length; i++) {
+                    var value = self.data.sustainableInitiatives()[i].noInfluenced();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+            self.transients.site = site;
+
+            // this will be called when generating a savable model to remove transient properties
+            self.removeBeforeSave = function (jsData) {
+                // add code to remove any transients added by the dynamic tags
+                            delete jsData.selectedsustainableInitiativesRow;
+                delete jsData.sustainableInitiativesTableDataUploadOptions
+                delete jsData.sustainableInitiativesTableDataUploadVisible
+
+            delete jsData.activityType;
+            delete jsData.transients;
+            return jsData;
+        };
+
+        // this returns a JS object ready for saving
+        self.modelForSaving = function () {
+            // get model as a plain javascript object
+            var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+            // get rid of any transient observables
+            return self.removeBeforeSave(jsData);
+        };
+
+        // this is a version of toJSON that just returns the model as it will be saved
+        // it is used for detecting when the model is modified (in a way that should invoke a save)
+        // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+        self.modelAsJSON = function () {
+            return JSON.stringify(self.modelForSaving());
+        };
+
+        self.loadData = function (outputId, data) {
+            self.outputId = outputId;
+            // load dynamic data
+                            self.loadsustainableInitiatives(data.sustainableInitiatives);
+
+
+            // if there is no data in tables then add an empty row for the user to add data
+            if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                self.addRow();
+            }
+            self.transients.dummy.notifySubscribers();
+        };
+    };
+
+    window[viewModelInstance] = new this[viewModelName]();
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koSustainable_Practice_Initiatives"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+             window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+
+            // Check for locally saved data for this output - this will happen in the event of a session timeout
+            // for example.
+            var savedData = activity;
+            if (!savedData.outputs) {
+                savedData.outputs = [];
+            }
+            console.log(savedData);
+            var savedOutput = null;
+            var savedOutputId = null;
+            if (savedData) {
+
+                $.each(savedData.outputs, function(i, tmpOutput) {
+                    if (tmpOutput.name === 'Sustainable Practice Initiatives') {
+                        if (tmpOutput.data) {
+                            savedOutput = tmpOutput.data;
+
+                        }
+                    }
+                });
+            }
+            if (savedOutput) {
+                window[viewModelInstance].loadData(savedOutputId, savedOutput);
+            }
+        });
+
+        
+
+
+    /* Master controller for page. This handles saving each model as required. */
+    var Master = function () {
+        var self = this;
+        this.subscribers = [];
+        // client models register their name and methods to participate in saving
+        self.register = function (modelInstanceName, getMethod, isDirtyMethod, resetMethod) {
+            this.subscribers.push({
+                model: modelInstanceName,
+                get: getMethod,
+                isDirty: isDirtyMethod,
+                reset: resetMethod
+            });
+        };
+        // master isDirty flag for the whole page - can control button enabling
+        this.isDirty  = function () {
+            var dirty = false;
+            $.each(this.subscribers, function(i, obj) {
+                dirty = dirty || obj.isDirty();
+            });
+            return dirty;
+        };
+        /**
+         * Makes an ajax call to save any sections that have been modified. This includes the activity
+         * itself and each output.
+         *
+         * Modified outputs are injected as a list into the activity object. If there is nothing to save
+         * in the activity itself, then the root is an object that is empty except for the outputs list.
+         *
+         * NOTE that the model for each section must register itself to be included in this save.
+         *
+         * Validates the entire page before saving.
+         */
+        this.save = function () {
+
+            var activityData, outputs = [];
+            if ($('#validation-container').validationEngine('validate')) {
+                $.each(this.subscribers, function(i, obj) {
+                   // if (obj.isDirty()) {
+                        if (obj.model === 'activityModel') {
+                            activityData = obj.get();
+                        } else {
+                            outputs.push(obj.get());
+                        }
+                    //}
+                });
+                if (outputs.length === 0 && activityData === undefined) {
+                    alert("Nothing to save.");
+                    return;
+                }
+                if (activityData === undefined) { activityData = {}}
+                activityData.outputs = outputs;
+
+                var toSave = JSON.stringify(activityData);
+                console.log("saving"+toSave);
+                mobileBindings.saveActivity(toSave);
+
+            }
+
+        };
+
+        this.reset = function () {
+            $.each(this.subscribers, function(i, obj) {
+                if (obj.isDirty()) {
+                    obj.reset();
+                }
+            });
+        };
+    };
+
+    if (mobileBindings == undefined) {
+        var mobileBindings = {
+        loadActivity:function(){return "{}"},
+        saveActivity:function(){}
+        };
+    }
+    var master = new Master();
+    var activity = JSON.parse(mobileBindings.loadActivity());
+    var themes = ['theme1', 'theme2'];
+
+    var site = {};
+
+
+    $(function(){
+
+        console.log("Blah!");
+
+        $('#validation-container').validationEngine('attach', {scroll: false});
+
+        $('.helphover').popover({animation: true, trigger:'hover'});
+
+        $('#reset').click(function () {
+            master.reset();
+        });
+
+
+        ko.bindingHandlers.editOutput = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                var outputName = ko.utils.unwrapObservable(valueAccessor()),
+                    activity = bindingContext.$root,
+                    outputId;
+
+                // search for corresponding outputs in the activity data
+                $.each(activity.outputs, function (i,output) { // iterate output data in the activity to
+                                                                  // find any matching the meta-model name
+                    if (output.name === outputName) {
+                        outputId = output.outputId;
+                    }
+                });
+                if (outputId) {
+                    // build edit link
+                    $(element).html('Edit data');
+                    $(element).attr('href', fcConfig.serverUrl + "/output/edit/" + outputId +
+                        "?returnTo=" + here);
+                } else {
+                    // build create link
+                    $(element).attr('href', fcConfig.serverUrl + '/output/create?activityId=' + activity.activityId +
+                        '&outputName=' + encodeURIComponent(outputName) +
+                        "&returnTo=" + here);
+                }
+            }
+        };
+
+        function ViewModel (act, site) {
+            var self = this;
+            self.activityId = act.activityId;
+            self.description = ko.observable(act.description);
+            self.notes = ko.observable(act.notes);
+            self.startDate = ko.observable(act.startDate).extend({simpleDate: false});
+            self.endDate = ko.observable(act.endDate || act.plannedEndDate).extend({simpleDate: false});
+            self.plannedStartDate = ko.observable(act.plannedStartDate).extend({simpleDate: false});
+            self.plannedEndDate = ko.observable(act.plannedEndDate).extend({simpleDate: false});
+            self.eventPurpose = ko.observable(act.eventPurpose);
+            self.fieldNotes = ko.observable(act.fieldNotes);
+            self.associatedProgram = ko.observable(act.associatedProgram);
+            self.associatedSubProgram = ko.observable(act.associatedSubProgram);
+            self.progress = ko.observable(act.progress);
+            self.mainTheme = ko.observable(act.mainTheme);
+            self.type = ko.observable(act.type);
+            self.siteId = ko.observable(act.siteId);
+            self.projectId = act.projectId;
+            self.transients = {};
+            self.transients.site = site;
+            self.transients.activityProgressValues = ['planned','started','finished'];
+            self.transients.themes = themes;
+            self.transients.markedAsFinished = ko.observable(act.progress === 'finished');
+            self.transients.markedAsFinished.subscribe(function (finished) {
+                self.progress(finished ? 'finished' : 'started');
+            });
+
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.toJS(self);
+                delete jsData.transients;
+                return jsData;
+            };
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.save = function (callback, key) {
+            };
+
+            self.notImplemented = function () {
+                alert("Not implemented yet.")
+            };
+            self.dirtyFlag = ko.dirtyFlag(self, false);
+
+            // make sure progress moves to started if we save any data (unless already finished)
+            // (do this here so the model becomes dirty)
+            self.progress(self.transients.markedAsFinished() ? 'finished' : 'started');
+        }
+
+
+        var viewModel = new ViewModel(activity, site);
+
+        ko.applyBindings(viewModel);
+
+        master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.isDirty, viewModel.dirtyFlag.reset);
+
+        var mapFeatures = $.parseJSON('');
+        if(mapFeatures !=null && mapFeatures.features !== undefined && mapFeatures.features.length >0){
+            init_map_with_features({
+                    mapContainer: "smallMap",
+                    zoomToBounds:true,
+                    zoomLimit:16,
+                    featureService: "/fieldcapture/proxy/feature",
+                    wmsServer: "http://spatial-dev.ala.org.au/geoserver"
+                },
+                mapFeatures
+            );
+        }
+    });
+</script>
+</body>
+</html>

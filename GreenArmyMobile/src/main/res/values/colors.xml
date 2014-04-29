@@ -1,0 +1,24 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+	<color name="record_sighting_background">#0000AA</color>
+	<color name="species_page_background">#FFFFFF</color>
+	<color name="backgroundGradientStart">#EEEEEE</color>
+    <color name="backgroundGradientEnd">#EEEEEE</color>
+    <color name="backgroundGreen">#4fa254</color>
+    
+    <color name="light_yellow">#FFFFCC</color>
+    <integer name="gradientAngle">270</integer>
+    
+    
+    <dimen name="backgroundRadius">3dp</dimen>
+
+
+    <color name="planned_activity_background">#f69601</color>
+    <color name="started_activity_background">#4fa254</color>
+
+    <color name="finished_activity_background">#3298af</color>
+    <color name="cancelled_activity_background">#4fa254</color>
+    <color name="deferred_activity_background">#212224</color>
+
+</resources>

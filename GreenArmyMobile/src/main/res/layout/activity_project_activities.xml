@@ -1,0 +1,25 @@
+<!--<android.support.v4.widget.DrawerLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/drawer_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--&lt;!&ndash; The main content view &ndash;&gt;-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/project_detail_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="au.org.ala.fieldcapture.green_army.ProjectActivitiesActivity"
+    tools:ignore="MergeRootFrame" />
+
+    <!--<fragment-->
+        <!--android:id="@+id/project_list"-->
+        <!--android:name="org.ala.fieldcapture.merit_mobile_test.ProjectListFragment"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--tools:layout="@layout/fragment_project_list" />-->
+
+<!--</android.support.v4.widget.DrawerLayout>-->
