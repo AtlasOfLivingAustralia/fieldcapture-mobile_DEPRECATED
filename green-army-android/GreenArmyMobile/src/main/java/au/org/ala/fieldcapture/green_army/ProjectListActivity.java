@@ -93,11 +93,6 @@ public class ProjectListActivity extends FragmentActivity
                 // activity should be in two-pane mode.
                 mTwoPane = true;
 
-                WelcomeFragment fragment = WelcomeFragment.newInstance();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.project_detail_container, fragment)
-                        .commit();
-
                 // In two-pane mode, list items should be given the
                 // 'activated' state when touched.
                 ((ProjectListFragment) getSupportFragmentManager()
@@ -159,6 +154,7 @@ public class ProjectListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(String projectId) {
+        findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -170,6 +166,7 @@ public class ProjectListActivity extends FragmentActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.project_detail_container, fragment)
                     .commit();
+
             if (drawer != null) {
                 drawer.closeDrawer(Gravity.LEFT);
             }

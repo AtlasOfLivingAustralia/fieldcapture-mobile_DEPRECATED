@@ -230,7 +230,7 @@ public class ProjectActivitiesFragment extends Fragment implements LoaderManager
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_project_activities, container, false);
+        View root = inflater.inflate(R.layout.fragment_activity_list, container, false);
         listView = (ListView)root.findViewById(R.id.project_activities_list);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);

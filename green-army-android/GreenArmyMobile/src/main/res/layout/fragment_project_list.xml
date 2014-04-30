@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:background="@color/main_background">
 
     <LinearLayout
         android:id="@+id/project_heading"
@@ -10,12 +10,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        android:background="@color/abc_search_url_text_normal"
+
 
         >
         <TextView
             android:id="@+id/project_title"
-            style="?android:attr/textAppearanceLarge"
+            style="?android:attr/textAppearanceSmall"
             android:layout_width="0dp"
             android:layout_weight="0.6"
             android:layout_height="wrap_content"
@@ -23,8 +23,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:textIsSelectable="false"
-            android:background="@color/abc_search_url_text_normal"
+            android:textColor="@android:color/white"
 
+            android:background="@drawable/username_background"
             android:text="@string/projects_heading"
             tools:context="au.org.ala.fieldcapture.green_army.ProjectActivitiesFragment" />
         <TextView

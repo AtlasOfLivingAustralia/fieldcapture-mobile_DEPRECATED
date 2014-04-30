@@ -8,6 +8,12 @@
     <color name="backgroundGreen">#4fa254</color>
     
     <color name="light_yellow">#FFFFCC</color>
+    <color name="background">#161616</color>
+    <color name="main_background">#fbf8f1</color>
+
+    <color name="background_gradient_start">#675a51</color>
+    <color name="background_gradient_end">#241f1b</color>
+
     <integer name="gradientAngle">270</integer>
     
     
@@ -20,5 +26,6 @@
     <color name="finished_activity_background">#3298af</color>
     <color name="cancelled_activity_background">#4fa254</color>
     <color name="deferred_activity_background">#212224</color>
+    <color name="logo_background">#529a5b</color>
 
 </resources>

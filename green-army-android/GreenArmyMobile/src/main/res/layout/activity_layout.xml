@@ -30,6 +30,7 @@
             android:layout_toRightOf="@id/activity_status"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Test description"
+            android:layout_marginRight="40dp"
             android:id="@+id/activity_description"
             android:textColor="@android:color/black"/>
 
@@ -53,6 +54,12 @@
             android:layout_below="@+id/activity_type"
             android:layout_toRightOf="@+id/activity_status" />
 
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true">
+
+            </ImageView>
 
     </RelativeLayout>
 

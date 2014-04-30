@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
 /**
  * A list fragment representing a list of Activity. This fragment
@@ -127,6 +129,10 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         mListView = (ListView)root.findViewById(R.id.project_list);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
+
+        PreferenceStorage storage = PreferenceStorage.getInstance(getActivity());
+        TextView heading = (TextView)root.findViewById(R.id.project_title);
+        heading.setText(storage.getUsername());
 
         return root;
     }
