@@ -23,7 +23,7 @@ import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
  * A list fragment representing a list of Activity. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link ProjectActivitiesFragment}.
+ * currently being viewed in a {@link ActivityListFragment}.
  * <p>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.

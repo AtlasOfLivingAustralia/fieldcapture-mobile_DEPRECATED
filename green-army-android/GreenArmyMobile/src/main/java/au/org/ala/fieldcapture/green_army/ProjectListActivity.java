@@ -29,7 +29,7 @@ import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link ProjectListFragment} and the item details
- * (if present) is a {@link ProjectActivitiesFragment}.
+ * (if present) is a {@link ActivityListFragment}.
  * <p>
  * This activity also implements the required
  * {@link ProjectListFragment.Callbacks} interface
@@ -160,8 +160,8 @@ public class ProjectListActivity extends FragmentActivity
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ProjectActivitiesFragment.ARG_PROJECT_ID, projectId);
-            ProjectActivitiesFragment fragment = new ProjectActivitiesFragment();
+            arguments.putString(ActivityListFragment.ARG_PROJECT_ID, projectId);
+            ActivityListFragment fragment = new ActivityListFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.project_detail_container, fragment)
@@ -175,7 +175,7 @@ public class ProjectListActivity extends FragmentActivity
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, ProjectActivitiesActivity.class);
-            detailIntent.putExtra(ProjectActivitiesFragment.ARG_PROJECT_ID, projectId);
+            detailIntent.putExtra(ActivityListFragment.ARG_PROJECT_ID, projectId);
             startActivity(detailIntent);
         }
     }

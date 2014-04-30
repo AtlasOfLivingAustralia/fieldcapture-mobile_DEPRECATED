@@ -27,7 +27,7 @@
 
             android:background="@drawable/username_background"
             android:text="@string/projects_heading"
-            tools:context="au.org.ala.fieldcapture.green_army.ProjectActivitiesFragment" />
+            tools:context="au.org.ala.fieldcapture.green_army.ActivityListFragment" />
         <TextView
             android:id="@+id/project_instruction"
             style="?android:attr/textAppearanceSmall"
@@ -41,7 +41,7 @@
             android:singleLine="false"
             android:textIsSelectable="false"
             android:text="@string/projects_instructions"
-            tools:context="au.org.ala.fieldcapture.green_army.ProjectActivitiesFragment" />
+            tools:context="au.org.ala.fieldcapture.green_army.ActivityListFragment" />
 
 
     </LinearLayout>

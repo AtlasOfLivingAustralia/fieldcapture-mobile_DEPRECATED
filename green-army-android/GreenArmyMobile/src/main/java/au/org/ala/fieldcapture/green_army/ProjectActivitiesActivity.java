@@ -14,7 +14,7 @@ import android.view.MenuItem;
  * in a {@link ProjectListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ProjectActivitiesFragment}.
+ * more than a {@link ActivityListFragment}.
  */
 public class ProjectActivitiesActivity extends FragmentActivity {
 
@@ -39,9 +39,9 @@ public class ProjectActivitiesActivity extends FragmentActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ProjectActivitiesFragment.ARG_PROJECT_ID,
-                    getIntent().getStringExtra(ProjectActivitiesFragment.ARG_PROJECT_ID));
-            ProjectActivitiesFragment fragment = new ProjectActivitiesFragment();
+            arguments.putString(ActivityListFragment.ARG_PROJECT_ID,
+                    getIntent().getStringExtra(ActivityListFragment.ARG_PROJECT_ID));
+            ActivityListFragment fragment = new ActivityListFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.project_detail_container, fragment)

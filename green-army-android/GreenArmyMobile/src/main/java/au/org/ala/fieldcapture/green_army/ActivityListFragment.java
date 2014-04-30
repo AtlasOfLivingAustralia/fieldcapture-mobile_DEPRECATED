@@ -29,7 +29,7 @@ import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
 /**
  * A fragment that displays the list of activities for a project.
  */
-public class ProjectActivitiesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+public class ActivityListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
     /** View holder for the view of a single Activity */
     public static class ActivityViewHolder {
@@ -200,7 +200,7 @@ public class ProjectActivitiesFragment extends Fragment implements LoaderManager
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ProjectActivitiesFragment() {
+    public ActivityListFragment() {
     }
 
     @Override
