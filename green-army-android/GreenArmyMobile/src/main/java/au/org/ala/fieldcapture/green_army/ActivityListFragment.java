@@ -140,6 +140,17 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
      * represents.
      */
     public static final String ARG_PROJECT_ID = "project_id";
+    public static final String ARG_SORT_ORDER = "sort";
+
+    public static ActivityListFragment getInstance(String projectId, String sort) {
+        ActivityListFragment fragment = new ActivityListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PROJECT_ID, projectId);
+        args.putString(ARG_SORT_ORDER, sort);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     /** Identifies the loader we are using */
     private static final int ACTIVITY_LOADER_ID = 1;
@@ -150,10 +161,14 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         String projectId = args.getString(ARG_PROJECT_ID);
+        String sort = args.getString(ARG_SORT_ORDER);
+        if (!"plannedStartDate".equals(sort)) {
+            sort += ",plannedStartDate";
+        }
         switch (id) {
             case ACTIVITY_LOADER_ID:
                 Uri activitiesUri = Uri.parse(FieldCaptureContent.PROJECT_ACTIVITIES_URI.replace("*", projectId));
-                return new CursorLoader(getActivity(), activitiesUri, null, "projectId=?", new String[] {projectId}, "plannedStartDate");
+                return new CursorLoader(getActivity(), activitiesUri, null, "projectId=?", new String[] {projectId}, sort);
             default:
                 return null;
         }
@@ -196,6 +211,7 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
     public ListView listView;
 
 
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -214,10 +230,6 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
         }
     }
-
-
-
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

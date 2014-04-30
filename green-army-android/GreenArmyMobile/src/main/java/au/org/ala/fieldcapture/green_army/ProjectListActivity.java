@@ -154,15 +154,15 @@ public class ProjectListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(String projectId) {
-        findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
+        View welcome = findViewById(R.id.project_list_welcome);
+        if (welcome != null) {
+            welcome.setVisibility(View.GONE);
+        }
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(ActivityListFragment.ARG_PROJECT_ID, projectId);
-            ActivityListFragment fragment = new ActivityListFragment();
-            fragment.setArguments(arguments);
+            ProjectActivitiesFragment fragment = ProjectActivitiesFragment.getInstance(projectId);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.project_detail_container, fragment)
                     .commit();
@@ -200,6 +200,13 @@ public class ProjectListActivity extends FragmentActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void openDrawer(View view) {
+        if (drawer != null) {
+            drawer.openDrawer(Gravity.LEFT);
+        }
     }
 
     public static Account CreateSyncAccount(Context context, String userName) {

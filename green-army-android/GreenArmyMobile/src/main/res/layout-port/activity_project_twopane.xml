@@ -12,6 +12,60 @@
         android:layout_height="match_parent"
         tools:context="au.org.ala.fieldcapture.green_army.ProjectActivitiesActivity"
         tools:ignore="MergeRootFrame" >
+        <LinearLayout
+            android:id="@+id/project_list_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/logo_background"
+            android:visibility="visible">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:id="@+id/imageView"
+                android:layout_marginLeft="0dp"
+                android:src="@drawable/green_army_logo_large"
+                android:background="@color/logo_background"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="0.2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="0.4">
+
+            <TextView
+                android:id="@+id/welcome_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+
+                android:background="@color/logo_background"
+                android:textColor="@android:color/white"
+                android:text="@string/no_activities_text"
+                android:layout_gravity="center_vertical|center_horizontal"
+                />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open_drawer_button"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="openDrawer"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </FrameLayout>
 

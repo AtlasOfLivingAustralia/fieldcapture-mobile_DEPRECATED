@@ -28,6 +28,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Filter activities</string>
+    <string name="open_drawer_button">Select a Project</string>
     <string name="drawer_close">Filter activities</string>
     <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by clicking the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your provider to get this fixed.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

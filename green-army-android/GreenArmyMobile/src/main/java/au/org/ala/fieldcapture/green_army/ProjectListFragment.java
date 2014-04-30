@@ -120,6 +120,11 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         String[] columns = new String[] {"_id", "name", "description"};
         mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.project_layout, null, columns, new int[]{-1, android.R.id.text1,android.R.id.text2}, 0);
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(PROJECT_LOADER_ID, null, this);
     }
 
