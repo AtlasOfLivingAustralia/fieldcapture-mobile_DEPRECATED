@@ -162,19 +162,30 @@ public class ProjectActivitiesFragment extends Fragment implements LoaderManager
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        getView().findViewById(R.id.loading_activities).setVisibility(View.GONE);
-        if (data.getCount() == 0) {
+        mAdapter.changeCursor(data);
+        View root = getView();
+        // The load finished callback can happen before the view is created.
+        if (root != null) {
+            updateViews(root);
+        }
+
+    }
+
+    private void updateViews(View root) {
+        View loading = root.findViewById(R.id.loading_activities);
+
+        loading.setVisibility(View.GONE);
+        if (mAdapter.getCount() == 0) {
             // Force a refresh from the server.
             FieldCaptureContent.requestSync(getActivity(), true);
 
-            getView().findViewById(R.id.no_activities).setVisibility(View.VISIBLE);
-            getView().findViewById(R.id.project_activities_list).setVisibility(View.GONE);
+            root.findViewById(R.id.no_activities).setVisibility(View.VISIBLE);
+            root.findViewById(R.id.project_activities_list).setVisibility(View.GONE);
         }
         else {
-            getView().findViewById(R.id.no_activities).setVisibility(View.GONE);
-            getView().findViewById(R.id.project_activities_list).setVisibility(View.VISIBLE);
+            root.findViewById(R.id.no_activities).setVisibility(View.GONE);
+            root.findViewById(R.id.project_activities_list).setVisibility(View.VISIBLE);
         }
-        mAdapter.changeCursor(data);
     }
 
     @Override
@@ -224,6 +235,9 @@ public class ProjectActivitiesFragment extends Fragment implements LoaderManager
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);
 
+        if (mAdapter.getCount() > 0) {
+            updateViews(root);
+        }
         return root;
     }
 

@@ -95,7 +95,7 @@ public class ProjectListActivity extends FragmentActivity
 
                 WelcomeFragment fragment = WelcomeFragment.newInstance();
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.project_detail_container, fragment)
+                        .replace(R.id.project_detail_container, fragment)
                         .commit();
 
                 // In two-pane mode, list items should be given the

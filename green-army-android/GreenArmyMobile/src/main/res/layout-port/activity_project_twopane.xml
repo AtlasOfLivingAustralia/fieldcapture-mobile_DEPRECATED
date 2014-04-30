@@ -12,13 +12,7 @@
         android:layout_height="match_parent"
         tools:context="au.org.ala.fieldcapture.green_army.ProjectActivitiesActivity"
         tools:ignore="MergeRootFrame" >
-        <fragment
-            android:id="@+id/welcome_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="au.org.ala.fieldcapture.green_army.WelcomeFragment"
-            tools:layout="@layout/fragment_welcome"
-            ></fragment>
+
     </FrameLayout>
 
     <fragment
