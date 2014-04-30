@@ -40,5 +40,6 @@
         If you already have an account, please ensure your device has internet access and press the "Start" button to login.
 </string>
     <string name="start">Start</string>
+    <string name="loading_activities">Loading activities...</string>
 
 </resources>

@@ -3,55 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/activities_heading"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:background="@color/abc_search_url_text_normal"-->
-
-        <!-->-->
-        <!--<TextView-->
-            <!--android:id="@+id/activities_title"-->
-            <!--style="?android:attr/textAppearanceLarge"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="0.6"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="16dp"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:textIsSelectable="false"-->
-            <!--android:background="@color/abc_search_url_text_normal"-->
-
-            <!--android:text="@string/activities_heading"-->
-            <!--tools:context="org.ala.fieldcapture.merit_mobile_test.ProjectActivitiesFragment" />-->
-        <!--<TextView-->
-            <!--android:id="@+id/activites_instruction"-->
-            <!--style="?android:attr/textAppearanceSmall"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="0.4"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:padding="16dp"-->
-            <!--android:gravity="right"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:singleLine="false"-->
-            <!--android:textIsSelectable="false"-->
-            <!--android:text="@string/activities_instructions"-->
-            <!--tools:context="org.ala.fieldcapture.merit_mobile_test.ProjectActivitiesFragment" />-->
-
-
-    <!--</LinearLayout>-->
-
+    <LinearLayout
+        android:id="@+id/loading_activities"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_marginRight="5dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@android:style/TextAppearance.Medium"
+            android:text="@string/loading_activities" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/no_activities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
-        android:background="@android:color/black">
+        android:visibility="gone">
 
 
         <ImageView

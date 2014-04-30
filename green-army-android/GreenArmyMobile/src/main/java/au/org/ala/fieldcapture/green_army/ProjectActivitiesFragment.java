@@ -162,6 +162,7 @@ public class ProjectActivitiesFragment extends Fragment implements LoaderManager
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        getView().findViewById(R.id.loading_activities).setVisibility(View.GONE);
         if (data.getCount() == 0) {
             // Force a refresh from the server.
             FieldCaptureContent.requestSync(getActivity(), true);
