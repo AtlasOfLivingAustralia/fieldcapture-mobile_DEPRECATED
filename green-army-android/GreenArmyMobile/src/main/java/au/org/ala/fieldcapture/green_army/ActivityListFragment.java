@@ -1,5 +1,6 @@
 package au.org.ala.fieldcapture.green_army;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,11 +12,14 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.springframework.util.StringUtils;
@@ -141,37 +145,54 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
      */
     public static final String ARG_PROJECT_ID = "project_id";
     public static final String ARG_SORT_ORDER = "sort";
+    public static final String ARG_QUERY_STRING = "query";
 
-    public static ActivityListFragment getInstance(String projectId, String sort) {
+
+    public static ActivityListFragment getInstance(String projectId, String sort, String query) {
         ActivityListFragment fragment = new ActivityListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PROJECT_ID, projectId);
         args.putString(ARG_SORT_ORDER, sort);
+        args.putString(ARG_QUERY_STRING, query);
         fragment.setArguments(args);
         return fragment;
     }
 
 
     /** Identifies the loader we are using */
-    private static final int ACTIVITY_LOADER_ID = 1;
+    private int loaderId = 1;
 
     private ActivityAdapter mAdapter;
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         String projectId = args.getString(ARG_PROJECT_ID);
         String sort = args.getString(ARG_SORT_ORDER);
+        String query = args.getString(ARG_QUERY_STRING);
+
+        String whereClause;
+        String[] whereParams;
+        if (query != null && query.length() > 0) {
+            whereClause = "projectId=? and (description like ? or type like ?)";
+            query = "%"+query+"%";
+            whereParams = new String[] {projectId, query, query};
+        }
+        else {
+            whereClause = "projectId=?";
+            whereParams = new String[] {projectId};
+        }
         if (!"plannedStartDate".equals(sort)) {
             sort += ",plannedStartDate";
         }
-        switch (id) {
-            case ACTIVITY_LOADER_ID:
-                Uri activitiesUri = Uri.parse(FieldCaptureContent.PROJECT_ACTIVITIES_URI.replace("*", projectId));
-                return new CursorLoader(getActivity(), activitiesUri, null, "projectId=?", new String[] {projectId}, sort);
-            default:
-                return null;
+
+        if (id == loaderId) {
+            Uri activitiesUri = Uri.parse(FieldCaptureContent.PROJECT_ACTIVITIES_URI.replace("*", projectId));
+            return new CursorLoader(getActivity(), activitiesUri, null, whereClause, whereParams, sort);
+
         }
+        return null;
 
     }
 
@@ -225,7 +246,9 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
         if (getArguments().containsKey(ARG_PROJECT_ID)) {
             mAdapter = new ActivityAdapter(getActivity(), null, 0);
-            getLoaderManager().initLoader(ACTIVITY_LOADER_ID, getArguments(), this);
+
+            loaderId = getArguments().getString(ARG_SORT_ORDER).hashCode();
+            getLoaderManager().initLoader(loaderId, getArguments(), this);
 
 
         }
@@ -251,6 +274,12 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
             updateViews(root);
         }
         return root;
+    }
+
+    public void query(String query) {
+        Bundle args = getArguments();
+        args.putString(ARG_QUERY_STRING, query);
+        getLoaderManager().restartLoader(loaderId, args, this);
     }
 
 }

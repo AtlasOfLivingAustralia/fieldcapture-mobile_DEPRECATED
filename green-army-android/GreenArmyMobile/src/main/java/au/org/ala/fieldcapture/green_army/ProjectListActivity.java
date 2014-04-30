@@ -2,6 +2,8 @@ package au.org.ala.fieldcapture.green_army;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
@@ -38,6 +41,7 @@ import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
 public class ProjectListActivity extends FragmentActivity
         implements ProjectListFragment.Callbacks {
 
+    public static final String PROJECT_ACTIVITIES_FRAGMENT = "projectActivitiesFragment";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -144,6 +148,14 @@ public class ProjectListActivity extends FragmentActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -164,7 +176,7 @@ public class ProjectListActivity extends FragmentActivity
             // fragment transaction.
             ProjectActivitiesFragment fragment = ProjectActivitiesFragment.getInstance(projectId);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.project_detail_container, fragment)
+                    .replace(R.id.project_detail_container, fragment, PROJECT_ACTIVITIES_FRAGMENT)
                     .commit();
 
             if (drawer != null) {
@@ -209,6 +221,21 @@ public class ProjectListActivity extends FragmentActivity
         }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            doSearch(intent.getStringExtra(SearchManager.QUERY));
+        }
+    }
+
+    private void doSearch(String query) {
+        ProjectActivitiesFragment fragment = (ProjectActivitiesFragment)getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT);
+        if (fragment != null) {
+            fragment.doSearch(query);
+        }
+    }
+
     public static Account CreateSyncAccount(Context context, String userName) {
         // Create the account type and default account
         Account newAccount = new Account(
@@ -233,5 +260,7 @@ public class ProjectListActivity extends FragmentActivity
         }
         return newAccount;
     }
+
+
 }
 

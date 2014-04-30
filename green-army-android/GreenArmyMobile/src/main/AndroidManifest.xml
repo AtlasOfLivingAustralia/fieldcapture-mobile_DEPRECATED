@@ -9,20 +9,33 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="au.org.ala.fieldcapture.green_army.ProjectListActivity"
+            android:launchMode="singleTop"
             android:label="@string/title_project_list" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".ProjectListActivity" />
         </activity>
         <activity
             android:name="au.org.ala.fieldcapture.green_army.ProjectActivitiesActivity"
             android:label="@string/title_project_detail"
+
             android:parentActivityName="au.org.ala.fieldcapture.green_army.ProjectListActivity" >
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ala.fieldcapture.merit_mobile_test.ProjectListActivity" />
+
         </activity>
         <activity
             android:name="au.org.ala.fieldcapture.green_army.LoginActivity"

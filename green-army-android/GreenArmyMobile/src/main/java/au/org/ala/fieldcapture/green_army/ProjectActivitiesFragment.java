@@ -1,5 +1,7 @@
 package au.org.ala.fieldcapture.green_army;
 
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,17 +18,21 @@ import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
@@ -61,15 +67,28 @@ public class ProjectActivitiesFragment extends Fragment  {
         private final String[] PAGES = new String[] {"Activities By Start Date", "Activities By Type", "Activities By Progress"};
         private final String[] SORT_ORDER = new String[] {"plannedStartDate", "type", "progress"};
 
+        private ActivityListFragment[] fragments = new ActivityListFragment[PAGES.length];
+
+        private String query;
         private String projectId;
         public PagerAdapter(FragmentManager fragmentManager, String projectId) {
             super(fragmentManager);
             this.projectId = projectId;
+            this.query = null;
         }
 
         @Override
         public Fragment getItem(int i) {
-            return ActivityListFragment.getInstance(projectId, SORT_ORDER[i]);
+            ActivityListFragment fragment = ActivityListFragment.getInstance(projectId, SORT_ORDER[i], query);
+            fragments[i] = fragment;
+
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            fragments[position] = null;
+            super.destroyItem(container, position, object);
         }
 
         @Override
@@ -81,6 +100,15 @@ public class ProjectActivitiesFragment extends Fragment  {
         public CharSequence getPageTitle(int position) {
             return PAGES[position];
         }
+
+        public void query(String query) {
+            this.query = query;
+            for (int i=0; i<fragments.length; i++) {
+                if (fragments[i] != null) {
+                    fragments[i].query(query);
+                }
+            }
+        }
     }
 
     /**
@@ -88,6 +116,10 @@ public class ProjectActivitiesFragment extends Fragment  {
      * fragment (e.g. upon screen orientation changes).
      */
     public ProjectActivitiesFragment() {
+    }
+
+    public void doSearch(String query) {
+        pagerAdapter.query(query);
     }
 
     @Override
@@ -104,12 +136,8 @@ public class ProjectActivitiesFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_project_activities, container, false);
 
-
         viewPager = (ViewPager)root.findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
-
-        //PagerTitleStrip tabs = (PagerTitleStrip)root.findViewById(R.id.pager_title_strip);
-
 
         return root;
     }
