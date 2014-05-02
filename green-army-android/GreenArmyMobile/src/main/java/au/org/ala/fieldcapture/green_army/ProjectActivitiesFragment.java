@@ -125,11 +125,34 @@ public class ProjectActivitiesFragment extends Fragment  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ProjectActivitiesFragment", "onCreate:"+savedInstanceState);
 
-        if (getArguments().containsKey(ARG_PROJECT_ID)) {
-            pagerAdapter = new PagerAdapter(getFragmentManager(), getArguments().getString(ARG_PROJECT_ID));
+        pagerAdapter = new PagerAdapter(getFragmentManager(), getArguments().getString(ARG_PROJECT_ID));
 
-        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("ProjectActivitiesFragment", "onStart");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("ProjectActivitiesFragment", "onPause");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("ProjectActivitiesFragment", "onResume");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onResume();
+        Log.d("ProjectActivitiesFragment", "onDestroy");
     }
 
     @Override

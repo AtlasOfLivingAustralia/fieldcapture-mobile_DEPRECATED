@@ -39,7 +39,7 @@ import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
  * to listen for item selections.
  */
 public class ProjectListActivity extends FragmentActivity
-        implements ProjectListFragment.Callbacks {
+        implements ProjectListFragment.Callbacks, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchView.OnCloseListener {
 
     public static final String PROJECT_ACTIVITIES_FRAGMENT = "projectActivitiesFragment";
     /**
@@ -102,6 +102,12 @@ public class ProjectListActivity extends FragmentActivity
                 ((ProjectListFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.project_list))
                         .setActivateOnItemClick(true);
+
+                if (savedInstanceState != null) {
+                    if (getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT) != null) {
+                        findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
+                    }
+                }
             }
             if (findViewById(R.id.drawer_layout) != null) {
                 drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -156,6 +162,10 @@ public class ProjectListActivity extends FragmentActivity
 
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
+        searchView.setOnSuggestionListener(this);
         return true;
     }
 
@@ -262,5 +272,31 @@ public class ProjectListActivity extends FragmentActivity
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        doSearch(query);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return true;
+    }
+
+    @Override
+    public boolean onClose() {
+        doSearch(null);
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionSelect(int position) {
+        return true;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int position) {
+        return true;
+    }
 }
 

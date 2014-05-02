@@ -244,14 +244,18 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_PROJECT_ID)) {
-            mAdapter = new ActivityAdapter(getActivity(), null, 0);
+        String projectId = getArguments().getString(ARG_PROJECT_ID);
+        String loaderString = projectId+":"+ getArguments().getString(ARG_SORT_ORDER);
+        mAdapter = new ActivityAdapter(getActivity(), null, 0);
 
-            loaderId = getArguments().getString(ARG_SORT_ORDER).hashCode();
-            getLoaderManager().initLoader(loaderId, getArguments(), this);
+        loaderId = loaderString.hashCode();
 
+    }
 
-        }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(loaderId, getArguments(), this);
     }
 
     @Override
