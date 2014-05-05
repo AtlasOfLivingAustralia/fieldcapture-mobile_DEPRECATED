@@ -57,46 +57,59 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
         Log.i("FieldCaptureSyncAdapter", "sync called");
 
 
-        boolean forceRefresh = extras.getBoolean(FORCE_REFRESH_ARG, false);
-        performUpdates();
-        performQueries(forceRefresh);
+        PreferenceStorage storage = PreferenceStorage.getInstance(getContext());
+        if (storage.getUsername() != null) {
+            boolean forceRefresh = extras.getBoolean(FORCE_REFRESH_ARG, false);
 
-        Log.i("FieldCaptureSyncAdapter", "sync complete");
+            performUpdates();
+            performQueries(forceRefresh);
 
+            Log.i("FieldCaptureSyncAdapter", "sync complete");
+        }
+        else {
+            Log.i("FieldCaptureSyncAdapter", "Ignoring sync for logged out user");
+        }
 
     }
 
     private void performQueries(boolean forceRefresh) {
 
 
-        boolean refresh = forceRefresh;
-        if (!refresh) {
-            Cursor activites = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, null, null, null);
-            refresh = activites.getCount() == 0;
-        }
-        if (refresh) {
+        Cursor existingActivities = null;
+        try {
+            boolean refresh = forceRefresh;
+            if (!refresh) {
+                existingActivities = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, null, null, null);
+                refresh = existingActivities.getCount() == 0;
+            }
+            if (refresh) {
 
-            Log.i("FieldCaptureSyncAdapter", "Checking for updates...");
-            Uri projectsUri = FieldCaptureContent.allProjectsUri();
-            List<JSONObject> projects = ecodataInterface.getProjectsForUser();
+                Log.i("FieldCaptureSyncAdapter", "Checking for updates...");
+                Uri projectsUri = FieldCaptureContent.allProjectsUri();
+                List<JSONObject> projects = ecodataInterface.getProjectsForUser();
 
-            try {
-                mContentResolver.bulkInsert(projectsUri, Mapper.mapProjects(projects));
+                try {
+                    mContentResolver.bulkInsert(projectsUri, Mapper.mapProjects(projects));
 
-                for (JSONObject project : projects) {
-                    String projectId = project.getString(FieldCaptureContent.PROJECT_ID);
-                    JSONArray activities = ecodataInterface.getProjectActivities(projectId);
+                    for (JSONObject project : projects) {
+                        String projectId = project.getString(FieldCaptureContent.PROJECT_ID);
+                        JSONArray activities = ecodataInterface.getProjectActivities(projectId);
 
-                    if (activities != null && activities.length() > 0) {
-                        Uri activitiesUri = FieldCaptureContent.projectActivitiesUri(projectId);
-                        mContentResolver.bulkInsert(activitiesUri, Mapper.mapActivities(activities));
+                        if (activities != null && activities.length() > 0) {
+                            Uri activitiesUri = FieldCaptureContent.projectActivitiesUri(projectId);
+                            mContentResolver.bulkInsert(activitiesUri, Mapper.mapActivities(activities));
+                        }
                     }
+                } catch (JSONException e) {
+                    Log.e("FieldCaptureContentProvider", "Error retrieving projects from server", e);
                 }
-            }
-            catch (JSONException e) {
-                Log.e("FieldCaptureContentProvider", "Error retrieving projects from server", e);
-            }
 
+            }
+        }
+        finally {
+            if (existingActivities != null) {
+                existingActivities.close();
+            }
         }
     }
 
@@ -104,35 +117,41 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
         Map<String, Boolean> results =  new HashMap<String, Boolean>();
         Cursor activities = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, FieldCaptureContent.SYNC_STATUS+"=?", new String[]{FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE}, null);
-        while (activities.moveToNext()) {
+        try {
+            while (activities.moveToNext()) {
 
 
-            String id = activities.getString(activities.getColumnIndex(FieldCaptureContent.ACTIVITY_ID));
-            boolean success = false;
-            try {
-                JSONObject json = Mapper.toJSONObject(activities, null);
-                String outputData = json.optString("outputs");
-                if (outputData != null) {
-                    json.remove("outputs");
-                    json.put("outputs", new JSONArray(outputData));
+                String id = activities.getString(activities.getColumnIndex(FieldCaptureContent.ACTIVITY_ID));
+                boolean success = false;
+                try {
+                    JSONObject json = Mapper.toJSONObject(activities, null);
+                    String outputData = json.optString("outputs");
+                    if (outputData != null) {
+                        json.remove("outputs");
+                        json.put("outputs", new JSONArray(outputData));
+                    }
+                    success = ecodataInterface.saveActivity(json);
+                } catch (JSONException e) {
+                    Log.e("FieldCaptureSyncAdapter", "Unable to save to to invalid JSON", e);
                 }
-                success = ecodataInterface.saveActivity(json);
+                Log.i("FieldCaptureSyncAdapter", "Update: " + id + ", result=" + success);
+                results.put(id, success);
             }
-            catch (JSONException e) {
-                Log.e("FieldCaptureSyncAdapter", "Unable to save to to invalid JSON", e);
+
+            for (String id : results.keySet()) {
+
+                if (results.get(id)) {
+                    ContentValues values = new ContentValues();
+                    values.put(FieldCaptureContent.ACTIVITY_ID, id);
+                    values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_UP_TO_DATE);
+
+                    mContentResolver.update(FieldCaptureContent.activityUri(id), values, FieldCaptureContent.ACTIVITY_ID + "=?", new String[]{id});
+                }
             }
-            Log.i("FieldCaptureSyncAdapter", "Update: "+id+", result="+success);
-            results.put(id, success);
         }
-
-        for (String id:results.keySet()) {
-
-            if (results.get(id)) {
-                ContentValues values = new ContentValues();
-                values.put(FieldCaptureContent.ACTIVITY_ID, id);
-                values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_UP_TO_DATE);
-
-                mContentResolver.update(FieldCaptureContent.activityUri(id), values, FieldCaptureContent.ACTIVITY_ID+"=?", new String[]{id});
+        finally {
+            if (activities != null) {
+                activities.close();
             }
         }
     }

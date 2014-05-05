@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import au.org.ala.fieldcapture.green_army.data.sync.FieldCaptureSyncAdapter;
 
@@ -32,6 +33,7 @@ public final class FieldCaptureContent {
     public static final String PROJECT_ACTIVITIES_URI = "content://"+AUTHORITY+"/"+PROJECTS+"/*/"+ACTIVITIES;
     public static final String ACTIVITY_URI = "content://"+AUTHORITY+"/"+ACTIVITIES+"/*";
     public static final String ACTIVITIES_URI = "content://"+AUTHORITY+"/"+ACTIVITIES;
+    public static final String DELETE_URI = "content://"+AUTHORITY+"/"+PROJECTS;
 
     /** Column name / JSON attribute name for the id used by an activity */
     public static final String ACTIVITY_ID = "activityId";
@@ -84,6 +86,10 @@ public final class FieldCaptureContent {
         return Uri.parse(PROJECT_ACTIVITIES_URI.replace("*", projectId));
     }
 
+    public static Uri deleteUri() {
+        return Uri.parse(DELETE_URI);
+    }
+
 
     public static void requestSync(Context ctx) {
         FieldCaptureContent.requestSync(ctx, false);
@@ -91,10 +97,20 @@ public final class FieldCaptureContent {
 
     public static void requestSync(Context ctx, boolean forceSync) {
         PreferenceStorage storage = PreferenceStorage.getInstance(ctx);
-        Bundle params = new Bundle();
-        params.putBoolean(FieldCaptureSyncAdapter.FORCE_REFRESH_ARG, forceSync);
 
-        ContentResolver.requestSync(
-                new Account(storage.getUsername(), FieldCaptureContent.ACCOUNT_TYPE), FieldCaptureContent.AUTHORITY, params);
+        // This method can be triggered on logout as the delete operation will trigger a refresh of the
+        // project list cursor.
+        String username = storage.getUsername();
+        if (username != null) {
+
+            Bundle params = new Bundle();
+            params.putBoolean(FieldCaptureSyncAdapter.FORCE_REFRESH_ARG, forceSync);
+
+            ContentResolver.requestSync(
+                    new Account(username, FieldCaptureContent.ACCOUNT_TYPE), FieldCaptureContent.AUTHORITY, params);
+        }
+        else {
+            Log.i("FieldCaptureContent", "Ignoring sync request for logged out user");
+        }
     }
 }

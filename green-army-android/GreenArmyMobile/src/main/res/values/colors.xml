@@ -24,8 +24,8 @@
     <color name="started_activity_background">#4fa254</color>
 
     <color name="finished_activity_background">#3298af</color>
-    <color name="cancelled_activity_background">#4fa254</color>
-    <color name="deferred_activity_background">#212224</color>
+    <color name="cancelled_activity_background">#1e1e1c</color>
+    <color name="deferred_activity_background">#bd372c</color>
     <color name="logo_background">#529a5b</color>
 
 </resources>

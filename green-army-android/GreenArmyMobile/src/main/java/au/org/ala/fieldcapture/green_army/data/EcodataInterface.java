@@ -147,7 +147,7 @@ public class EcodataInterface extends WebService {
 
         try {
             JSONObject results = restTemplate.getForObject(url, JSONObject.class, projectId);
-            activities = results.getJSONArray("activites");
+            activities = results.getJSONArray("activities");
         }
         catch (HttpClientErrorException e) {
             Log.e("EcodataInterface", "getProjectActivities failed for url: "+url+"projectId:"+projectId+":", e);
@@ -168,7 +168,7 @@ public class EcodataInterface extends WebService {
 
     public boolean saveActivity(JSONObject activityJSON) {
 
-        String url = FIELDCAPTURE_URL + "/saveActivity/{activityId}";
+        String url = FIELDCAPTURE_URL + "/updateActivity/{activityId}";
         String activityId = "";
         RestTemplate template = getRestTemplate(true);
 

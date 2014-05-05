@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -51,6 +52,7 @@ public class ProjectListActivity extends FragmentActivity
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawer;
     private PreferenceStorage preferenceStorage;
+    private Account account;
 
     private String checkLogin() {
 
@@ -65,7 +67,11 @@ public class ProjectListActivity extends FragmentActivity
     }
 
     private void logout() {
+        getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 0);
+
         preferenceStorage.clear();
+        // This will delete everything.
+        getContentResolver().delete(FieldCaptureContent.deleteUri(), null, null);
         checkFirstUse();
     }
 
@@ -91,7 +97,8 @@ public class ProjectListActivity extends FragmentActivity
             // If the user isn't logged in this activity will be finished and the login activity started.
             if (user != null) {
 
-                Account account = CreateSyncAccount(this, user);
+                account = CreateSyncAccount(this, user);
+                getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 1);
                 getContentResolver().setSyncAutomatically(account, FieldCaptureContent.AUTHORITY, true);
                 setContentView(R.layout.activity_project_list);
 

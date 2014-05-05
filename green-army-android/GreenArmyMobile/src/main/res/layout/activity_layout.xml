@@ -13,7 +13,7 @@
         android:background="@drawable/card_background">
 
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -30,14 +30,14 @@
             android:layout_toRightOf="@id/activity_status"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Test description"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="100dp"
             android:id="@+id/activity_description"
             android:textColor="@android:color/black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="105dp"
             android:layout_below="@id/activity_description"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="italic"

@@ -108,23 +108,23 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
             String progressText;
             int progressColor;
             if ("planned".equals(progress)) {
-                progressText = "P";
+                progressText = context.getResources().getString(R.string.planned_activity_status);
                 progressColor = R.color.planned_activity_background;
             }
             else if ("started".equals(progress)) {
-                progressText = "S";
+                progressText = context.getResources().getString(R.string.started_activity_status);
                 progressColor = R.color.started_activity_background;
             }
             else if ("finished".equals(progress)) {
-                progressText = "F";
+                progressText = context.getResources().getString(R.string.finished_activity_status);
                 progressColor = R.color.finished_activity_background;
             }
             else if ("deferred".equals(progress)) {
-                progressText = "D";
+                progressText = context.getResources().getString(R.string.deferred_activity_status);
                 progressColor = R.color.deferred_activity_background;
             }
             else if ("cancelled".equals(progress)) {
-                progressText = "C";
+                progressText = context.getResources().getString(R.string.cancelled_activity_status);
                 progressColor = R.color.cancelled_activity_background;
             }
             else {

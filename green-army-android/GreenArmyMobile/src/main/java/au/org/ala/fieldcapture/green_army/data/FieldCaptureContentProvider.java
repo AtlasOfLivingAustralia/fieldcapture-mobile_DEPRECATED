@@ -55,7 +55,16 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     @Override
     protected int deleteInTransaction(Uri uri, String selection, String[] selectionArgs) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (uri.equals(FieldCaptureContent.deleteUri())) {
+            int count = 0;
+            for (int key : config.keySet()) {
+                count += mDb.delete(config.get(key).get(TABLE_KEY), "1", null);
+            }
+            return count;
+        }
+        else {
+            throw new IllegalArgumentException("Only "+FieldCaptureContent.deleteUri()+" is supported for deletes");
+        }
     }
 
     @Override

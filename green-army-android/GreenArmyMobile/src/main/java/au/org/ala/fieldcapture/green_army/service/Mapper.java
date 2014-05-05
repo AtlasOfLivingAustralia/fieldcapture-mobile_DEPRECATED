@@ -48,9 +48,9 @@ public class Mapper {
 
 
     public static ContentValues mapActivity(JSONObject activity) throws JSONException {
-        //if (Log.isLoggable("Mapper", Log.DEBUG)) {
+        if (Log.isLoggable("Mapper", Log.DEBUG)) {
             Log.d("Mapper", "Mapping activity from JSON: "+activity.toString(2));
-        //}
+        }
         return toContentValues(activity, FieldCaptureContent.ACTIVITY_COLUMNS);
     }
 
