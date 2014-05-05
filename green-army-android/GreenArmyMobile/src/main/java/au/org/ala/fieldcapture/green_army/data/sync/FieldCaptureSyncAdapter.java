@@ -93,12 +93,24 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
                     for (JSONObject project : projects) {
                         String projectId = project.getString(FieldCaptureContent.PROJECT_ID);
-                        JSONArray activities = ecodataInterface.getProjectActivities(projectId);
+                        JSONObject projectDetails = ecodataInterface.getProjectDetails(projectId);
+                        JSONArray activities = projectDetails.getJSONArray("activities");
 
                         if (activities != null && activities.length() > 0) {
                             Uri activitiesUri = FieldCaptureContent.projectActivitiesUri(projectId);
                             mContentResolver.bulkInsert(activitiesUri, Mapper.mapActivities(activities));
                         }
+
+                        JSONArray sites = projectDetails.getJSONArray("sites");
+                        if (sites != null && sites.length() > 0) {
+                            Uri sitesUri = FieldCaptureContent.sitesUri();
+                            mContentResolver.bulkInsert(sitesUri, Mapper.mapSites(sites));
+
+                            Uri projectSitesUri = FieldCaptureContent.projectSitesUri(projectId);
+                            mContentResolver.bulkInsert(projectSitesUri, Mapper.mapProjectSites(projectId, sites));
+                        }
+
+
                     }
                 } catch (JSONException e) {
                     Log.e("FieldCaptureContentProvider", "Error retrieving projects from server", e);

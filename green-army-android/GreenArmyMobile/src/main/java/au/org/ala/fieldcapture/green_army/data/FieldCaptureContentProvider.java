@@ -21,15 +21,16 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     private static final int ACTIVITIES = 3;
     private static final int SITES = 4;
+    private static final int PROJECT_SITES = 5;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.PROJECTS, PROJECTS);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.PROJECTS+"/*/"+ FieldCaptureContent.ACTIVITIES, ACTIVITIES);
-        uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SITE, SITES);
+        uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.PROJECTS+"/*/"+ FieldCaptureContent.SITES, PROJECT_SITES);
+        uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SITES, SITES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES+"/*", ACTIVITIES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES, ACTIVITIES);
-
     }
 
     @Override
@@ -100,17 +101,25 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     private static Map<Integer, Map<String, String>> config;
     static {
         config = new HashMap<Integer, Map<String, String>>();
-        Map<String, String> projectConfig = new HashMap<String, String>();
+        Map<String, String> projectConfig = new HashMap<String, String>(2);
         projectConfig.put(TABLE_KEY, "project");
         projectConfig.put(TYPE_KEY, "vnd.android.cursor.dir/project");
-
         config.put(PROJECTS, projectConfig);
 
-        Map<String, String> activityConfig = new HashMap<String, String>();
+        Map<String, String> activityConfig = new HashMap<String, String>(2);
         activityConfig.put(TABLE_KEY, "activity");
         activityConfig.put(TYPE_KEY, "vnd.android.cursor.dir/activity");
-
         config.put(ACTIVITIES, activityConfig);
+
+        Map<String, String> siteConfig = new HashMap<String, String>(2);
+        siteConfig.put(TABLE_KEY, "site");
+        siteConfig.put(TYPE_KEY, "vnd.android.cursor.dir/site");
+        config.put(SITES, siteConfig);
+
+        Map<String, String> projectSitesConfig = new HashMap<String, String>(2);
+        projectSitesConfig.put(TABLE_KEY, "project_sites");
+        projectSitesConfig.put(TYPE_KEY, "vnd.android.cursor.dir/site");
+        config.put(PROJECT_SITES, projectSitesConfig);
 
     }
 

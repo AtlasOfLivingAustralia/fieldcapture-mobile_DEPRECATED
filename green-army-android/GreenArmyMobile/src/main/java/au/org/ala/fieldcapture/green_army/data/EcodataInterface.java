@@ -137,17 +137,16 @@ public class EcodataInterface extends WebService {
         return projects;
     }
 
-    public JSONArray getProjectActivities(String projectId) {
+    public JSONObject getProjectDetails(String projectId) {
 
         String url = FIELDCAPTURE_URL + "/projectDetails/{projectId}";
 
         RestTemplate restTemplate = getRestTemplate(true);
 
-        JSONArray activities = null;
+        JSONObject results = null;
 
         try {
-            JSONObject results = restTemplate.getForObject(url, JSONObject.class, projectId);
-            activities = results.getJSONArray("activities");
+            results = restTemplate.getForObject(url, JSONObject.class, projectId);
         }
         catch (HttpClientErrorException e) {
             Log.e("EcodataInterface", "getProjectActivities failed for url: "+url+"projectId:"+projectId+":", e);
@@ -160,10 +159,8 @@ public class EcodataInterface extends WebService {
             Log.e("EcodataInterface", "getProjectActivities failed for url: "+url+"projectId:"+projectId+":", e);
 
         }
-        catch (JSONException e) {
-            Log.e("EcodataInferface", "Error getting project activities", e);
-        }
-        return activities;
+
+        return results;
     }
 
     public boolean saveActivity(JSONObject activityJSON) {

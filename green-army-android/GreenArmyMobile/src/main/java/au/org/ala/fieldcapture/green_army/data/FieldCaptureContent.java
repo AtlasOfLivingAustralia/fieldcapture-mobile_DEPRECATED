@@ -22,7 +22,10 @@ public final class FieldCaptureContent {
 
     public static final String ACTIVITIES = "activities";
 
-    public static final String SITE = "site";
+    public static final String SITES = "sites";
+
+
+
 
     public static final String SYNC_STATUS = "syncStatus";
     public static final String SYNC_STATUS_UP_TO_DATE = "synced";
@@ -34,6 +37,10 @@ public final class FieldCaptureContent {
     public static final String ACTIVITY_URI = "content://"+AUTHORITY+"/"+ACTIVITIES+"/*";
     public static final String ACTIVITIES_URI = "content://"+AUTHORITY+"/"+ACTIVITIES;
     public static final String DELETE_URI = "content://"+AUTHORITY+"/"+PROJECTS;
+    public static final String SITES_URI = "content://"+AUTHORITY+"/"+SITES;
+    public static final String SITE_URI = "content://"+AUTHORITY+"/"+SITES+"/*";
+    public static final String PROJECT_SITES_URI = "content://"+AUTHORITY+"/"+PROJECTS+"/*/"+SITES;
+
 
     /** Column name / JSON attribute name for the id used by an activity */
     public static final String ACTIVITY_ID = "activityId";
@@ -69,6 +76,15 @@ public final class FieldCaptureContent {
             "endDate"
     };
 
+    public static final String[] SITE_COLUMNS = new String[] {
+            "siteId",
+            "name",
+            "description",
+            "lat",
+            "lon"
+    };
+    public static final String SITE_ID = "siteId";
+
     public static Uri activityUri(String activityId) {
         String uri = ACTIVITY_URI.replace("*", activityId);
         return Uri.parse(uri);
@@ -84,6 +100,18 @@ public final class FieldCaptureContent {
 
     public static Uri projectActivitiesUri(String projectId) {
         return Uri.parse(PROJECT_ACTIVITIES_URI.replace("*", projectId));
+    }
+
+    public static Uri sitesUri() {
+        return Uri.parse(SITES_URI);
+    }
+
+    public static Uri siteUri(String siteId) {
+        return Uri.parse(SITE_URI.replace("*", siteId));
+    }
+
+    public static Uri projectSitesUri(String projectId) {
+        return Uri.parse(PROJECT_SITES_URI.replace("*", projectId));
     }
 
     public static Uri deleteUri() {
@@ -112,5 +140,10 @@ public final class FieldCaptureContent {
         else {
             Log.i("FieldCaptureContent", "Ignoring sync request for logged out user");
         }
+    }
+
+
+    public static Uri projectSitesUri() {
+        return null;
     }
 }

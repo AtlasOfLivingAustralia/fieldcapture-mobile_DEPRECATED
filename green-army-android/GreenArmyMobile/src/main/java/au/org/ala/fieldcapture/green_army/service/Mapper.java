@@ -80,6 +80,35 @@ public class Mapper {
         return result;
     }
 
+    public static ContentValues[] mapSites(JSONArray sitesJSON) throws JSONException {
+
+        ContentValues[] sites = new ContentValues[sitesJSON.length()];
+        for (int i=0; i<sites.length; i++) {
+            sites[i] = mapSite(sitesJSON.getJSONObject(i));
+        }
+
+        return sites;
+    }
+
+    public static ContentValues mapSite(JSONObject site) throws JSONException {
+        // (from server download).
+        if (site.has("extent")) {
+            JSONObject extent = site.getJSONObject("extent");
+            if (extent.has("geometry")) {
+                JSONObject geom = extent.getJSONObject("geometry");
+                if (geom.has("centre")) {
+                    JSONArray centre = geom.getJSONArray("centre");
+
+                    site.put("lat", centre.getDouble(1));
+                    site.put("lon", centre.getDouble(0));
+                }
+            }
+            site.remove("extent");
+        }
+
+        return toContentValues(site, FieldCaptureContent.SITE_COLUMNS);
+    }
+
     public static ContentValues toContentValues(JSONObject jsonObject, String[] columns) throws JSONException {
         ContentValues values = new ContentValues();
         Iterator<String> keys;
@@ -112,5 +141,15 @@ public class Mapper {
         }
         return values;
 
+    }
+
+    public static ContentValues[] mapProjectSites(String projectId, JSONArray sites) throws JSONException {
+        ContentValues[] values = new ContentValues[sites.length()];
+        for (int i=0; i<sites.length(); i++) {
+            values[i] = new ContentValues();
+            values[i].put(FieldCaptureContent.PROJECT_ID, projectId);
+            values[i].put(FieldCaptureContent.SITE_ID, sites.getJSONObject(i).getString(FieldCaptureContent.SITE_ID));
+        }
+        return values;
     }
 }
