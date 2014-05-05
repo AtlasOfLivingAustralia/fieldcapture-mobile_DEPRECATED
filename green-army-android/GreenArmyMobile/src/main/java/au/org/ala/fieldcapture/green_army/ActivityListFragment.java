@@ -164,6 +164,8 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
     private ActivityAdapter mAdapter;
 
+    public String query = "";
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -212,9 +214,10 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
         loading.setVisibility(View.GONE);
         if (mAdapter.getCount() == 0) {
-            // Force a refresh from the server.
-            FieldCaptureContent.requestSync(getActivity(), true);
-
+            if (!StringUtils.hasLength(getArguments().getString(ARG_QUERY_STRING))) {
+                // Force a refresh from the server if we have no project activites.
+                FieldCaptureContent.requestSync(getActivity(), true);
+            }
             root.findViewById(R.id.no_activities).setVisibility(View.VISIBLE);
             root.findViewById(R.id.project_activities_list).setVisibility(View.GONE);
         }
@@ -231,9 +234,7 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
     public ListView listView;
 
-
-
-    /**
+   /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
@@ -247,7 +248,6 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
         String projectId = getArguments().getString(ARG_PROJECT_ID);
         String loaderString = projectId+":"+ getArguments().getString(ARG_SORT_ORDER);
         mAdapter = new ActivityAdapter(getActivity(), null, 0);
-
         loaderId = loaderString.hashCode();
 
     }

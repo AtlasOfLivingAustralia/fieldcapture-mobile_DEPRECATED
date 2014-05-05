@@ -170,10 +170,22 @@ public class ProjectListActivity extends FragmentActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         // Associate searchable configuration with the SearchView
+        MenuItem searchItem = menu.findItem(R.id.search);
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                doSearch("");
+                return true;
+            }
+        });
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
+        final SearchView searchView = (SearchView)searchItem.getActionView();
 
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
@@ -181,6 +193,7 @@ public class ProjectListActivity extends FragmentActivity
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
         searchView.setOnSuggestionListener(this);
+
         return true;
     }
 
@@ -295,6 +308,9 @@ public class ProjectListActivity extends FragmentActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        if ("".equals(newText)) {
+            doSearch("");
+        }
         return true;
     }
 
