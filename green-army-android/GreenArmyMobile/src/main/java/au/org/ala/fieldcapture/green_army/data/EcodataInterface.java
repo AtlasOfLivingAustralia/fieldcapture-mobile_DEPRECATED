@@ -1,5 +1,6 @@
 package au.org.ala.fieldcapture.green_army.data;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -42,13 +43,13 @@ public class EcodataInterface extends WebService {
 
     }
 
-    //private static final String ECODATA_URL = "http://152.83.195.62:8080/ecodata";
-    private static final String FIELDCAPTURE_URL = "https://fieldcapture-test.ala.org.au";
-    private static final String ECODATA_URL= "http://ecodata-test.ala.org.au";
+    //private static final String ECODATA_URL = "http://152.83.195.62:8080/fieldcapture/mobile";
+    private static final String FIELDCAPTURE_URL = "https://fieldcapture-test.ala.org.au/mobile";
 
 
-    private static final String AUTH_URL ="http://m.ala.org.au/mobileauth/mobileKey/generateKey";
-
+    public EcodataInterface(Context ctx) {
+        super(ctx);
+    }
 
     /**
      * Checks the users credentials are correct.
@@ -59,7 +60,7 @@ public class EcodataInterface extends WebService {
     public LoginResult login(String username, String password) {
 
 
-        RestTemplate template = getRestTemplate();
+        RestTemplate template = getRestTemplate(false);
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
         params.add("userName", username);
         params.add("password", password);
@@ -68,7 +69,7 @@ public class EcodataInterface extends WebService {
         try {
             Log.i("EcodataInterface", "Logging in user: " + username);
 
-            String url = AUTH_URL+ "?userName={username}&password={password}";
+            String url = FIELDCAPTURE_URL+ "/login/?userName={username}&password={password}";
             JSONObject response = template.getForObject(url, JSONObject.class, username, password);
 
             String key = response.getString("authKey");
@@ -110,16 +111,16 @@ public class EcodataInterface extends WebService {
     }
 
 
-    public List<JSONObject> getProjectsForUser(String userName, String authKey) {
+    public List<JSONObject> getProjectsForUser() {
 
-        String url = FIELDCAPTURE_URL + "/mobile/userProjects?userName={username}&authKey={authKey}";
+        String url = FIELDCAPTURE_URL + "/userProjects";
 
-        RestTemplate restTemplate = getRestTemplate();
+        RestTemplate restTemplate = getRestTemplate(true);
 
         List<JSONObject> projects = null;
 
         try {
-            JSONArray results = restTemplate.getForObject(url, JSONArray.class, userName, authKey);
+            JSONArray results = restTemplate.getForObject(url, JSONArray.class);
             projects = new ArrayList(results.length());
             for (int i=0; i<results.length(); i++) {
                 JSONObject projectHolder = results.getJSONObject(i);
@@ -136,16 +137,16 @@ public class EcodataInterface extends WebService {
         return projects;
     }
 
-    public JSONArray getProjectActivities(String projectId, String userName, String authKey) {
+    public JSONArray getProjectActivities(String projectId) {
 
-        String url = FIELDCAPTURE_URL + "/mobile/projectDetails/{projectId}?userName={userName}&authKey={authKey}";
+        String url = FIELDCAPTURE_URL + "/projectDetails/{projectId}";
 
-        RestTemplate restTemplate = getRestTemplate();
+        RestTemplate restTemplate = getRestTemplate(true);
 
         JSONArray activities = null;
 
         try {
-            JSONObject results = restTemplate.getForObject(url, JSONObject.class, projectId, userName, authKey);
+            JSONObject results = restTemplate.getForObject(url, JSONObject.class, projectId);
             activities = results.getJSONArray("activites");
         }
         catch (HttpClientErrorException e) {
@@ -167,9 +168,9 @@ public class EcodataInterface extends WebService {
 
     public boolean saveActivity(JSONObject activityJSON) {
 
-        String url = ECODATA_URL + "/ws/activity/{activityId}";
+        String url = FIELDCAPTURE_URL + "/saveActivity/{activityId}";
         String activityId = "";
-        RestTemplate template = getRestTemplate();
+        RestTemplate template = getRestTemplate(true);
 
         boolean success = false;
         try {
@@ -201,9 +202,4 @@ public class EcodataInterface extends WebService {
 
         return success;
     }
-
-    /** Returns html / javascript for the form identified by type */
-    void getActivityForm(String type) {}
-
-
 }

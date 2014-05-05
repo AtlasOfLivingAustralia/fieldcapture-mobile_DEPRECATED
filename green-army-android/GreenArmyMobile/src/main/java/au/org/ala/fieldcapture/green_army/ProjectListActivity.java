@@ -66,7 +66,17 @@ public class ProjectListActivity extends FragmentActivity
 
     private void logout() {
         preferenceStorage.clear();
-        checkLogin();
+        checkFirstUse();
+    }
+
+    private boolean checkFirstUse() {
+        if (preferenceStorage.getFirstUse()) {
+            Intent welcome = new Intent(this, WelcomeActivity.class);
+            startActivity(welcome);
+            finish();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -74,61 +84,59 @@ public class ProjectListActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
 
         preferenceStorage = PreferenceStorage.getInstance(this);
-        if (preferenceStorage.getFirstUse()) {
-            Intent welcome = new Intent(this, WelcomeActivity.class);
-            startActivity(welcome);
-            finish();
-            return;
-        }
 
+        if (!checkFirstUse()) {
 
-        String user = checkLogin();
-        // If the user isn't logged in this activity will be finished and the login activity started.
-        if (user != null) {
+            String user = checkLogin();
+            // If the user isn't logged in this activity will be finished and the login activity started.
+            if (user != null) {
 
-            Account account = CreateSyncAccount(this, user);
-            getContentResolver().setSyncAutomatically(account, FieldCaptureContent.AUTHORITY, true);
-            setContentView(R.layout.activity_project_list);
+                Account account = CreateSyncAccount(this, user);
+                getContentResolver().setSyncAutomatically(account, FieldCaptureContent.AUTHORITY, true);
+                setContentView(R.layout.activity_project_list);
 
-            if (findViewById(R.id.project_detail_container) != null) {
-                // The detail container view will be present only in the
-                // large-screen layouts (res/values-large and
-                // res/values-sw600dp). If this view is present, then the
-                // activity should be in two-pane mode.
-                mTwoPane = true;
+                if (findViewById(R.id.project_detail_container) != null) {
+                    // The detail container view will be present only in the
+                    // large-screen layouts (res/values-large and
+                    // res/values-sw600dp). If this view is present, then the
+                    // activity should be in two-pane mode.
+                    mTwoPane = true;
 
-                // In two-pane mode, list items should be given the
-                // 'activated' state when touched.
-                ((ProjectListFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.project_list))
-                        .setActivateOnItemClick(true);
+                    // In two-pane mode, list items should be given the
+                    // 'activated' state when touched.
+                    ((ProjectListFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.project_list))
+                            .setActivateOnItemClick(true);
 
-                if (savedInstanceState != null) {
-                    if (getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT) != null) {
-                        findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
+                    if (savedInstanceState != null) {
+                        if (getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT) != null) {
+                            findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
+                        }
                     }
                 }
-            }
-            if (findViewById(R.id.drawer_layout) != null) {
-                drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
-                toggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close) {
-                    public void onDrawerClosed(View view) {
-                        super.onDrawerClosed(view);
-                        getActionBar().setTitle("Project Activities");
-                    }
+                if (findViewById(R.id.drawer_layout) != null) {
+                    drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    toggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close) {
+                        public void onDrawerClosed(View view) {
+                            super.onDrawerClosed(view);
+                            getActionBar().setTitle("Project Activities");
+                        }
 
-                    /** Called when a drawer has settled in a completely open state. */
-                    public void onDrawerOpened(View drawerView) {
-                        super.onDrawerOpened(drawerView);
-                        getActionBar().setTitle("Projects");
-                    }
-                };
-                drawer.setDrawerListener(toggle);
-                drawer.openDrawer(Gravity.LEFT);
-                getActionBar().setDisplayShowHomeEnabled(true);
-                getActionBar().setDisplayHomeAsUpEnabled(true);
+                        /**
+                         * Called when a drawer has settled in a completely open state.
+                         */
+                        public void onDrawerOpened(View drawerView) {
+                            super.onDrawerOpened(drawerView);
+                            getActionBar().setTitle("Projects");
+                        }
+                    };
+                    drawer.setDrawerListener(toggle);
+                    drawer.openDrawer(Gravity.LEFT);
+                    getActionBar().setDisplayShowHomeEnabled(true);
+                    getActionBar().setDisplayHomeAsUpEnabled(true);
 
-                getActionBar().setHomeButtonEnabled(true);
+                    getActionBar().setHomeButtonEnabled(true);
+                }
             }
         }
     }

@@ -101,8 +101,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			String username = usernameField.getText().toString();
 			String password = passwordField.getText().toString();
 
-            username = "chris.godwin.ala@gmail.com";
-            password = "SacAla0202";
 			loginTask = new LoginTask(this, username, password);
 			loginTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
@@ -168,15 +166,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		private EcodataInterface.LoginResult login() {
 
-            EcodataInterface ecodataInterface = new EcodataInterface();
+            EcodataInterface ecodataInterface = new EcodataInterface(ctx);
 
-            EcodataInterface.LoginResult result = ecodataInterface.login(username, password);
-
-			if (result.success) {
-				saveCredentials(username, result.authKey);
-			}
-
-			return result;
+            return ecodataInterface.login(username, password);
 		}
 		
 		
@@ -195,7 +187,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(Bundle result) {
 			
 			if (result.getBoolean("success")) {
-				ctx.loginSucceeded();
+                saveCredentials(username, result.getString("authKey"));
+                ctx.loginSucceeded();
 			}
 			else {
 				ctx.loginFailed(result.getInt("messageCode"));

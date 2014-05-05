@@ -64,8 +64,7 @@ public class PreferenceStorage {
 
     public void clear() {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
-        editor.putString(USERNAME_KEY, null);
-        editor.putString(TOKEN_KEY, null);
+        editor.clear();
         editor.commit();
     }
 }

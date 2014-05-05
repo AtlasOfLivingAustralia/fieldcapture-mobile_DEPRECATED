@@ -32,7 +32,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public FieldCaptureSyncAdapter(Context context, boolean autoInitialise) {
         super(context, autoInitialise);
-        ecodataInterface = new EcodataInterface();
+        ecodataInterface = new EcodataInterface(context);
         mContentResolver = context.getContentResolver();
     }
 
@@ -42,7 +42,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
             boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
 
-        ecodataInterface = new EcodataInterface();
+        ecodataInterface = new EcodataInterface(context);
         mContentResolver = context.getContentResolver();
     }
 
@@ -68,7 +68,6 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void performQueries(boolean forceRefresh) {
 
-        PreferenceStorage storage = PreferenceStorage.getInstance(getContext());
 
         boolean refresh = forceRefresh;
         if (!refresh) {
@@ -79,15 +78,14 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
             Log.i("FieldCaptureSyncAdapter", "Checking for updates...");
             Uri projectsUri = FieldCaptureContent.allProjectsUri();
-            EcodataInterface ecodataIf = new EcodataInterface();
-            List<JSONObject> projects = ecodataIf.getProjectsForUser(storage.getUsername(), storage.getAuthToken());
+            List<JSONObject> projects = ecodataInterface.getProjectsForUser();
 
             try {
                 mContentResolver.bulkInsert(projectsUri, Mapper.mapProjects(projects));
 
                 for (JSONObject project : projects) {
                     String projectId = project.getString(FieldCaptureContent.PROJECT_ID);
-                    JSONArray activities = ecodataIf.getProjectActivities(projectId, storage.getUsername(), storage.getAuthToken());
+                    JSONArray activities = ecodataInterface.getProjectActivities(projectId);
 
                     if (activities != null && activities.length() > 0) {
                         Uri activitiesUri = FieldCaptureContent.projectActivitiesUri(projectId);
@@ -104,7 +102,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void performUpdates() {
 
-        Map<String, Boolean> results = new HashMap<String, Boolean>();
+        Map<String, Boolean> results =  new HashMap<String, Boolean>();
         Cursor activities = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, FieldCaptureContent.SYNC_STATUS+"=?", new String[]{FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE}, null);
         while (activities.moveToNext()) {
 
