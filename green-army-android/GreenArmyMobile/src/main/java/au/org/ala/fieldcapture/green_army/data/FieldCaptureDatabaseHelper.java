@@ -47,6 +47,7 @@ public class FieldCaptureDatabaseHelper extends SQLiteOpenHelper {
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                     FieldCaptureContent.ACTIVITY_ID+" TEXT NOT NULL UNIQUE, " +
                     "projectId TEXT, " +
+                    "siteId TEXT, "+
                     "type TEXT, " +
                     "description TEXT, " +
                     "projectStage TEXT, " +

@@ -41,6 +41,7 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
         TextView type;
         TextView progress;
         TextView activityDates;
+        TextView activitySite;
     }
 
     static class ActivityAdapter extends ResourceCursorAdapter {
@@ -65,6 +66,7 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
             viewHolder.type = (TextView)view.findViewById(R.id.activity_type);
             viewHolder.progress = (TextView)view.findViewById(R.id.activity_status);
             viewHolder.activityDates = (TextView)view.findViewById(R.id.activity_dates);
+            viewHolder.activitySite = (TextView)view.findViewById(R.id.activity_site);
 
             view.setTag(viewHolder);
         }
@@ -79,6 +81,15 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
             viewHolder.description.setText(cursor.getString(cursor.getColumnIndex("description")));
             viewHolder.type.setText(cursor.getString(cursor.getColumnIndex("type")));
+
+            String siteName = cursor.getString(cursor.getColumnIndex("siteName"));
+            if (siteName != null) {
+                viewHolder.activitySite.setVisibility(View.VISIBLE);
+                viewHolder.activitySite.setText(siteName);
+            }
+            else {
+                viewHolder.activitySite.setVisibility(View.GONE);
+            }
 
             // Format dates for display.
             String startDate = cursor.getString(cursor.getColumnIndex("plannedStartDate"));
@@ -177,9 +188,9 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
         String whereClause;
         String[] whereParams;
         if (query != null && query.length() > 0) {
-            whereClause = "projectId=? and (description like ? or type like ?)";
+            whereClause = "projectId=? and (a.description like ? or type like ? or s.name like ?)";
             query = "%"+query+"%";
-            whereParams = new String[] {projectId, query, query};
+            whereParams = new String[] {projectId, query, query, query};
         }
         else {
             whereClause = "projectId=?";

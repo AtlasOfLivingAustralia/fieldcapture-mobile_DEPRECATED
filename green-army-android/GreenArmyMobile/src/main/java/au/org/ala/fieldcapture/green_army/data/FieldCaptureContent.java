@@ -63,6 +63,7 @@ public final class FieldCaptureContent {
     public static final String[] ACTIVITY_COLUMNS = new String[] {
             "activityId",
             "projectId",
+            "siteId",
             "type",
             "description",
             "projectStage",
@@ -76,7 +77,8 @@ public final class FieldCaptureContent {
             "endDate"
     };
 
-    public static final String[] SITE_COLUMNS = new String[] {
+    public static final String[] SITE_COLUMNS = new String[
+            ] {
             "siteId",
             "name",
             "description",
