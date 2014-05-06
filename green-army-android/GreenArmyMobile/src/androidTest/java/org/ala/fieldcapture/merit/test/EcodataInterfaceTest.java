@@ -1,5 +1,7 @@
 package org.ala.fieldcapture.merit.test;
 
+import android.test.AndroidTestCase;
+import android.test.mock.MockContext;
 import android.util.Log;
 
 import junit.framework.TestCase;
@@ -14,34 +16,28 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * Created by god08d on 9/04/14.
+ *
  */
-public class EcodataInterfaceTest extends TestCase {
+public class EcodataInterfaceTest extends AndroidTestCase {
 
     private EcodataInterface ecodataInterface;
 
     @Before
     public void setUp() {
-        ecodataInterface = new EcodataInterface();
-
-
+        setContext(new MockContext());
+        ecodataInterface = new EcodataInterface(getContext());
     }
 
     @Test
     public void testDownloadProjects() {
-        List result = ecodataInterface.getProjectsForUser("chris.godwin.ala@gmail.com", "ef98e873-f8fb-4e8e-8159-b9c12d50c019");
-
+        List result = ecodataInterface.getProjectsForUser();
         Log.d("test", result.toString());
-
     }
-
 
     @Test
     public void testDownloadActivities() throws Exception {
-        JSONArray result = ecodataInterface.getProjectActivities("325f4a71-fa22-46b3-a315-2371f61f6740", "chris.godwin.ala@gmail.com", "ef98e873-f8fb-4e8e-8159-b9c12d50c019");
-
+        JSONObject result = ecodataInterface.getProjectDetails("325f4a71-fa22-46b3-a315-2371f61f6740");
         Log.d("test", result.toString());
-
     }
 
 

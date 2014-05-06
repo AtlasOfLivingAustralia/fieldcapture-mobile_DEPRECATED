@@ -32,7 +32,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public FieldCaptureSyncAdapter(Context context, boolean autoInitialise) {
         super(context, autoInitialise);
-        ecodataInterface = new EcodataInterface(context);
+        ecodataInterface =  EcodataInterface.getInstance(context);
         mContentResolver = context.getContentResolver();
     }
 
@@ -42,7 +42,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
             boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
 
-        ecodataInterface = new EcodataInterface(context);
+        ecodataInterface = EcodataInterface.getInstance(context);
         mContentResolver = context.getContentResolver();
     }
 
@@ -131,7 +131,6 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
         Cursor activities = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, FieldCaptureContent.SYNC_STATUS+"=?", new String[]{FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE}, null);
         try {
             while (activities.moveToNext()) {
-
 
                 String id = activities.getString(activities.getColumnIndex(FieldCaptureContent.ACTIVITY_ID));
                 boolean success = false;

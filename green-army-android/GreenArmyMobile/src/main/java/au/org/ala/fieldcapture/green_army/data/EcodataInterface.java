@@ -24,6 +24,20 @@ import au.org.ala.fieldcapture.green_army.service.WebService;
  */
 public class EcodataInterface extends WebService {
 
+    private static EcodataInterface instance;
+
+    public static EcodataInterface getInstance(Context context) {
+        if (instance == null) {
+            instance = new EcodataInterface(context);
+        }
+        return instance;
+    }
+
+    /** For testing only */
+    public static void setInstance(EcodataInterface ecodataInterface) {
+        instance = ecodataInterface;
+    }
+
     /** A container for the results of a login attempt */
     public static class LoginResult {
 
@@ -45,7 +59,6 @@ public class EcodataInterface extends WebService {
 
     //private static final String ECODATA_URL = "http://152.83.195.62:8080/fieldcapture/mobile";
     private static final String FIELDCAPTURE_URL = "https://fieldcapture-test.ala.org.au/mobile";
-
 
     public EcodataInterface(Context ctx) {
         super(ctx);

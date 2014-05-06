@@ -14,15 +14,23 @@ public class PreferenceStorage {
 	private static final String USERNAME_KEY = "username";
     private static final String FIRST_USE_KEY = "firstUse";
 
+
     private static PreferenceStorage instance;
-
-	private Context ctx;
-
     public synchronized static PreferenceStorage getInstance(Context ctx) {
-        return new PreferenceStorage(ctx.getApplicationContext());
+        if (instance == null) {
+            instance = new PreferenceStorage(ctx.getApplicationContext());
+        }
+        return instance;
     }
 
-	private PreferenceStorage(Context ctx) {
+    /** For testing only */
+    public static synchronized void setInstance(PreferenceStorage storage) {
+        instance = storage;
+    }
+
+    private Context ctx;
+
+    protected PreferenceStorage(Context ctx) {
 		this.ctx = ctx;
 	}
 
