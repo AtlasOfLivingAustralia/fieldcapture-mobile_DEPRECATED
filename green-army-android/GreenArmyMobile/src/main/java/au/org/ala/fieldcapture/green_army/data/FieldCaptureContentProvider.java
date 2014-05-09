@@ -83,20 +83,26 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         Cursor result;
         if ("activity".equals(table)) {
 
-            StringBuilder sql = new StringBuilder("SELECT a.*, s.name as siteName, s.description as siteDescription, s.lat as lat, s.lon as lon from activity as a LEFT JOIN site as s on a.siteId=s.siteId");
-            if (selection != null) {
-                sql.append(" WHERE ").append(selection);
-            }
-            if (sortOrder != null) {
-                sql.append(" ORDER BY ").append(sortOrder);
-            }
-            result = db.rawQuery(sql.toString(), selectionArgs);
+            result = joinActivitiesAndSites(selection, selectionArgs, sortOrder, db);
         }
         else  {
             result = db.query(table, projection, selection, selectionArgs, null, null, sortOrder);
         }
         result.setNotificationUri(getContext().getContentResolver(), uri);
 
+        return result;
+    }
+
+    private Cursor joinActivitiesAndSites(String selection, String[] selectionArgs, String sortOrder, SQLiteDatabase db) {
+        Cursor result;
+        StringBuilder sql = new StringBuilder("SELECT a.*, s.name as siteName, s.description as siteDescription, s.lat as lat, s.lon as lon from activity as a LEFT JOIN site as s on a.siteId=s.siteId");
+        if (selection != null) {
+            sql.append(" WHERE ").append(selection);
+        }
+        if (sortOrder != null) {
+            sql.append(" ORDER BY ").append(sortOrder);
+        }
+        result = db.rawQuery(sql.toString(), selectionArgs);
         return result;
     }
 

@@ -61,7 +61,10 @@ public class Mapper {
         JSONObject result = new JSONObject();
         for (String column :columns) {
             int index = cursor.getColumnIndex(column);
+            Log.i("Mapper", "Column:"+column+", index:"+index+", "+cursor.getColumnCount());
+
             int type = cursor.getType(index);
+            Log.i("Mapper", "Column:"+column+", index:"+index);
             switch (type) {
                 case Cursor.FIELD_TYPE_INTEGER:
                     result.put(column, cursor.getInt(index));
@@ -151,5 +154,10 @@ public class Mapper {
             values[i].put(FieldCaptureContent.SITE_ID, sites.getJSONObject(i).getString(FieldCaptureContent.SITE_ID));
         }
         return values;
+    }
+
+    public static JSONObject mapSite(Cursor data) throws JSONException {
+
+        return toJSONObject(data, FieldCaptureContent.SITE_COLUMNS);
     }
 }
