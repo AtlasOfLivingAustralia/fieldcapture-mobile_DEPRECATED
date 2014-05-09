@@ -48,7 +48,7 @@ public class ProjectActivitiesFragment extends Fragment  {
      */
     public static final String ARG_PROJECT_ID = "project_id";
 
-    private static String PROGRESS_ORDERING_STATEMENT = "case when progress='planned' then 0 when progress='started' then 1 when progress='finished' then 2 when progress='deferred' then 3 when progress='cancelled' then 4 end";
+    private static String PROGRESS_ORDERING_STATEMENT = "case when progress='started' then 0 when progress='started' then 1 when progress='planned' then 2 when progress='deferred' then 3 when progress='cancelled' then 4 end";
 
     public static ProjectActivitiesFragment getInstance(String projectId) {
         ProjectActivitiesFragment fragment = new ProjectActivitiesFragment();
