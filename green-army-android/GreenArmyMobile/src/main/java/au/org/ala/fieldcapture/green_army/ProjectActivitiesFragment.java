@@ -48,6 +48,8 @@ public class ProjectActivitiesFragment extends Fragment  {
      */
     public static final String ARG_PROJECT_ID = "project_id";
 
+    private static String PROGRESS_ORDERING_STATEMENT = "case when progress='planned' then 0 when progress='started' then 1 when progress='finished' then 2 when progress='deferred' then 3 when progress='cancelled' then 4 end";
+
     public static ProjectActivitiesFragment getInstance(String projectId) {
         ProjectActivitiesFragment fragment = new ProjectActivitiesFragment();
         Bundle args = new Bundle();
@@ -65,7 +67,7 @@ public class ProjectActivitiesFragment extends Fragment  {
     public static class PagerAdapter extends FragmentStatePagerAdapter {
 
         private final String[] PAGES = new String[] {"Activities By Start Date", "Activities By Type", "Activities By Site", "Activities By Progress"};
-        private final String[] SORT_ORDER = new String[] {"plannedStartDate", "type", "case when siteName is null then 1 else 0 end,siteName", "case when progress='planned' then 0 when progress='started' then 1 when progress='finished' then 2 when progress='deferred' then 3 when progress='cancelled' then 4 end"};
+        private final String[] SORT_ORDER = new String[] {"plannedStartDate, "+PROGRESS_ORDERING_STATEMENT, "type", "case when siteName is null then 1 else 0 end,siteName", PROGRESS_ORDERING_STATEMENT};
 
         private ActivityListFragment[] fragments = new ActivityListFragment[PAGES.length];
 
