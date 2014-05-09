@@ -89,6 +89,9 @@ com.example.android.datasync.provider
             android:name="au.org.ala.fieldcapture.green_army.WelcomeActivity"
             android:label="@string/title_activity_welcome" >
         </activity>
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
