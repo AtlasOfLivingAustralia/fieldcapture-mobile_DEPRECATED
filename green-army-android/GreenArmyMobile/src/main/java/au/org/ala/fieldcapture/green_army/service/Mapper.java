@@ -61,10 +61,7 @@ public class Mapper {
         JSONObject result = new JSONObject();
         for (String column :columns) {
             int index = cursor.getColumnIndex(column);
-            Log.i("Mapper", "Column:"+column+", index:"+index+", "+cursor.getColumnCount());
-
             int type = cursor.getType(index);
-            Log.i("Mapper", "Column:"+column+", index:"+index);
             switch (type) {
                 case Cursor.FIELD_TYPE_INTEGER:
                     result.put(column, cursor.getInt(index));
