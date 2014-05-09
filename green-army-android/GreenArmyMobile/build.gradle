@@ -31,7 +31,7 @@ dependencies {
 
     androidTestCompile 'junit:junit:4.11'
     compile 'com.android.support:support-v4:19.+'
-    compile 'com.google.android.gms:play-services:4.2.42'
+    compile 'com.google.android.gms:play-services:4.3.23'
     compile 'com.android.support:appcompat-v7:19.+'
 }
 

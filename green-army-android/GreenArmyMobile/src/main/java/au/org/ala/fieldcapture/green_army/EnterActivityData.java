@@ -26,8 +26,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
@@ -43,11 +47,13 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         private Context ctx;
         private String activityId;
         private String activityToLoad;
+        private String sitesToLoad;
 
-        public MobileBindings(Context ctx, String activityId, String activityToLoad) {
+        public MobileBindings(Context ctx, String activityId, String activityToLoad, String sitesToLoad) {
             this.ctx = ctx;
             this.activityId = activityId;
             this.activityToLoad = activityToLoad;
+            this.sitesToLoad = sitesToLoad;
 
         }
         @JavascriptInterface
@@ -55,6 +61,16 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
             Log.d("Enter activity data", "load activity");
             return activityToLoad;
+        }
+
+        @JavascriptInterface
+        public String loadSites() {
+            return sitesToLoad;
+        }
+
+        @JavascriptInterface
+        public void newSite() {
+
         }
 
         @JavascriptInterface
@@ -92,18 +108,26 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
     /** Identifies the loader we are using */
     private static final int ACTIVITY_LOADER_ID = 1;
+    private static final int SITES_LOADER_ID = 2;
 
     private WebView webView;
     private String activityId;
 
+    private String activity;
+    private String sites;
+    private String activityUrl;
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        String activityId = args.getString(ARG_ACTIVITY_ID);
         switch (id) {
             case ACTIVITY_LOADER_ID:
+                String activityId = args.getString(ARG_ACTIVITY_ID);
                 Uri activityUri = FieldCaptureContent.activityUri(activityId);
                 return new CursorLoader(getActivity(), activityUri, null, FieldCaptureContent.ACTIVITY_ID+"=?", new String[] {activityId}, null);
+            case SITES_LOADER_ID:
+                Uri sitesUri = FieldCaptureContent.sitesUri();
+                return new CursorLoader(getActivity(), sitesUri, null, null, null, null);
             default:
                 return null;
         }
@@ -113,8 +137,52 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        //String url = EcodataInterface.FIELDCAPTURE_URL + "/activity/enterData/"+activityId+"?mobile=mobile";
+        try {
+            switch (loader.getId()) {
+                case ACTIVITY_LOADER_ID:
 
+                    activityToJSON(data);
+                    tryLoadPage();
+                    break;
+                case SITES_LOADER_ID:
+                    siteToJSON(data);
+                    tryLoadPage();
+                    break;
+            }
+        }
+        finally {
+            data.close();
+        }
+
+    }
+
+    private void siteToJSON(Cursor data) {
+        List<JSONObject> sites = new ArrayList<JSONObject>(data.getCount());
+
+        try {
+            boolean result = data.moveToFirst();
+            while (result) {
+
+                sites.add(Mapper.mapSite(data));
+
+                result = data.moveToNext();
+
+                this.sites = sites.toString();
+            }
+        }
+        catch (JSONException e) {
+            this.sites = "[]";
+            Log.e("EnterActivityData", "Error loading sites", e);
+        }
+        finally {
+            if (data != null) {
+                data.close();
+            }
+        }
+
+    }
+
+    private void activityToJSON(Cursor data) {
         boolean hasResult = data.moveToFirst();
         if (hasResult) {
             try {
@@ -130,18 +198,25 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
                 }
                 String type = activity.getString("type");
                 type = type.replaceAll(" ", "_"); // Some android versions don't seem to be able to load even encoded spaces in URLs
-                String url = "file:///android_asset/"+type+".html";
-                getWebView().addJavascriptInterface(new MobileBindings(getActivity(), activityId, activity.toString()), "mobileBindings");
-                getWebView().loadUrl(url);
+                activityUrl = "file:///android_asset/" + type + ".html";
+                this.activity = activity.toString();
+
+            } catch (Exception e) {
+                Log.e("EnterActivityData", "Unable to load activity: " + data, e);
             }
-            catch (Exception e) {
-                Log.e("EnterActivityData", "Unable to load activity: "+data, e);
+            finally {
+                data.close();
             }
-        }
-        else {
+        } else {
             // Display error?
         }
+    }
 
+    private void tryLoadPage() {
+        if (activityUrl != null && sites != null) {
+            getWebView().addJavascriptInterface(new MobileBindings(getActivity(), activityId, activity, sites), "mobileBindings");
+            getWebView().loadUrl(activityUrl);
+        }
     }
 
     @Override
@@ -188,6 +263,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         Bundle args = new Bundle();
         args.putString(ARG_ACTIVITY_ID, activityId);
         getLoaderManager().initLoader(ACTIVITY_LOADER_ID, args, this);
+        getLoaderManager().initLoader(SITES_LOADER_ID, null, this);
 
         return mWebView;
     }

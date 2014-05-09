@@ -555,10 +555,8 @@ function blockUIWithMessage(message) {
             opacity: .5,
             color: '#fff'
         } });
-};
-
-/* jQuery Shorten plugin 1.0.0
- *
+}
+/*
  * Copyright (c) 2013 Viral Patel
  * http://viralpatel.net
  *

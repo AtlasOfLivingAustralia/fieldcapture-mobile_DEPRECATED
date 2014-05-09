@@ -545,9 +545,8 @@ function showAlert(message, alerttype, target) {
 }
 
 function blockUIWithMessage(message) {
-    $.blockUI(
-        { message: message,
-          css: {
+    $.blockUI({ message: message,
+        css: {
             border: 'none',
             padding: '15px',
             backgroundColor: '#000',
@@ -555,10 +554,8 @@ function blockUIWithMessage(message) {
             '-moz-border-radius': '10px',
             opacity: .5,
             color: '#fff'
-          }
-        });
+        } });
 }
-
 /*
  * Copyright (c) 2013 Viral Patel
  * http://viralpatel.net
