@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,14 +43,17 @@ import au.org.ala.fieldcapture.green_army.service.Mapper;
  */
 public class EnterActivityData extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int NEW_SITE_REQUEST = 1;
+
     public static class MobileBindings {
 
-        private Context ctx;
+        private Activity ctx;
         private String activityId;
         private String activityToLoad;
         private String sitesToLoad;
+        private Bundle savedState;
 
-        public MobileBindings(Context ctx, String activityId, String activityToLoad, String sitesToLoad) {
+        public MobileBindings(Activity ctx, String activityId, String activityToLoad, String sitesToLoad) {
             this.ctx = ctx;
             this.activityId = activityId;
             this.activityToLoad = activityToLoad;
@@ -69,34 +73,43 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         }
 
         @JavascriptInterface
-        public void newSite() {
-
+        public void createNewSite() {
+            Intent siteIntent = new Intent(ctx, SiteActivity.class);
+            ctx.startActivityForResult(siteIntent, NEW_SITE_REQUEST);
         }
 
         @JavascriptInterface
         public void saveActivity(String activityData) {
             Log.d("Enter activity data", "save activity: "+activityData);
 
-            try {
-                JSONObject activity = new JSONObject(activityData);
-
-
-                ContentValues values = Mapper.mapActivity(activity);
-                values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE);
-
-                Uri uri = FieldCaptureContent.activityUri(activityId);
-
-                ctx.getContentResolver().update(uri, values, FieldCaptureContent.ACTIVITY_ID + "=?", new String[]{activityId});
-
-
-                Account account = new Account(PreferenceStorage.getInstance(ctx).getUsername(), FieldCaptureContent.ACCOUNT_TYPE);
-                ctx.getContentResolver().requestSync(account, FieldCaptureContent.AUTHORITY, new Bundle());
-
-                ((Activity)ctx).finish();
+            if (savedState != null) {
+                savedState.putString("activity", activityData);
             }
-            catch (Exception e){
-                Log.e("EnterActivityData", "Failed to save activity: "+activityData, e);
+            else {
+                try {
+                    JSONObject activity = new JSONObject(activityData);
+
+
+                    ContentValues values = Mapper.mapActivity(activity);
+                    values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE);
+
+                    Uri uri = FieldCaptureContent.activityUri(activityId);
+
+                    ctx.getContentResolver().update(uri, values, FieldCaptureContent.ACTIVITY_ID + "=?", new String[]{activityId});
+
+
+                    Account account = new Account(PreferenceStorage.getInstance(ctx).getUsername(), FieldCaptureContent.ACCOUNT_TYPE);
+                    ctx.getContentResolver().requestSync(account, FieldCaptureContent.AUTHORITY, new Bundle());
+
+                    ctx.finish();
+                } catch (Exception e) {
+                    Log.e("EnterActivityData", "Failed to save activity: " + activityData, e);
+                }
             }
+        }
+
+        public void saveState(Bundle bundle) {
+            this.savedState = bundle;
         }
     }
 
@@ -116,6 +129,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
     private String activity;
     private String sites;
     private String activityUrl;
+
+    private MobileBindings mobileBindings;
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -214,7 +229,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
     private void tryLoadPage() {
         if (activityUrl != null && sites != null) {
-            getWebView().addJavascriptInterface(new MobileBindings(getActivity(), activityId, activity, sites), "mobileBindings");
+            mobileBindings = new MobileBindings(getActivity(), activityId, activity, sites);
+            getWebView().addJavascriptInterface(mobileBindings, "mobileBindings");
             getWebView().loadUrl(activityUrl);
         }
     }
@@ -243,10 +259,6 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         mWebView = new WebView(getActivity());
         mIsWebViewAvailable = true;
 
-        if (savedInstanceState != null) {
-            activityId = savedInstanceState.getString(ARG_ACTIVITY_ID);
-        }
-
         webView = getWebView();
         webView.setWebViewClient(new WebViewClient());
         WebSettings webSettings = webView.getSettings();
@@ -260,11 +272,19 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
             }
         });
 
-        Bundle args = new Bundle();
-        args.putString(ARG_ACTIVITY_ID, activityId);
-        getLoaderManager().initLoader(ACTIVITY_LOADER_ID, args, this);
-        getLoaderManager().initLoader(SITES_LOADER_ID, null, this);
-
+        if (savedInstanceState == null) {
+            Bundle args = new Bundle();
+            args.putString(ARG_ACTIVITY_ID, activityId);
+            getLoaderManager().initLoader(ACTIVITY_LOADER_ID, args, this);
+            getLoaderManager().initLoader(SITES_LOADER_ID, null, this);
+        }
+        else {
+            activityId = savedInstanceState.getString(ARG_ACTIVITY_ID);
+            activity = savedInstanceState.getString("activity");
+            sites = savedInstanceState.getString("sites");
+            activityUrl = savedInstanceState.getString("activityUrl");
+            tryLoadPage();
+        }
         return mWebView;
     }
 
@@ -295,6 +315,18 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         webView.loadUrl("javascript:master.save()");
     }
 
+
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        mobileBindings.saveState(savedInstanceState);
+        savedInstanceState.putString("activity", activity);
+        triggerSave();
+        savedInstanceState.putString(ARG_ACTIVITY_ID, activityId);
+        savedInstanceState.putString("sites", sites);
+        savedInstanceState.putString("activityUrl", activityUrl);
+
+    }
 
     private WebView mWebView;
     private boolean mIsWebViewAvailable;

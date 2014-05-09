@@ -9,18 +9,19 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="au.org.ala.fieldcapture.green_army.ProjectListActivity"
-            android:launchMode="singleTop"
-            android:label="@string/title_project_list" >
-
+            android:label="@string/title_project_list"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
-            <meta-data android:name="android.app.searchable"
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
             <meta-data
                 android:name="android.app.default_searchable"
@@ -29,13 +30,10 @@
         <activity
             android:name="au.org.ala.fieldcapture.green_army.ProjectActivitiesActivity"
             android:label="@string/title_project_detail"
-
             android:parentActivityName="au.org.ala.fieldcapture.green_army.ProjectListActivity" >
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ala.fieldcapture.merit_mobile_test.ProjectListActivity" />
-
         </activity>
         <activity
             android:name="au.org.ala.fieldcapture.green_army.LoginActivity"
@@ -59,7 +57,8 @@
 
         <activity
             android:name="au.org.ala.fieldcapture.green_army.EnterActivityDataActivity"
-            android:label="@string/title_activity_enter_activity_data" >
+            android:label="@string/title_activity_enter_activity_data"
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <service android:name="au.org.ala.fieldcapture.green_army.data.sync.FieldCaptureAuthenticatorService" >
@@ -76,7 +75,6 @@
             android:exported="false"
             android:process=":sync" >
             <intent-filter>
-com.example.android.datasync.provider
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
 
@@ -90,13 +88,34 @@ com.example.android.datasync.provider
             android:label="@string/title_activity_welcome" >
         </activity>
 
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="au.org.ala.fieldcapture.green_army.SiteActivity"
+            android:label="@string/title_activity_site" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
