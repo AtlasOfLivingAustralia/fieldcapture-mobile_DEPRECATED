@@ -26,6 +26,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -167,6 +169,20 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         }
         finally {
             data.close();
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == NEW_SITE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                ContentValues site = data.getParcelableExtra(SiteActivity.LOCATION_KEY);
+                if (site != null) {
+
+                    getActivity().getContentResolver().insert(FieldCaptureContent.siteUri(site.getAsString("siteId")), site);
+                }
+            }
         }
 
     }

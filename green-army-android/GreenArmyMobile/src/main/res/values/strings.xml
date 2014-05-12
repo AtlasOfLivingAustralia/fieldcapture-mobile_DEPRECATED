@@ -52,5 +52,13 @@
     <string name="title_activity_site">Create Site</string>
     <string name="title_activity_test_maps">Map</string>
     <string name="title_activity_google_play_services">GooglePlayServicesActivity</string>
+    <string name="new_site_title">SITE DETAILS</string>
+    <string name="site_name">Site Name</string>
+    <string name="site_description">Site description</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="done">Done</string>
+    <string name="site_name_required">Site name is required</string>
+    <string name="location_title">SITE LOCATION</string>
 
 </resources>
