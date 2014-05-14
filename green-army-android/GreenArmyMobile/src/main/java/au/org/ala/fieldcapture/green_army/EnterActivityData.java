@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -177,7 +178,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_SITE_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
-                ContentValues site = data.getParcelableExtra(SiteActivity.LOCATION_KEY);
+                ContentValues site = data.getParcelableExtra(SiteActivity.SITE_KEY);
                 if (site != null) {
 
                     getActivity().getContentResolver().insert(FieldCaptureContent.siteUri(site.getAsString("siteId")), site);
@@ -217,16 +218,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         boolean hasResult = data.moveToFirst();
         if (hasResult) {
             try {
-                JSONObject activity = Mapper.toJSONObject(data, null);
+                JSONObject activity = Mapper.mapActivity(data);
 
-                String savedAsString = activity.optString("outputs");
-                if (StringUtils.hasLength(savedAsString)) {
-
-                    JSONArray outputs = new JSONArray(savedAsString);
-                    if (outputs != null) {
-                        activity.put("outputs", outputs);
-                    }
-                }
                 String type = activity.getString("type");
                 type = type.replaceAll(" ", "_"); // Some android versions don't seem to be able to load even encoded spaces in URLs
                 activityUrl = "file:///android_asset/" + type + ".html";
@@ -245,6 +238,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
     private void tryLoadPage() {
         if (activityUrl != null && sites != null) {
+            Log.i("EnterActivityData", "Loading page with sites="+sites);
+
             mobileBindings = new MobileBindings(getActivity(), activityId, activity, sites);
             getWebView().addJavascriptInterface(mobileBindings, "mobileBindings");
             getWebView().loadUrl(activityUrl);
@@ -276,7 +271,19 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         mIsWebViewAvailable = true;
 
         webView = getWebView();
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                Log.d("EnterActivityData", "Url: "+url);
+
+                return super.shouldInterceptRequest(view, url);
+            }
+        });
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient() {
@@ -299,6 +306,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
             activity = savedInstanceState.getString("activity");
             sites = savedInstanceState.getString("sites");
             activityUrl = savedInstanceState.getString("activityUrl");
+
             tryLoadPage();
         }
         return mWebView;

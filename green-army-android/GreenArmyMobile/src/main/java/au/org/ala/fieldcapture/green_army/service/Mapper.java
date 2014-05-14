@@ -9,6 +9,7 @@ import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +55,31 @@ public class Mapper {
         return toContentValues(activity, FieldCaptureContent.ACTIVITY_COLUMNS);
     }
 
+
+    public static JSONObject mapActivity(Cursor cursor) throws JSONException {
+
+        JSONObject activity = toJSONObject(cursor, FieldCaptureContent.ACTIVITY_FLAT_COLUMNS);
+
+        // Special case of JSON encoded arrays and nested objects.
+        String encodedThemes = cursor.getString(cursor.getColumnIndex("themes"));
+        if (StringUtils.hasLength(encodedThemes)) {
+            activity.put("themes", new JSONArray(encodedThemes));
+        }
+        else {
+            activity.put("themes", new JSONArray());
+        }
+
+        String encodedOutputs = cursor.getString(cursor.getColumnIndex("outputs"));
+        if (StringUtils.hasLength(encodedThemes)) {
+            activity.put("outputs", new JSONArray(encodedOutputs));
+        }
+        else {
+            activity.put("outputs", new JSONArray());
+        }
+
+        return activity;
+    }
+
     public static JSONObject toJSONObject(Cursor cursor, String[] columns) throws JSONException {
         if (columns == null) {
             columns = cursor.getColumnNames();
@@ -92,21 +118,9 @@ public class Mapper {
 
     public static ContentValues mapSite(JSONObject site) throws JSONException {
         // (from server download).
-        if (site.has("extent")) {
-            JSONObject extent = site.getJSONObject("extent");
-            if (extent.has("geometry")) {
-                JSONObject geom = extent.getJSONObject("geometry");
-                if (geom.has("centre")) {
-                    JSONArray centre = geom.getJSONArray("centre");
 
-                    site.put("lat", centre.getDouble(1));
-                    site.put("lon", centre.getDouble(0));
-                }
-            }
-            site.remove("extent");
-        }
+        return toContentValues(site, FieldCaptureContent.SITE_FLAT_COLUMNS);
 
-        return toContentValues(site, FieldCaptureContent.SITE_COLUMNS);
     }
 
     public static ContentValues toContentValues(JSONObject jsonObject, String[] columns) throws JSONException {
@@ -155,6 +169,15 @@ public class Mapper {
 
     public static JSONObject mapSite(Cursor data) throws JSONException {
 
-        return toJSONObject(data, FieldCaptureContent.SITE_COLUMNS);
+        JSONObject site = toJSONObject(data, FieldCaptureContent.SITE_FLAT_COLUMNS);
+        // TODO photopoints not yet supported so there is no point doing the work here.
+//        String encodedPhotoPoints = data.getString(data.getColumnIndex(FieldCaptureContent.));
+//        if (StringUtils.hasLength( encodedPhotoPoints)) {
+//            site.put(FieldCaptureContent., new JSONArray(encodedPhotoPoints));
+//        }
+//        else {
+//            site.put(FieldCaptureContent.PHOTO_POINTS_COLUMN, new JSONArray());
+//        }
+        return site;
     }
 }

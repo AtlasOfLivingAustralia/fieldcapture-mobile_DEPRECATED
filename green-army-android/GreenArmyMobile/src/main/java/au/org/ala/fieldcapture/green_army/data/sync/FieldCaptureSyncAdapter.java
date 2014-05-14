@@ -88,32 +88,34 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
                 Uri projectsUri = FieldCaptureContent.allProjectsUri();
                 List<JSONObject> projects = ecodataInterface.getProjectsForUser();
 
-                try {
-                    mContentResolver.bulkInsert(projectsUri, Mapper.mapProjects(projects));
+                if (projects != null) {
+                    try {
+                        mContentResolver.bulkInsert(projectsUri, Mapper.mapProjects(projects));
 
-                    for (JSONObject project : projects) {
-                        String projectId = project.getString(FieldCaptureContent.PROJECT_ID);
-                        JSONObject projectDetails = ecodataInterface.getProjectDetails(projectId);
-                        JSONArray activities = projectDetails.getJSONArray("activities");
+                        for (JSONObject project : projects) {
+                            String projectId = project.getString(FieldCaptureContent.PROJECT_ID);
+                            JSONObject projectDetails = ecodataInterface.getProjectDetails(projectId);
+                            JSONArray activities = projectDetails.getJSONArray("activities");
 
-                        if (activities != null && activities.length() > 0) {
-                            Uri activitiesUri = FieldCaptureContent.projectActivitiesUri(projectId);
-                            mContentResolver.bulkInsert(activitiesUri, Mapper.mapActivities(activities));
+                            if (activities != null && activities.length() > 0) {
+                                Uri activitiesUri = FieldCaptureContent.projectActivitiesUri(projectId);
+                                mContentResolver.bulkInsert(activitiesUri, Mapper.mapActivities(activities));
+                            }
+
+                            JSONArray sites = projectDetails.getJSONArray("sites");
+                            if (sites != null && sites.length() > 0) {
+                                Uri sitesUri = FieldCaptureContent.sitesUri();
+                                mContentResolver.bulkInsert(sitesUri, Mapper.mapSites(sites));
+
+                                Uri projectSitesUri = FieldCaptureContent.projectSitesUri(projectId);
+                                mContentResolver.bulkInsert(projectSitesUri, Mapper.mapProjectSites(projectId, sites));
+                            }
+
+
                         }
-
-                        JSONArray sites = projectDetails.getJSONArray("sites");
-                        if (sites != null && sites.length() > 0) {
-                            Uri sitesUri = FieldCaptureContent.sitesUri();
-                            mContentResolver.bulkInsert(sitesUri, Mapper.mapSites(sites));
-
-                            Uri projectSitesUri = FieldCaptureContent.projectSitesUri(projectId);
-                            mContentResolver.bulkInsert(projectSitesUri, Mapper.mapProjectSites(projectId, sites));
-                        }
-
-
+                    } catch (JSONException e) {
+                        Log.e("FieldCaptureContentProvider", "Error retrieving projects from server", e);
                     }
-                } catch (JSONException e) {
-                    Log.e("FieldCaptureContentProvider", "Error retrieving projects from server", e);
                 }
 
             }

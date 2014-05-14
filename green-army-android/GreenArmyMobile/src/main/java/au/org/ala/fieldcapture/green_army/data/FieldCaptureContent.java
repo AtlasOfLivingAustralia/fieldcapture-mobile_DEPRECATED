@@ -74,17 +74,50 @@ public final class FieldCaptureContent {
             "plannedStartDate",
             "plannedEndDate",
             "startDate",
+            "endDate",
+            "themes"
+    };
+
+    /** Activity columns excluding JSON encoded themes and outputs */
+    public static final String[] ACTIVITY_FLAT_COLUMNS = new String[] {
+            "activityId",
+            "projectId",
+            "siteId",
+            "type",
+            "description",
+            "projectStage",
+            "progress",
+            "lastUpdated",
+            "syncStatus",
+            "plannedStartDate",
+            "plannedEndDate",
+            "startDate",
             "endDate"
     };
+
 
     public static final String[] SITE_COLUMNS = new String[
             ] {
             "siteId",
             "name",
             "description",
-            "lat",
-            "lon"
+            "centroidLat",
+            "centroidLon",
+            "photoPoints"
     };
+
+    /** Site columns excluding JSON encoded photoPoints */
+    public static final String[] SITE_FLAT_COLUMNS = new String[
+            ] {
+            "siteId",
+            "name",
+            "description",
+            "centroidLat",
+            "centroidLon"
+    };
+
+    public static final String PHOTO_POINTS_COLUMN = "photoPoints";
+
     public static final String SITE_ID = "siteId";
 
     public static Uri activityUri(String activityId) {

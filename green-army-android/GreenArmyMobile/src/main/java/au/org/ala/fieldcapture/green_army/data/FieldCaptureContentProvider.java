@@ -95,7 +95,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     private Cursor joinActivitiesAndSites(String selection, String[] selectionArgs, String sortOrder, SQLiteDatabase db) {
         Cursor result;
-        StringBuilder sql = new StringBuilder("SELECT a.*, s.name as siteName, s.description as siteDescription, s.lat as lat, s.lon as lon from activity as a LEFT JOIN site as s on a.siteId=s.siteId");
+        StringBuilder sql = new StringBuilder("SELECT a.*, s.name as siteName, s.description as siteDescription, s.centroidLat as lat, s.centroidLon as lon from activity as a LEFT JOIN site as s on a.siteId=s.siteId");
         if (selection != null) {
             sql.append(" WHERE ").append(selection);
         }
