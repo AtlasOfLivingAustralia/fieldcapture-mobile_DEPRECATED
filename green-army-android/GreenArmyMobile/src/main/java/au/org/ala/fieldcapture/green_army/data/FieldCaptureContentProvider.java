@@ -29,6 +29,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.PROJECTS+"/*/"+ FieldCaptureContent.ACTIVITIES, ACTIVITIES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.PROJECTS+"/*/"+ FieldCaptureContent.SITES, PROJECT_SITES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SITES, SITES);
+        uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SITES+"/*", SITES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES+"/*", ACTIVITIES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES, ACTIVITIES);
     }

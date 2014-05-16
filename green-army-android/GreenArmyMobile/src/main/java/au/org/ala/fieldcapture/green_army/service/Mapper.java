@@ -106,6 +106,17 @@ public class Mapper {
         return result;
     }
 
+    public static JSONObject mapSite(ContentValues site) throws JSONException {
+
+        JSONObject newSite = new JSONObject();
+        for (int i=0; i< FieldCaptureContent.SITE_COLUMNS.length; i++) {
+            newSite.put(FieldCaptureContent.SITE_COLUMNS[i], site.get(FieldCaptureContent.SITE_COLUMNS[i]));
+        }
+
+        return newSite;
+
+    }
+
     public static ContentValues[] mapSites(JSONArray sitesJSON) throws JSONException {
 
         ContentValues[] sites = new ContentValues[sitesJSON.length()];

@@ -72,6 +72,7 @@ public final class FieldCaptureContent {
             "type",
             "description",
             "projectStage",
+            "mainTheme",
             "progress",
             "lastUpdated",
             "outputs",
@@ -89,6 +90,7 @@ public final class FieldCaptureContent {
             "projectId",
             "siteId",
             "type",
+            "mainTheme",
             "description",
             "projectStage",
             "progress",
@@ -108,7 +110,9 @@ public final class FieldCaptureContent {
             "description",
             "centroidLat",
             "centroidLon",
-            "photoPoints"
+            "photoPoints",
+            "projectId",
+            "syncStatus"
     };
 
     /** Site columns excluding JSON encoded photoPoints */
@@ -118,7 +122,9 @@ public final class FieldCaptureContent {
             "name",
             "description",
             "centroidLat",
-            "centroidLon"
+            "centroidLon",
+            "projectId",
+            "syncStatus"
     };
 
     public static final String PHOTO_POINTS_COLUMN = "photoPoints";

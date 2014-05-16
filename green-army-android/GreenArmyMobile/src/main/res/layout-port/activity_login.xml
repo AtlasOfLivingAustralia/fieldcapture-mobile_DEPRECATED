@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backgroundGreen"
     android:visibility="visible">
 
 
@@ -14,7 +15,7 @@
         android:layout_weight="0.4"
         android:id="@+id/imageView"
         android:gravity="center"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/green_army_logo_large"
         android:layout_gravity="center" />
 
     <RelativeLayout
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
+            android:textColor="@android:color/white"
             android:text="@string/user_name"
             tools:context=".LoginActivity" />
 
@@ -39,12 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/usernameLbl"
             android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
             android:layout_marginTop="5dp"
             android:ems="20"
             android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/passwordLbl"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/usernameLbl"
@@ -54,6 +58,7 @@
 
         <EditText
             android:id="@+id/userPassword"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/passwordLbl"
@@ -65,6 +70,7 @@
 
         <Button
             android:id="@+id/loginBtn"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/userPassword"

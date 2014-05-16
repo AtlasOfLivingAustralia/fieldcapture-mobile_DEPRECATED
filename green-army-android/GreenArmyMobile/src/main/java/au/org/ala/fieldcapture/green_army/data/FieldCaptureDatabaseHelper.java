@@ -62,7 +62,7 @@ public class FieldCaptureDatabaseHelper extends SQLiteOpenHelper {
                     "syncStatus TEXT, " +
                     "outputs TEXT )");
 
-            db.execSQL("CREATE TABLE site (_id INTEGER PRIMARY KEY AUTOINCREMENT, siteId TEXT NOT NULL UNIQUE, name TEXT, description TEXT, centroidLat REAL, centroidLon REAL, geometry TEXT, photoPoints TEXT, lastUpdated TEXT)");
+            db.execSQL("CREATE TABLE site (_id INTEGER PRIMARY KEY AUTOINCREMENT, siteId TEXT NOT NULL UNIQUE, name TEXT, description TEXT, centroidLat REAL, centroidLon REAL, geometry TEXT, photoPoints TEXT, projectId TEXT, syncStatus TEXT, lastUpdated TEXT)");
             db.execSQL("CREATE TABLE project_sites (projectId INTEGER, siteId INTEGER, UNIQUE(projectId, siteId))");
 
             db.setTransactionSuccessful();

@@ -204,12 +204,12 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
         String whereClause;
         String[] whereParams;
         if (query != null && query.length() > 0) {
-            whereClause = "projectId=? and (a.description like ? or type like ? or s.name like ?)";
+            whereClause = "a.projectId=? and (a.description like ? or type like ? or s.name like ?)";
             query = "%"+query+"%";
             whereParams = new String[] {projectId, query, query, query};
         }
         else {
-            whereClause = "projectId=?";
+            whereClause = "a.projectId=?";
             whereParams = new String[] {projectId};
         }
         if (!"plannedStartDate".equals(sort)) {

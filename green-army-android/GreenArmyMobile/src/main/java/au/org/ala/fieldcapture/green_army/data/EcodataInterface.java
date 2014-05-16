@@ -57,6 +57,11 @@ public class EcodataInterface extends WebService {
 
     }
 
+    public static class SaveSiteResult {
+        public String siteId;
+        public boolean success;
+    }
+
     //private static final String ECODATA_URL = "http://152.83.195.62:8080/fieldcapture/mobile";
     private static final String FIELDCAPTURE_URL = "https://fieldcapture-test.ala.org.au/mobile";
 
@@ -211,5 +216,41 @@ public class EcodataInterface extends WebService {
         }
 
         return success;
+    }
+
+    public SaveSiteResult saveSite(JSONObject siteJSON) {
+
+        String url = FIELDCAPTURE_URL + "/createSite";
+        RestTemplate template = getRestTemplate(true);
+        SaveSiteResult result = new SaveSiteResult();
+        result.success = false;
+
+        boolean success = false;
+        try {
+
+            JSONObject resultJSON = template.postForObject(url, siteJSON, JSONObject.class);
+            Log.d("Ecodatainterface", "saveSite returned: "+result.toString());
+            String error = resultJSON.optString("error");
+            String siteId = resultJSON.optString("siteId");
+
+            result.success = error.length() == 0;
+            result.siteId = siteId;
+        }
+        catch (HttpClientErrorException e) {
+            Log.e("EcodataInterface", "createSite failed for url: "+url+"site:"+siteJSON, e);
+
+
+        }
+        catch (HttpServerErrorException e) {
+            Log.e("EcodataInterface", "createSite failed for url: "+url+"site:"+siteJSON, e);
+
+        }
+        catch (RestClientException e) {
+            Log.e("EcodataInterface", "createSite failed for url: "+url+"site:"+siteJSON, e);
+
+        }
+
+
+        return result;
     }
 }

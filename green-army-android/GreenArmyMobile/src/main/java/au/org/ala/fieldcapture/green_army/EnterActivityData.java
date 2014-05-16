@@ -50,14 +50,16 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
     public static class MobileBindings {
 
+        private Fragment fragment;
         private Activity ctx;
         private String activityId;
         private String activityToLoad;
         private String sitesToLoad;
         private Bundle savedState;
 
-        public MobileBindings(Activity ctx, String activityId, String activityToLoad, String sitesToLoad) {
-            this.ctx = ctx;
+        public MobileBindings(Fragment fragment, String activityId, String activityToLoad, String sitesToLoad) {
+            this.ctx = fragment.getActivity();
+            this.fragment = fragment;
             this.activityId = activityId;
             this.activityToLoad = activityToLoad;
             this.sitesToLoad = sitesToLoad;
@@ -78,7 +80,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         @JavascriptInterface
         public void createNewSite() {
             Intent siteIntent = new Intent(ctx, SiteActivity.class);
-            ctx.startActivityForResult(siteIntent, NEW_SITE_REQUEST);
+            fragment.startActivityForResult(siteIntent, NEW_SITE_REQUEST);
         }
 
         @JavascriptInterface
@@ -128,7 +130,6 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
     private WebView webView;
     private String activityId;
-
     private String activity;
     private String sites;
     private String activityUrl;
@@ -180,8 +181,17 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
             if (resultCode == Activity.RESULT_OK) {
                 ContentValues site = data.getParcelableExtra(SiteActivity.SITE_KEY);
                 if (site != null) {
-
-                    getActivity().getContentResolver().insert(FieldCaptureContent.siteUri(site.getAsString("siteId")), site);
+                    site.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE);
+                    try {
+                        JSONObject activityJSON = new JSONObject(activity);
+                        site.put(FieldCaptureContent.PROJECT_ID, activityJSON.getString(FieldCaptureContent.PROJECT_ID));
+                        getActivity().getContentResolver().insert(FieldCaptureContent.siteUri(site.getAsString(FieldCaptureContent.SITE_ID)), site);
+                        JSONObject newSite = Mapper.mapSite(site);
+                        mWebView.loadUrl("javascript:master.addSite("+newSite.toString()+")");
+                    }
+                    catch (JSONException e) {
+                        Log.e("EnterActivityData", "Unable to create new site", e);
+                    }
                 }
             }
         }
@@ -240,7 +250,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         if (activityUrl != null && sites != null) {
             Log.i("EnterActivityData", "Loading page with sites="+sites);
 
-            mobileBindings = new MobileBindings(getActivity(), activityId, activity, sites);
+            mobileBindings = new MobileBindings(this, activityId, activity, sites);
             getWebView().addJavascriptInterface(mobileBindings, "mobileBindings");
             getWebView().loadUrl(activityUrl);
         }

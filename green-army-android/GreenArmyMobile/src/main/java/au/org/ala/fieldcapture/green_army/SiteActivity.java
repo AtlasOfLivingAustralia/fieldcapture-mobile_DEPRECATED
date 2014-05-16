@@ -144,8 +144,8 @@ public class SiteActivity extends FragmentActivity implements
             values.put("siteId", siteId);
             values.put("name", nameField.getText().toString());
             values.put("description", description.getText().toString());
-            values.put("lat", location.latitude);
-            values.put("lon", location.longitude);
+            values.put("centroidLat", location.latitude);
+            values.put("centroidLon", location.longitude);
 
             // Return the site data here to prevent any synchronisation issues when returning to the
             // data entry activity.

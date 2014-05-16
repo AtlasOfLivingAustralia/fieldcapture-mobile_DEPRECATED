@@ -137,8 +137,63 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void performUpdates() {
 
+        if (saveSites()) {
+            saveActivities();
+        }
+    }
+
+    private boolean saveSites() {
+        // Mapping from client assigned site id to server assigned site id.
+        Map<String, String> siteIdMap =  new HashMap<String, String>();
+        Cursor sites = mContentResolver.query(FieldCaptureContent.sitesUri(), null, FieldCaptureContent.SYNC_STATUS+"=?", new String[]{FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE}, null);
+        int numSites = sites.getCount();
+        try {
+            while (sites.moveToNext()) {
+
+                String id = sites.getString(sites.getColumnIndex(FieldCaptureContent.SITE_ID));
+                boolean success = false;
+                try {
+                    JSONObject json = Mapper.mapSite(sites);
+                    json.remove("syncStatus");
+
+                    EcodataInterface.SaveSiteResult result = ecodataInterface.saveSite(json);
+                    if (result.success) {
+                        siteIdMap.put(id, result.siteId);
+                    }
+                } catch (JSONException e) {
+                    Log.e("FieldCaptureSyncAdapter", "Unable to save to to invalid JSON", e);
+                }
+                Log.i("FieldCaptureSyncAdapter", "Update: " + id + ", result=" + success);
+
+            }
+
+            for (String id : siteIdMap.keySet()) {
+
+                ContentValues values = new ContentValues();
+                // Replace the site id and mark as synced.
+                values.put(FieldCaptureContent.SITE_ID, siteIdMap.get(id));
+                values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_UP_TO_DATE);
+
+                // Update the site
+                mContentResolver.update(FieldCaptureContent.siteUri(id), values, FieldCaptureContent.SITE_ID + "=?", new String[]{id});
+
+                // Update any activities that refer to that site.
+                values.remove(FieldCaptureContent.SYNC_STATUS);
+                mContentResolver.update(FieldCaptureContent.allActivitiesUri(),values,  FieldCaptureContent.SITE_ID+"=?", new String[]{id});
+            }
+
+        }
+        finally {
+            if (sites != null) {
+                sites.close();
+            }
+        }
+        return numSites == siteIdMap.size();
+    }
+
+    private void saveActivities() {
         Map<String, Boolean> results =  new HashMap<String, Boolean>();
-        Cursor activities = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, FieldCaptureContent.SYNC_STATUS+"=?", new String[]{FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE}, null);
+        Cursor activities = mContentResolver.query(FieldCaptureContent.allActivitiesUri(), null, "a."+FieldCaptureContent.SYNC_STATUS+"=?", new String[]{FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE}, null);
         try {
             while (activities.moveToNext()) {
 
