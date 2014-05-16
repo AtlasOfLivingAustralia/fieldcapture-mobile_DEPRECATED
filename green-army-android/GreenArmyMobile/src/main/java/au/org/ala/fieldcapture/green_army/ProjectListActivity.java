@@ -3,8 +3,6 @@ package au.org.ala.fieldcapture.green_army;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -274,10 +272,9 @@ public class ProjectListActivity extends FragmentActivity
         }
     }
 
-    public static Account CreateSyncAccount(Context context, String userName) {
+    public  Account CreateSyncAccount(Context context, String userName) {
         // Create the account type and default account
-        Account newAccount = new Account(
-                userName, FieldCaptureContent.ACCOUNT_TYPE);
+        Account newAccount = preferenceStorage.getAccount();
         // Get an instance of the Android account manager
         AccountManager accountManager =
                 (AccountManager) context.getSystemService(

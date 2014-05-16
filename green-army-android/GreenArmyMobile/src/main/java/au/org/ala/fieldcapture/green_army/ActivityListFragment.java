@@ -1,8 +1,11 @@
 package au.org.ala.fieldcapture.green_army;
 
+import android.accounts.Account;
 import android.app.SearchManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
 /**
  * A fragment that displays the list of activities for a project.
@@ -42,6 +46,7 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
         TextView progress;
         TextView activityDates;
         TextView activitySite;
+        TextView syncStatus;
     }
 
     static class ActivityAdapter extends ResourceCursorAdapter {
@@ -67,7 +72,7 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
             viewHolder.progress = (TextView)view.findViewById(R.id.activity_status);
             viewHolder.activityDates = (TextView)view.findViewById(R.id.activity_dates);
             viewHolder.activitySite = (TextView)view.findViewById(R.id.activity_site);
-
+            viewHolder.syncStatus = (TextView)view.findViewById(R.id.sync_status_indicator);
             view.setTag(viewHolder);
         }
 
@@ -147,6 +152,18 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
             viewHolder.progress.setText(progressText);
             viewHolder.progress.setBackgroundResource(progressColor);
             viewHolder.progress.setTextColor(context.getResources().getColor(android.R.color.white));
+
+            int syncColor = context.getResources().getColor(android.R.color.transparent);
+
+            String syncStatusStr = cursor.getString(cursor.getColumnIndex("syncStatus"));
+            if ( FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE.equals(syncStatusStr)) {
+                syncColor = context.getResources().getColor(android.R.color.holo_red_light);
+                viewHolder.syncStatus.setText("Edited");
+            }
+            else {
+                viewHolder.syncStatus.setText("");
+            }
+            viewHolder.syncStatus.setBackgroundColor(syncColor);
         }
     }
 
@@ -176,7 +193,6 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
     private ActivityAdapter mAdapter;
 
     public String query = "";
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -261,12 +277,19 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
         mAdapter = new ActivityAdapter(getActivity(), null, 0);
         loaderId = loaderString.hashCode();
 
+
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(loaderId, getArguments(), this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

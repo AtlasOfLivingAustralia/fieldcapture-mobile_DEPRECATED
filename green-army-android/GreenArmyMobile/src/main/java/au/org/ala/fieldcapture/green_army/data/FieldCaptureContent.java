@@ -24,6 +24,11 @@ public final class FieldCaptureContent {
 
     public static final String SITES = "sites";
 
+    public static final String ACTION_SYNC_STARTED = AUTHORITY+".action.syncStarted";
+    public static final String ACTION_SYNC_COMPLETE = AUTHORITY+".action.syncComplete";
+    public static final String ACTION_SYNC_ERROR = AUTHORITY+".action.syncError";
+
+
 
 
 

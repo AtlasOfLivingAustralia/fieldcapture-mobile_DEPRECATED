@@ -1,5 +1,6 @@
 package au.org.ala.fieldcapture.green_army.data;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
@@ -14,6 +15,7 @@ public class PreferenceStorage {
 	private static final String USERNAME_KEY = "username";
     private static final String FIRST_USE_KEY = "firstUse";
 
+    private static Account account;
 
     private static PreferenceStorage instance;
     public synchronized static PreferenceStorage getInstance(Context ctx) {
@@ -56,7 +58,7 @@ public class PreferenceStorage {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(USERNAME_KEY, null);
 	}
 	
-	public void saveCredentials(String username, String authToken) {
+	public Account saveCredentials(String username, String authToken) {
 		
 		if (username == null) {
 			throw new IllegalArgumentException("Username cannot be null");
@@ -68,11 +70,20 @@ public class PreferenceStorage {
 		editor.putString(USERNAME_KEY, username);
 		editor.putString(TOKEN_KEY, authToken);
 		editor.commit();
+
+        return getAccount();
 	}
 
     public void clear() {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
         editor.clear();
         editor.commit();
+    }
+
+    public Account getAccount() {
+        if (account == null) {
+            account = new Account(getUsername(), FieldCaptureContent.ACCOUNT_TYPE);
+        }
+        return account;
     }
 }

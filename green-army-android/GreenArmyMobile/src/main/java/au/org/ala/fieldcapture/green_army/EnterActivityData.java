@@ -101,7 +101,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
                     ctx.getContentResolver().update(uri, values, FieldCaptureContent.ACTIVITY_ID + "=?", new String[]{activityId});
 
 
-                    Account account = new Account(PreferenceStorage.getInstance(ctx).getUsername(), FieldCaptureContent.ACCOUNT_TYPE);
+                    Account account = PreferenceStorage.getInstance(ctx).getAccount();
                     ctx.getContentResolver().requestSync(account, FieldCaptureContent.AUTHORITY, new Bundle());
 
                     ctx.finish();
@@ -370,6 +370,9 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
      */
     @Override
     public void onResume() {
+        if (mobileBindings != null) {
+            mobileBindings.saveState(null);
+        }
         mWebView.onResume();
         super.onResume();
     }

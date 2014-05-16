@@ -6,6 +6,7 @@ import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncResult;
 import android.database.Cursor;
 import android.net.Uri;
@@ -57,18 +58,25 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
         Log.i("FieldCaptureSyncAdapter", "sync called");
 
 
+
         PreferenceStorage storage = PreferenceStorage.getInstance(getContext());
         if (storage.getUsername() != null) {
             boolean forceRefresh = extras.getBoolean(FORCE_REFRESH_ARG, false);
 
+            Intent intent = new Intent(FieldCaptureContent.ACTION_SYNC_STARTED);
+            getContext().sendBroadcast(intent);
             performUpdates();
             performQueries(forceRefresh);
+
+            intent = new Intent(FieldCaptureContent.ACTION_SYNC_COMPLETE);
+            getContext().sendBroadcast(intent);
 
             Log.i("FieldCaptureSyncAdapter", "sync complete");
         }
         else {
             Log.i("FieldCaptureSyncAdapter", "Ignoring sync for logged out user");
         }
+
 
     }
 

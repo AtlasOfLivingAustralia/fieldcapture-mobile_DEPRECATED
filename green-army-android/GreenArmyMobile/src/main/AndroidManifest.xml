@@ -58,6 +58,7 @@
         <activity
             android:name="au.org.ala.fieldcapture.green_army.EnterActivityDataActivity"
             android:label="@string/title_activity_enter_activity_data"
+            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize">
         </activity>
 
@@ -107,6 +108,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -117,5 +120,6 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
 </manifest>

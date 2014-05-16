@@ -1,10 +1,14 @@
 package au.org.ala.fieldcapture.green_army;
 
+import android.accounts.Account;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.database.Cursor;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.SearchView;
@@ -36,11 +41,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
 /**
  * A fragment that displays various views of activities.
  */
-public class ProjectActivitiesFragment extends Fragment  {
+public class ProjectActivitiesFragment extends Fragment implements SyncStatusObserver {
 
     /**
      * The fragment argument representing the item ID that this fragment
@@ -62,6 +68,13 @@ public class ProjectActivitiesFragment extends Fragment  {
 
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
+    private View syncStatusBar;
+    private TextView syncText;
+    private ImageView syncIcon;
+    private Account account;
+    private Object syncObserver;
+
+
 
 
     public static class PagerAdapter extends FragmentStatePagerAdapter {
@@ -131,6 +144,7 @@ public class ProjectActivitiesFragment extends Fragment  {
 
         pagerAdapter = new PagerAdapter(getFragmentManager(), getArguments().getString(ARG_PROJECT_ID));
 
+
     }
 
     @Override
@@ -142,12 +156,17 @@ public class ProjectActivitiesFragment extends Fragment  {
     @Override
     public void onPause() {
         super.onPause();
+        if (syncObserver != null) {
+            ContentResolver.removeStatusChangeListener(syncObserver);
+        }
         Log.d("ProjectActivitiesFragment", "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        syncObserver = ContentResolver.addStatusChangeListener(0x7fffffff, this);
+        updateSyncStatus();
         Log.d("ProjectActivitiesFragment", "onResume");
     }
 
@@ -164,7 +183,44 @@ public class ProjectActivitiesFragment extends Fragment  {
         viewPager = (ViewPager)root.findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
+        account = PreferenceStorage.getInstance(getActivity()).getAccount();
+        syncStatusBar = root.findViewById(R.id.sync_status_bar);
+        syncText = (TextView)root.findViewById(R.id.sync_status_text);
+        syncIcon = (ImageView)root.findViewById(R.id.sync_icon);
+
+
         return root;
     }
 
+    @Override
+    public void onStatusChanged(int which) {
+        Log.i("ActivityListFragment", "Sync notification: "+which);
+        getActivity().runOnUiThread(new Runnable() { public void run() {
+            updateSyncStatus();
+        }});
+
+    }
+
+
+    private void updateSyncStatus() {
+
+        if (ContentResolver.isSyncActive(account, FieldCaptureContent.AUTHORITY)) {
+            syncText.setText("Waiting to sync with the server....");
+
+            syncStatusBar.setVisibility(View.VISIBLE);
+            ((AnimationDrawable)syncIcon.getDrawable()).stop();
+
+
+        }
+        else if (ContentResolver.isSyncPending(account, FieldCaptureContent.AUTHORITY)) {
+            syncText.setText("Syncing with the server....");
+            syncStatusBar.setVisibility(View.VISIBLE);
+            ((AnimationDrawable)syncIcon.getDrawable()).start();
+
+        }
+        else {
+            ((AnimationDrawable)syncIcon.getDrawable()).stop();
+            syncStatusBar.setVisibility(View.GONE);
+        }
+    }
 }
