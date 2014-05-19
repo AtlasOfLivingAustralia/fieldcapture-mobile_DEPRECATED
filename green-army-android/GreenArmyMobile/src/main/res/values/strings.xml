@@ -60,5 +60,9 @@
     <string name="done">Done</string>
     <string name="site_name_required">Site name is required</string>
     <string name="location_title">SITE LOCATION</string>
+    <string name="accuracy_title">Accuracy</string>
+    <string name="location_status_searching">Locating your position</string>
+    <string name="status_refining_location">Refining your location...</string>
+    <string name="network_warning">Your device doesn\'t appear to be connected to the network.  The map may not be visible, however your location will can be found using GPS</string>
 
 </resources>

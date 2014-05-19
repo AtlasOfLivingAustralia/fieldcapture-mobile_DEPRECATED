@@ -3,7 +3,6 @@ package au.org.ala.fieldcapture.green_army;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,18 +26,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.service.Mapper;
 
 /**
@@ -133,6 +128,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
     private String activity;
     private String sites;
     private String activityUrl;
+    private ContentValues siteToSave;
 
     private MobileBindings mobileBindings;
 
@@ -316,6 +312,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
             activity = savedInstanceState.getString("activity");
             sites = savedInstanceState.getString("sites");
             activityUrl = savedInstanceState.getString("activityUrl");
+            siteToSave = savedInstanceState.getParcelable("newSite");
 
             tryLoadPage();
         }
@@ -359,6 +356,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         savedInstanceState.putString(ARG_ACTIVITY_ID, activityId);
         savedInstanceState.putString("sites", sites);
         savedInstanceState.putString("activityUrl", activityUrl);
+        savedInstanceState.putParcelable("newSite", siteToSave);
 
     }
 

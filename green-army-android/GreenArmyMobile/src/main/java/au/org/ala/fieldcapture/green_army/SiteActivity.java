@@ -3,9 +3,12 @@ package au.org.ala.fieldcapture.green_army;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,6 +36,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.UUID;
 
+import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+
 
 public class SiteActivity extends FragmentActivity implements
         GooglePlayServicesClient.ConnectionCallbacks,
@@ -39,15 +45,27 @@ public class SiteActivity extends FragmentActivity implements
         LocationListener, GoogleMap.OnMarkerDragListener {
 
     public static final String LOCATION_KEY = "location";
+    public static final String LOCATION_UPDATES_KEY = "locationUpdates";
     public static final String SITE_KEY = "site";
+    public static final float ACCEPTABLE_ACCURACY_THRESHOLD = 50f;
+    // Accept a new location if the old location is 10 minutes old, even if the accuracy is worse.
+    public static final long STALE_LOCATION_THRESHOLD = 10*60*1000;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private LocationClient mLocationClient;
+    private boolean receivingLocationUpdates;
     private LocationRequest mRequest;
-    private LatLng location;
+    private Location location;
     private EditText nameField;
     private EditText description;
+    private TextView lat;
+    private TextView lon;
+    private TextView accuracy;
+    private View progressBar;
+    private TextView locationStatus;
+    private TextView networkStatus;
+
     private Marker marker;
 
     @Override
@@ -56,6 +74,7 @@ public class SiteActivity extends FragmentActivity implements
         setContentView(R.layout.activity_site);
         setUpMapIfNeeded();
 
+        receivingLocationUpdates = true;
         mLocationClient = new LocationClient(this, this, this);
         mRequest = LocationRequest.create();
         mRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -64,9 +83,17 @@ public class SiteActivity extends FragmentActivity implements
 
         if (savedInstanceState != null) {
             location = savedInstanceState.getParcelable(LOCATION_KEY);
+            receivingLocationUpdates = savedInstanceState.getBoolean(LOCATION_UPDATES_KEY);
         }
         nameField = (EditText)findViewById(R.id.site_name);
         description = (EditText)findViewById(R.id.site_description);
+        lat = (TextView)findViewById(R.id.latitude);
+        lon = (TextView)findViewById(R.id.longitude);
+        accuracy = (TextView)findViewById(R.id.accuracy);
+        progressBar = findViewById(R.id.progress_bar);
+        locationStatus = (TextView)findViewById(R.id.location_status);
+        networkStatus = (TextView)findViewById(R.id.network_status);
+
 
     }
 
@@ -74,6 +101,12 @@ public class SiteActivity extends FragmentActivity implements
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        if (isNetworkAvailable()) {
+            networkStatus.setVisibility(View.GONE);
+        }
+        else {
+            networkStatus.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -84,7 +117,9 @@ public class SiteActivity extends FragmentActivity implements
     protected void onStart() {
         super.onStart();
         // Connect the client.
-        mLocationClient.connect();
+        if (receivingLocationUpdates) {
+            mLocationClient.connect();
+        }
     }
 
     /*
@@ -104,6 +139,7 @@ public class SiteActivity extends FragmentActivity implements
         }
         super.onSaveInstanceState(savedState);
         savedState.putParcelable(LOCATION_KEY, location);
+        savedState.putBoolean(LOCATION_UPDATES_KEY, receivingLocationUpdates);
     }
 
     @Override
@@ -141,11 +177,11 @@ public class SiteActivity extends FragmentActivity implements
         if (validate()) {
             String siteId = UUID.randomUUID().toString();
             ContentValues values = new ContentValues();
-            values.put("siteId", siteId);
+            values.put(FieldCaptureContent.SITE_ID, siteId);
             values.put("name", nameField.getText().toString());
             values.put("description", description.getText().toString());
-            values.put("centroidLat", location.latitude);
-            values.put("centroidLon", location.longitude);
+            values.put("centroidLat", location.getLatitude());
+            values.put("centroidLon", location.getLongitude());
 
             // Return the site data here to prevent any synchronisation issues when returning to the
             // data entry activity.
@@ -188,21 +224,40 @@ public class SiteActivity extends FragmentActivity implements
     @Override
     public void onLocationChanged(Location location) {
         // Update location
-        if (location.getAccuracy() < 1000f) {
+        float currentAccuracy = this.location != null ? this.location.getAccuracy() : Float.MAX_VALUE;
+        long lastTime = this.location != null ? this.location.getTime() : 0;
+        if (location.getAccuracy() < currentAccuracy || (location.getTime() - lastTime) > STALE_LOCATION_THRESHOLD) {
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
 
             if (this.location == null) {
-                mMap.addMarker(new MarkerOptions().position(position).draggable(true));
+                marker = mMap.addMarker(new MarkerOptions().position(position).draggable(true));
             }
-            setLocation(position);
+            setLocation(location);
 
         }
     }
 
-    private void setLocation(LatLng location) {
-        ((TextView)findViewById(R.id.latitude)).setText(Double.toString(location.latitude));
-        ((TextView)findViewById(R.id.longitude)).setText(Double.toString(location.longitude));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
+    private void setLocation(Location location) {
+        lat.setText(Double.toString(location.getLatitude()));
+        lon.setText(Double.toString(location.getLongitude()));
+        float accuracy = location.getAccuracy();
+        if (accuracy < 0f) {
+            this.accuracy.setText("Unknown");
+            progressBar.setVisibility(View.GONE);
+            locationStatus.setVisibility(View.GONE);
+        }
+        else {
+            if (accuracy < ACCEPTABLE_ACCURACY_THRESHOLD) {
+                progressBar.setVisibility(View.GONE);
+                locationStatus.setVisibility(View.GONE);
+                mLocationClient.removeLocationUpdates(this);
+            }
+            else {
+                locationStatus.setText(getResources().getString(R.string.status_refining_location));
+            }
+            this.accuracy.setText(Float.toString(accuracy));
+        }
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
         this.location = location;
     }
 
@@ -214,8 +269,9 @@ public class SiteActivity extends FragmentActivity implements
      */
     private void setUpMap() {
         mMap.setOnMarkerDragListener(this);
-        if (location != null && marker == null) {
-            mMap.addMarker(new MarkerOptions().position(location).draggable(true));
+        if (location != null) {
+            LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+            marker = mMap.addMarker(new MarkerOptions().position(latlng).draggable(true));
         }
         else {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.0, 133.0), 4));
@@ -230,7 +286,13 @@ public class SiteActivity extends FragmentActivity implements
 
     }
     public void onMarkerDragEnd(Marker marker) {
-        setLocation(marker.getPosition());
+        mLocationClient.removeLocationUpdates(this);
+        Location location = new Location("Drawn on Map");
+        location.setLatitude(marker.getPosition().latitude);
+        location.setLongitude(marker.getPosition().longitude);
+        location.setAccuracy(-1);
+
+        setLocation(location);
     }
 
     /**
@@ -240,8 +302,9 @@ public class SiteActivity extends FragmentActivity implements
     public void onConnected(Bundle connectionHint) {
         Log.i("SiteActivity", "GoogleApiClient connected");
 
-        mLocationClient.requestLocationUpdates(mRequest, this);
-
+        if (receivingLocationUpdates) {
+            mLocationClient.requestLocationUpdates(mRequest, this);
+        }
     }
 
     @Override
@@ -299,6 +362,13 @@ public class SiteActivity extends FragmentActivity implements
                 }
 
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private boolean servicesConnected() {

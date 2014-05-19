@@ -2,13 +2,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="au.org.ala.fieldcapture.green_army.SiteActivity">
 
+    <TextView
+        android:id="@+id/network_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/network_warning"
+        android:background="@color/light_yellow"
+        android:drawableLeft="@android:drawable/stat_sys_warning"
+        android:visibility="gone"
+        />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_weight="0.7"
+        android:layout_height="0dp"
+        android:id="@+id/map"
+        tools:context="au.org.ala.fieldcapture.green_army.TestMapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
     <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_weight="0.3"
         android:layout_margin="5dp"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
 
         <TextView
             android:id="@+id/new_site_title"
@@ -108,32 +128,7 @@
             android:layout_toRightOf="@id/progress_bar"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="0.7"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/network_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/network_warning"
-            android:background="@color/light_yellow"
-            android:drawableLeft="@android:drawable/stat_sys_warning"
-            android:visibility="visible"
-            />
-
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/map"
-            android:layout_below="@id/network_status"
-            tools:context="au.org.ala.fieldcapture.green_army.TestMapsActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
-    </RelativeLayout>
 
 
 </LinearLayout>
