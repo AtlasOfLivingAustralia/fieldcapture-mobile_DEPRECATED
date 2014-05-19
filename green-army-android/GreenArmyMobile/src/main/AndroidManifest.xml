@@ -97,6 +97,7 @@
 
         <activity
             android:name="au.org.ala.fieldcapture.green_army.SiteActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_site" >
         </activity>
 

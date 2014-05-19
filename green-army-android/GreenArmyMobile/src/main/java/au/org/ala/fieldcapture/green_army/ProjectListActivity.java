@@ -51,6 +51,7 @@ public class ProjectListActivity extends FragmentActivity
     private DrawerLayout drawer;
     private PreferenceStorage preferenceStorage;
     private Account account;
+    private MenuItem searchItem;
 
     private String checkLogin() {
 
@@ -168,7 +169,7 @@ public class ProjectListActivity extends FragmentActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         // Associate searchable configuration with the SearchView
-        MenuItem searchItem = menu.findItem(R.id.search);
+        searchItem = menu.findItem(R.id.search);
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -195,6 +196,10 @@ public class ProjectListActivity extends FragmentActivity
         return true;
     }
 
+    @Override
+    public boolean isUsingNavigationDrawer() {
+        return drawer != null;
+    }
 
     /**
      * Callback method from {@link ProjectListFragment.Callbacks}
@@ -205,6 +210,9 @@ public class ProjectListActivity extends FragmentActivity
         View welcome = findViewById(R.id.project_list_welcome);
         if (welcome != null) {
             welcome.setVisibility(View.GONE);
+        }
+        if (searchItem.isActionViewExpanded()) {
+            searchItem.collapseActionView();
         }
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
@@ -305,9 +313,7 @@ public class ProjectListActivity extends FragmentActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if ("".equals(newText)) {
-            doSearch("");
-        }
+        doSearch(newText);
         return true;
     }
 

@@ -6,10 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:background="?android:attr/activatedBackgroundIndicator"
     android:mode="twoLine"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp"
     >
 
     <TextView android:id="@android:id/text1"
@@ -18,7 +16,6 @@
         android:layout_marginStart="?android:attr/listPreferredItemPaddingStart"
         android:layout_marginTop="6dip"
         android:textAppearance="?android:attr/textAppearanceListItem"
-
         />
 
     <TextView android:id="@android:id/text2"

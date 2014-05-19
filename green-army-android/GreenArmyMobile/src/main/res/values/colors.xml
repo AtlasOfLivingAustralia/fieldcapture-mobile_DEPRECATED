@@ -6,6 +6,7 @@
 	<color name="backgroundGradientStart">#EEEEEE</color>
     <color name="backgroundGradientEnd">#EEEEEE</color>
     <color name="backgroundGreen">#4fa254</color>
+    <color name="activityListBackground">#ccc</color>
     
     <color name="light_yellow">#FFFFCC</color>
     <color name="background">#161616</color>

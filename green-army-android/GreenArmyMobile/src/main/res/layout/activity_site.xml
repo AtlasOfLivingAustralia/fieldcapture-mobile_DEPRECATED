@@ -38,74 +38,100 @@
             android:layout_height="wrap_content"
             android:text="@string/location_title"
             android:layout_marginTop="10dp"
-
+            android:layout_marginBottom="15dp"
             android:layout_below="@id/site_description"/>
+
+        <RelativeLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_yellow"
+            android:layout_marginBottom="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+
+            android:layout_below="@id/location_title">
+            <ProgressBar
+                android:id="@+id/progress_bar_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                style="@android:style/Widget.ProgressBar.Small.Inverse"
+                android:indeterminate="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+
+                />
+            <TextView
+                android:id="@+id/location_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/location_status_searching"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/progress_bar_indicator"/>
+
+            </RelativeLayout>
+
 
         <TextView
             android:id="@+id/latitude_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
 
             android:text="@string/latitude"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/location_title"/>
-
-        <TextView
-            android:id="@+id/latitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/latitude_title"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/progress_bar"/>
 
         <TextView
             android:id="@+id/longitude_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/longitude"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/latitude"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/latitude_title"/>
+
+        <TextView
+            android:id="@+id/latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
+            android:layout_below="@id/progress_bar"
+            android:layout_toRightOf="@id/latitude_title"/>
+
+
 
         <TextView
             android:id="@+id/longitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/longitude_title"/>
+            android:paddingRight="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
+            android:layout_below="@id/latitude_title"
+            android:layout_toRightOf="@id/longitude_title"/>
 
         <TextView
             android:id="@+id/accuracy_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/longitude"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/longitude_title"
             android:text="@string/accuracy_title"/>
 
         <TextView
             android:id="@+id/accuracy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/accuracy_title"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/longitude_title"
+            android:layout_toRightOf="@id/longitude_title"/>
 
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.ProgressBar.Small.Inverse"
-            android:indeterminate="true"
-            android:layout_below="@id/accuracy"
-            />
-        <TextView
-            android:id="@+id/location_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@id/accuracy"
-            android:text="@string/location_status_searching"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/progress_bar"/>
+
     </RelativeLayout>
 
     <RelativeLayout

@@ -36,6 +36,8 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
      */
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
+    public static final String LANDSCAPE_KEY = "landscape";
+
     /**
      * The fragment's current callback object, which is notified of list item
      * clicks.
@@ -63,6 +65,8 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
          * Callback for when an item has been selected.
          */
         public void onItemSelected(String id);
+
+        public boolean isUsingNavigationDrawer();
     }
 
     /**
@@ -73,6 +77,8 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         @Override
         public void onItemSelected(String id) {
         }
+        @Override
+        public boolean isUsingNavigationDrawer() {return false;}
     };
 
 
@@ -117,8 +123,10 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String[] columns = new String[] {"_id", "name", "description"};
-        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.project_layout, null, columns, new int[]{-1, android.R.id.text1,android.R.id.text2}, 0);
+        boolean inDrawer = mCallbacks.isUsingNavigationDrawer();
+        int layout = inDrawer ? R.layout.project_drawer_layout : R.layout.project_layout;
+        String[] columns = new String[] {"projectId", "name", "description"};
+        mAdapter = new SimpleCursorAdapter(getActivity(), layout, null, columns, new int[]{-1, android.R.id.text1,android.R.id.text2}, 0);
 
     }
 

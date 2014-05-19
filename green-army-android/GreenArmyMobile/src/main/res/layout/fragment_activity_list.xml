@@ -61,6 +61,7 @@
         android:layout_height="match_parent"
         android:dividerHeight="0dp"
         android:visibility="gone"
+        android:background="@color/activityListBackground"
         android:divider="@null"
         >
 

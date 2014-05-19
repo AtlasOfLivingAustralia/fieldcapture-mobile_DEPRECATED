@@ -123,6 +123,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
     private static final int ACTIVITY_LOADER_ID = 1;
     private static final int SITES_LOADER_ID = 2;
 
+    private EnterActivityDataActivity parent;
+
     private WebView webView;
     private String activityId;
     private String activity;
@@ -289,6 +291,10 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
                 return super.shouldInterceptRequest(view, url);
             }
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                parent.hideProgressBar();
+            }
         });
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -406,6 +412,13 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         }
         super.onDestroy();
     }
+
+    @Override
+    public void onAttach(Activity parent) {
+        super.onAttach(parent);
+        this.parent = (EnterActivityDataActivity)parent;
+    }
+
 
     /**
      * Gets the WebView.

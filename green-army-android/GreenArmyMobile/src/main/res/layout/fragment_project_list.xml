@@ -24,7 +24,6 @@
             android:layout_alignParentLeft="true"
             android:textIsSelectable="false"
             android:textColor="@android:color/white"
-
             android:background="@drawable/username_background"
             android:text="@string/projects_heading"
             tools:context="au.org.ala.fieldcapture.green_army.ActivityListFragment" />
