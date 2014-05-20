@@ -20,7 +20,7 @@
     <string name="login_failed_message">Invalid user name or password</string>
     <string name="login_failed_title">Login failed</string>
     <string name="title_login_activity">Login</string>
-    <string name="login_instructions">Please login using the user name and password you used to register with the Atlas of Living Australia</string>
+    <string name="login_instructions">Use the user name and password you used when you registered with the Atlas of Living Australia</string>
     <string name="no_network">Unable to contact the server.  Please check your internet connection and try again.</string>
     <string name="bad_credentials">Incorrect username or password.</string>
     <string name="server_error">The server encountered an error - please try again later.</string>
@@ -35,10 +35,7 @@
     <string name="logout">Logout</string>
     <string name="refresh">Refresh data</string>
     <string name="title_activity_welcome">Green Army</string>
-    <string name="welcome_message">Welcome to the Green Army Mobile application.  Before you get started, you will need to:
-        1. Create an account with the Atlas of Living Australia.
-        2. Ask your resource manager to add you as an editor for your projects in the MERIT tool.
-        If you already have an account, please ensure your device has internet access and press the "Start" button to login.</string>
+    <string name="welcome_message">Welcome to the Green Army Mobile application.  Before you get started, you will need to:\n   1. Create an account with the Atlas of Living Australia.\n  2. Ask your resource manager to add you as an editor for your projects in the MERIT tool.\n\nIf you already have an account, please ensure your device has internet access and press the "Start" button to login.</string>
     <string name="start">Start</string>
     <string name="loading_activities">Loading activities...</string>
     <string name="project_list_welcome_text">Welcome to the Green Army mobile application.  To get started, touch one of your projects in the list on the left hand side of the screen.</string>

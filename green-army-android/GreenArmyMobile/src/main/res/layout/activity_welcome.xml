@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@color/backgroundGreen"
     android:visibility="visible">
 
 
@@ -31,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:textColor="@android:color/white"
             android:layout_margin="50dp"
             android:text="@string/welcome_message"
              />
@@ -43,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/welcome_label"
             android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
             android:onClick="start"
             android:layout_marginTop="10dp"
             android:ems="20"

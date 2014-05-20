@@ -36,7 +36,7 @@
                 android:value="org.ala.fieldcapture.merit_mobile_test.ProjectListActivity" />
         </activity>
         <activity
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:theme="@style/WelcomePages"
             android:name="au.org.ala.fieldcapture.green_army.LoginActivity"
             android:label="@string/title_login_activity"
             android:windowSoftInputMode="adjustResize" >
@@ -86,7 +86,7 @@
         </service>
 
         <activity
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:theme="@style/WelcomePages"
             android:name="au.org.ala.fieldcapture.green_army.WelcomeActivity"
             android:label="@string/title_activity_welcome" >
         </activity>
