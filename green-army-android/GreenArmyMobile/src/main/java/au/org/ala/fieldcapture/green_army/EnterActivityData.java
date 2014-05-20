@@ -79,6 +79,11 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         }
 
         @JavascriptInterface
+        public boolean supportsNewSite() {
+            return true;
+        }
+
+        @JavascriptInterface
         public void saveActivity(String activityData) {
             Log.d("Enter activity data", "save activity: "+activityData);
 

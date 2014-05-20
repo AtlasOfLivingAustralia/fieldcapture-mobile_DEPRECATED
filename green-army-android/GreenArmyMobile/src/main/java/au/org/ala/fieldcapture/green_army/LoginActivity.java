@@ -31,6 +31,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_login);
+        AndroidBug5497Workaround.assistActivity(this);
 		
 		Button button = (Button) findViewById(R.id.loginBtn);
 		button.setOnClickListener(this);
@@ -63,8 +64,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 	
 	private void showProgressDialog() {
-		pd = ProgressDialog.show(LoginActivity.this, "", 
-				getResources().getString(R.string.login_progress_message), true, false, null);
+        pd = new ProgressDialog(this, ProgressDialog.THEME_HOLO_LIGHT);
+        pd.setMessage(getResources().getString(R.string.login_progress_message));
+        pd.setIndeterminate(true);
+        pd.setCancelable(false);
+        pd.show();
 		dialogShowing = true;
 	}
 	
@@ -110,7 +114,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	public void loginFailed(int failureReason) {
 		dismissProgressDialog();
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, AlertDialog.THEME_HOLO_LIGHT);
 
 		builder.setTitle(R.string.login_failed_title);
 		builder.setMessage(failureReason);
