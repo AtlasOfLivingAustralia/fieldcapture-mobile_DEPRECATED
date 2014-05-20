@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backgroundGreen"
     android:visibility="visible">
 
 
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
+            android:textColor="@android:color/white"
             android:text="@string/user_name"
             tools:context=".LoginActivity" />
 
@@ -47,6 +49,7 @@
             android:id="@+id/passwordLbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
             android:layout_alignLeft="@id/usernameLbl"
             android:layout_below="@id/username"
             android:layout_marginTop="15dp"
@@ -79,6 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/loginBtn"
+            android:textColor="@android:color/white"
+
             android:layout_centerHorizontal="true"
             android:padding="10dp"
             android:ems="20"

@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@color/backgroundGreen"
+
     android:visibility="visible">
 
 
@@ -30,6 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
+            android:textColor="@android:color/white"
+
             android:text="@string/user_name"
             tools:context=".LoginActivity" />
 
@@ -45,6 +49,8 @@
 
         <TextView
             android:id="@+id/passwordLbl"
+            android:textColor="@android:color/white"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/usernameLbl"
@@ -76,6 +82,7 @@
 
         <TextView
             android:id="@+id/instructions"
+            android:textColor="@android:color/white"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

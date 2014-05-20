@@ -8,8 +8,7 @@
     </style>
 
     <style name="WelcomePages" parent="android:style/Theme.NoTitleBar.Fullscreen">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@color/backgroundGreen</item>
+       <item name="textViewTextColor">@android:color/white</item>
 
     </style>
 
