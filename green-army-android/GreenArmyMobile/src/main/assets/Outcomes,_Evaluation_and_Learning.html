@@ -4,10 +4,7 @@
 <head>
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <style type="text/css">
-        input[type=checkbox] {  -webkit-transform: scale(1.5); }
-        .checkbox-list label { min-height: 40px; }
-    </style>
+
     
     <script src="static/UGoJGyG3j2UCffTg3vnOdi0FsnS2OvrmrsZD6WxaXGy.js" type="text/javascript" ></script>
 <link href="static/Eu8FNKwJJQI8mVJO3VIshatRN1bunflYHvvdqk06tbf.css" type="text/css" rel="stylesheet" media="screen, projection" />
@@ -26,17 +23,12 @@
 <link href="static/KYGDEVRRaKjNbTXJkHmicmzo9vFrnnzCnGLcxKjR04f.css" type="text/css" rel="stylesheet" media="screen,print" />
 
 <link href="static/uUQBvO5ITMKwLfoRb2u62GbHXEzxtsbrSWq8MBAOrbX.css" type="text/css" rel="stylesheet" media="screen,print" />
-<link href="static/2OXdKoom668LE7PLl0qjJCaLG7Pu7Jv869tAsS4e1oT.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<link href="static/A1gq5aX5AVMoaQ2R6VeVW9ATKxuPeQfLuMw52ruNjQl.css" type="text/css" rel="stylesheet" media="screen, projection" />
 <link href="static/AcXIjLTuc87n8sfxBjJRQSoBIUwP9RnCyK8Sv82i7eV.css" type="text/css" rel="stylesheet" media="screen, projection" />
 <script type="text/javascript">
     var fcConfig = {
-        serverUrl: "https://fieldcapture-test.ala.org.au",
-        activityUpdateUrl: "/activity/ajaxUpdate",
-        activityDeleteUrl: "/activity/ajaxDelete",
-        projectViewUrl: "/project/index/",
-        siteViewUrl: "/site/index/",
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -48,6 +40,16 @@
     
     
 
+    <style type="text/css">
+        input[type=checkbox] {  -webkit-transform: scale(1.5); }
+        .checkbox-list label { min-height: 40px; }
+        .speciesAutocompleteRow {min-height:40px;}
+        .datepicker td, .datepicker th {
+            width:40px;
+            height:40px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -146,13 +148,9 @@
                         </div>
 
                         <div class="span3">
-                            <br/>
-                            <button class="btn btn-info" data-bind="click:createNewSite">Create new Site</button>
+
+                            <button class="btn btn-info" style="margin-top:25px;" data-bind="visible:transients.newSiteSupported,click:createNewSite">Create new Site</button>
                         </div>
-
-
-
-
                     </div>
 
                     
@@ -175,7 +173,8 @@
                     </span>
                     <span class="span4">
 
-                            <img width="350" height="250" data-bind="attr:{src:transients.siteImgUrl}, visible:transients.siteImgUrl()"/>
+                        <img id="siteLocationImage" width="100%" data-bind="event:{error:siteLoadError}, attr:{src:transients.siteImgUrl}, visible:transients.siteImgUrl()"/>
+
 
                     </span>
                 </div>
@@ -261,7 +260,7 @@
 
 </div>
 
-<script src="static/DzazZ2ePykd4QRUJlInoAO1LMvzeVxjM2JRcis2usBm.js" type="text/javascript" ></script>
+<script src="static/OmI7Xdb1NrxdcV1bHVzLwvhYVcLEtkZPZ8HsZT3ZLGA.js" type="text/javascript" ></script>
 
 
 
@@ -280,7 +279,7 @@
 
 <!--[if gte IE 8]><script src="static/knxjs4G9Cquc79O3iYW107XikPB1Z1ii8QWrtBpzlSP.js" type="text/javascript" ></script><![endif]-->
 <script src="static/kSJb30BxnBzyoP0WndxrtZbaNWzT8x6LP2Cp7xI9PH4.js" type="text/javascript" ></script>
-<script src="static/L85LaBY6yhQwMk24PuXWgqwvtkfvbmMZ3ExPR9xK96.js" type="text/javascript" ></script>
+<script src="static/4NNgUS6xThBV2iHZmalcTOp8ioBIjnh2KnVAGLqz5SX.js" type="text/javascript" ></script>
 <script src="static/MZjUSqmNLHqbPwhDcAMpejU18pr9ndMRCGKpPBHdSDL.js" type="text/javascript" ></script>
 <script src="static/w51VyweI3KQvr6P2DTUzBcR9OpWeX0ktL7UktpeA1k.js" type="text/javascript" ></script>
 
@@ -638,10 +637,18 @@
          *
          * Validates the entire page before saving.
          */
-        this.save = function () {
+        this.save = function (validate) {
 
+            if (validate === undefined) {
+                validate = true;
+            }
             var activityData, outputs = [];
-            if ($('#validation-container').validationEngine('validate')) {
+
+            var success = true;
+            if (validate) {
+                success = $('#validation-container').validationEngine('validate');
+            }
+            if (success) {
                 $.each(this.subscribers, function(i, obj) {
                    // if (obj.isDirty()) {
                         if (obj.model === 'activityModel') {
@@ -659,11 +666,11 @@
                 activityData.outputs = outputs;
 
                 var toSave = JSON.stringify(activityData);
-                console.log("saving"+toSave);
                 mobileBindings.saveActivity(toSave);
 
             }
 
+            return success;
         };
 
         this.reset = function () {
@@ -689,10 +696,10 @@
         
             loadSites:function(){return "[]"},
         
-
+        supportsNewSite:function() { return true; },
         saveActivity:function(){},
         createNewSite:function(){}
-    };
+};
 }
 var master = new Master();
 var activity = JSON.parse(mobileBindings.loadActivity());
@@ -701,138 +708,168 @@ var sites = JSON.parse(mobileBindings.loadSites());
 
 $(function(){
 
-    $('#validation-container').validationEngine('attach', {scroll: false});
+var scroll = false;
 
-    $('.helphover').popover({animation: true, trigger:'hover'});
+    scroll = true;
 
-    $('#reset').click(function () {
-        master.reset();
+$('#validation-container').validationEngine('attach', {scroll: scroll});
+
+$('.helphover').popover({animation: true, trigger:'hover'});
+
+$('#reset').click(function () {
+master.reset();
+});
+
+
+ko.bindingHandlers.editOutput = {
+init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    var outputName = ko.utils.unwrapObservable(valueAccessor()),
+        activity = bindingContext.$root,
+        outputId;
+
+    // search for corresponding outputs in the activity data
+    $.each(activity.outputs, function (i,output) { // iterate output data in the activity to
+                                                      // find any matching the meta-model name
+        if (output.name === outputName) {
+            outputId = output.outputId;
+        }
     });
+    if (outputId) {
+        // build edit link
+        $(element).html('Edit data');
+        $(element).attr('href', fcConfig.serverUrl + "/output/edit/" + outputId +
+            "?returnTo=" + here);
+    } else {
+        // build create link
+        $(element).attr('href', fcConfig.serverUrl + '/output/create?activityId=' + activity.activityId +
+            '&outputName=' + encodeURIComponent(outputName) +
+            "&returnTo=" + here);
+    }
+}
+};
 
-
-    ko.bindingHandlers.editOutput = {
-        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var outputName = ko.utils.unwrapObservable(valueAccessor()),
-                activity = bindingContext.$root,
-                outputId;
-
-            // search for corresponding outputs in the activity data
-            $.each(activity.outputs, function (i,output) { // iterate output data in the activity to
-                                                              // find any matching the meta-model name
-                if (output.name === outputName) {
-                    outputId = output.outputId;
-                }
-            });
-            if (outputId) {
-                // build edit link
-                $(element).html('Edit data');
-                $(element).attr('href', fcConfig.serverUrl + "/output/edit/" + outputId +
-                    "?returnTo=" + here);
-            } else {
-                // build create link
-                $(element).attr('href', fcConfig.serverUrl + '/output/create?activityId=' + activity.activityId +
-                    '&outputName=' + encodeURIComponent(outputName) +
-                    "&returnTo=" + here);
+function ViewModel (act, sites) {
+var self = this;
+self.activityId = act.activityId;
+self.description = ko.observable(act.description);
+self.notes = ko.observable(act.notes);
+self.startDate = ko.observable(act.startDate).extend({simpleDate: false});
+self.endDate = ko.observable(act.endDate || act.plannedEndDate).extend({simpleDate: false});
+self.plannedStartDate = ko.observable(act.plannedStartDate).extend({simpleDate: false});
+self.plannedEndDate = ko.observable(act.plannedEndDate).extend({simpleDate: false});
+self.eventPurpose = ko.observable(act.eventPurpose);
+self.fieldNotes = ko.observable(act.fieldNotes);
+self.associatedProgram = ko.observable(act.associatedProgram);
+self.associatedSubProgram = ko.observable(act.associatedSubProgram);
+self.progress = ko.observable(act.progress);
+self.mainTheme = ko.observable(act.mainTheme);
+self.type = ko.observable(act.type);
+self.siteId = ko.observable(act.siteId);
+self.projectId = act.projectId;
+self.transients = {};
+self.transients.activityComplete = ko.observable(false);
+self.transients.activityComplete.subscribe(function(newValue) {
+    self.progress(newValue?'finished':'started');
+});
+self.transients.sites = ko.observableArray(sites);
+self.transients.photoPoints = ko.computed(function() {
+    var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
+     if (site) {
+         return site.photoPoints ? site.photoPoints : site.poi;
+     }
+     return [];
+});
+self.transients.activityProgressValues = ['planned','started','finished'];
+self.transients.themes = act.themes ? act.themes: [];
+self.transients.markedAsFinished = ko.observable(act.progress === 'finished');
+self.transients.markedAsFinished.subscribe(function (finished) {
+    self.progress(finished ? 'finished' : 'started');
+});
+self.transients.siteImgUrl = ko.computed(function() {
+    if (self.siteId()) {
+         var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
+         if (site) {
+            var lat,lon;
+            if (site.centroidLat !== undefined && site.centroidLon !== undefined) {
+                lat = site.centroidLat;
+                lon = site.centroidLon;
             }
-        }
-    };
-
-    function ViewModel (act, sites) {
-        var self = this;
-        self.activityId = act.activityId;
-        self.description = ko.observable(act.description);
-        self.notes = ko.observable(act.notes);
-        self.startDate = ko.observable(act.startDate).extend({simpleDate: false});
-        self.endDate = ko.observable(act.endDate || act.plannedEndDate).extend({simpleDate: false});
-        self.plannedStartDate = ko.observable(act.plannedStartDate).extend({simpleDate: false});
-        self.plannedEndDate = ko.observable(act.plannedEndDate).extend({simpleDate: false});
-        self.eventPurpose = ko.observable(act.eventPurpose);
-        self.fieldNotes = ko.observable(act.fieldNotes);
-        self.associatedProgram = ko.observable(act.associatedProgram);
-        self.associatedSubProgram = ko.observable(act.associatedSubProgram);
-        self.progress = ko.observable(act.progress);
-        self.mainTheme = ko.observable(act.mainTheme);
-        self.type = ko.observable(act.type);
-        self.siteId = ko.observable(act.siteId);
-        self.projectId = act.projectId;
-        self.transients = {};
-        self.transients.activityComplete = ko.observable(false);
-        self.transients.activityComplete.subscribe(function(newValue) {
-            self.progress(newValue?'finished':'started');
-        });
-        self.transients.sites = ko.observableArray(sites);
-        self.transients.photoPoints = ko.computed(function() {
-            var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
-             if (site) {
-                 return site.photoPoints ? site.photoPoints : site.poi;
-             }
-             return [];
-        });
-        self.transients.activityProgressValues = ['planned','started','finished'];
-        self.transients.themes = act.themes ? act.themes: [];
-        self.transients.markedAsFinished = ko.observable(act.progress === 'finished');
-        self.transients.markedAsFinished.subscribe(function (finished) {
-            self.progress(finished ? 'finished' : 'started');
-        });
-        self.transients.siteImgUrl = ko.computed(function() {
-            if (self.siteId()) {
-                 var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
-                 if (site) {
-                    var lat,lon;
-                    if (site.centroidLat !== undefined && site.centroidLon !== undefined) {
-                        lat = site.centroidLat;
-                        lon = site.centroidLon;
-                    }
-                    else if (site.extent && site.extent.geometry && site.extent.geometry.centre) {
-                        lat = site.extent.geometry.centre[1];
-                        lon = site.extent.geometry.centre[0];
-                    }
-                    if (lat !== undefined && lon !== undefined) {
-                        return fcConfig.googleStaticUrl+lat+","+lon;
-                    }
-                 }
+            else if (site.extent && site.extent.geometry && site.extent.geometry.centre) {
+                lat = site.extent.geometry.centre[1];
+                lon = site.extent.geometry.centre[0];
             }
-            return "";
-        });
+            if (lat !== undefined && lon !== undefined) {
+                $('#siteLocationImage').show();
+                return fcConfig.googleStaticUrl+lat+","+lon;
+            }
+         }
+    }
+    return "";
+});
+self.siteLoadError = function(data, event) {
+    $('#siteLocationImage').hide();
+};
 
-        self.modelForSaving = function () {
-            // get model as a plain javascript object
-            var jsData = ko.toJS(self);
-            delete jsData.transients;
-            return jsData;
-        };
-        self.modelAsJSON = function () {
-            return JSON.stringify(self.modelForSaving());
-        };
+self.transients.newSiteSupported = ko.observable( mobileBindings.supportsNewSite());
 
-        self.save = function (callback, key) {
-        };
+self.modelForSaving = function () {
+    // get model as a plain javascript object
+    var jsData = ko.toJS(self);
+    delete jsData.transients;
+    return jsData;
+};
+self.modelAsJSON = function () {
+    return JSON.stringify(self.modelForSaving());
+};
 
-        self.createNewSite = function() {
-            mobileBindings.createNewSite();
-        }
+self.save = function (callback, key) {
+};
 
-        self.notImplemented = function () {
-            alert("Not implemented yet.")
-        };
+self.createNewSite = function() {
+    mobileBindings.createNewSite();
+}
 
-        self.attachPhotoPoint = function(e) {
-            console.log(e);
-        };
-        self.dirtyFlag = ko.dirtyFlag(self, false);
+self.notImplemented = function () {
+    alert("Not implemented yet.")
+};
 
-        // make sure progress moves to started if we save any data (unless already finished)
-        // (do this here so the model becomes dirty)
-        self.progress(self.transients.markedAsFinished() ? 'finished' : 'started');
+self.attachPhotoPoint = function(e) {
+    console.log(e);
+};
+self.dirtyFlag = ko.dirtyFlag(self, false);
+
+// make sure progress moves to started if we save any data (unless already finished)
+// (do this here so the model becomes dirty)
+self.progress(self.transients.markedAsFinished() ? 'finished' : 'started');
+}
+
+
+var viewModel = new ViewModel(activity, sites);
+
+ko.applyBindings(viewModel);
+
+master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.isDirty, viewModel.dirtyFlag.reset);
+
+
+// Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
+var disabled = null;
+$('[data-bind^=datepicker]').datepicker().on('show', function() {
+
+    disabled = $("input:enabled, select:enabled, button:enabled");
+    disabled.prop('disabled', true);
+
+});
+$('[data-bind^=datepicker]').datepicker().on('hide', function() {
+    if (disabled !== null) {
+        disabled.prop('disabled', false);
+        diabled = null;
     }
 
-
-    var viewModel = new ViewModel(activity, sites);
-
-    ko.applyBindings(viewModel);
-
-    master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.isDirty, viewModel.dirtyFlag.reset);
 });
+
+});
+
+
 </script>
 </body>
 </html>

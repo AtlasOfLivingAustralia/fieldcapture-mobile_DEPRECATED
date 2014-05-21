@@ -4284,11 +4284,9 @@ ko.bindingHandlers.autocomplete = {
 
                 },
                 error: function() {
-                console.log("error");
-
-                                    items = [{label:"Species", value:request.term, source: {listId:'error-unmatched', name: request.term}}];
-                                    response(items);
-                                },
+                    items = [{label:"Error during species lookup", value:request.term, source: {listId:'error-unmatched', name: request.term}}];
+                    response(items);
+                },
                 complete: function() {
                     $(element).removeClass("ac_loading");
                 }

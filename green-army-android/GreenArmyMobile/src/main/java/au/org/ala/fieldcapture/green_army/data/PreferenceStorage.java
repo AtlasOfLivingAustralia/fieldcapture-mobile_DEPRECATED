@@ -14,6 +14,7 @@ public class PreferenceStorage {
 	private static final String TOKEN_KEY = "authToken";
 	private static final String USERNAME_KEY = "username";
     private static final String FIRST_USE_KEY = "firstUse";
+    private static final String PROJECT = "project";
 
     private static Account account;
 
@@ -85,5 +86,15 @@ public class PreferenceStorage {
             account = new Account(getUsername(), FieldCaptureContent.ACCOUNT_TYPE);
         }
         return account;
+    }
+
+    public String getMostRecentProjectId() {
+        return PreferenceManager.getDefaultSharedPreferences(ctx).getString(PROJECT, null);
+    }
+
+    public void setMostRecentProjectId(String projectId) {
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
+        editor.putString(PROJECT, projectId);
+        editor.apply();
     }
 }

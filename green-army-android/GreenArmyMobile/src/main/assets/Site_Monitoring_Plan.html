@@ -189,53 +189,48 @@
     
     
     
-    
-    <div class="output-block" id="koHeritage_Conservation_Information">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Heritage Conservation Information<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
+    <style type="text/css">
+        table.plannedActions th {white-space:normal;}
+        table.plannedActions td:nth-child(1) {width:35%;}
+        table.plannedActions td:nth-child(1) select {width:100%;}
+        table.plannedActions td:nth-child(2) {width:50%;}
+        table.plannedActions td:nth-child(2) select {width:100%;}
+        table.plannedActions td:nth-child(3) {width:15%;text-align:center;}
+        table.plannedActions td:nth-child(3) select {width:100%;}
+        table.plannedActions td:last-child {width:4%;text-align:center;}
+        table.plannedActions textarea {width:100%; box-sizing:border-box; }
+    </style>
+    <div class="output-block" id="koPlanned_Monitoring_Approach">
+        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Planned Monitoring Approach<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
         <!-- add the dynamic components -->
-        <div class="row-fluid space-after output-section" >
-<div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Type of heritage work being undertaken:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Type of heritage conservation work being undertaken'>
+        <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12">Please indicate what assessment / monitoring methodology(s) you are planning to use on each of the areas which you are intending to monitor.</span></span></div>
+<div class="row-fluid output-section">
+            <table class="table table-bordered plannedActions " >
+                <thead><tr><th>Type of monitoring activity planned:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of monitoring activity(s) to be undertaken on this site.'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.typeOfHeritage,options:transients.typeOfHeritageConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Level of heritage listing for the site:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Level of heritage register that this site is listed on.'>
+</a></th><th>Monitoring approach:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Brief description of how the type of monitoring activity will be undertaken on the site.'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.levelOfHeritageListing,options:transients.levelOfHeritageListingConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Does the site have a Conservation management plan?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicate whether the site has an current Conservation management plan.'>
+</a></th><th>No. of monitoring areas of type within the site:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of individual monitoring points/ares (points of interest) within the specified site for each type of monitoring activity.'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.heritageConservationPlan,options:transients.heritageConservationPlanConstraints,optionsCaption:"Please select"'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Is the site included in another type of management plan?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicate whether the site is included in any other type of management plan.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.otherManagementPlan,options:transients.otherManagementPlanConstraints,optionsCaption:"Please select"'></select></span></div></div><div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Specify the plan that covers the site and activities and the year the plan was approved:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Provide the name and approval year of the other type of plan(s) that the site is included in and a description of any relevant activities pertaining to the site..'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.otherManagementPlanDetails'></textarea></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Have you included ‘Ask First’ guide or the Burra Charter principles in planning the activity?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicate whether an ‘Ask First’ guide or the Burra Charter principles were included in planning the activity.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.managementGuide,options:transients.managementGuideConstraints,optionsCaption:"Please select"'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Have relevant heritage professions been consulted? :<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicate whether any relevant heritage professions were consulted in planning the activity.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.professionalConsultation,options:transients.professionalConsultationConstraints,optionsCaption:"Please select"'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Purpose of activity being undertaken:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicate whether any relevant heritage professions were consulted in planning the activity.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.conservationPurpose,options:transients.conservationPurposeConstraints,optionsCaption:"Please select"'></select></span></div></div></div>
+</a></th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'plannedActionsviewTmpl', foreach: data.plannedActions}"></tbody>
+                <script id="plannedActionsviewTmpl" type="text/html"><tr>
+                    <td><select data-bind='value:plannedActivityType,options:transients.plannedActivityTypeConstraints,optionsCaption:"Please select"'></select></td>
+                    <td><textarea  data-bind='value:plannedActivityDescription'></textarea></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:noOfMonitoringAreas' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removeplannedActionsRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr><td colspan="0" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addplannedActionsRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="plannedActionstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="plannedActionstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
 <div class="row-fluid space-after output-section" >
-<span class="span12">    <span  class="preLabel"><label>Comments / Notes:</label></span><textarea  class="span12" data-bind='value:data.notes'></textarea></span></div>
-
-        
-    </div>
-    
-
-    
-    
-    
-    
-    <div class="output-block" id="koExpected_Heritage_Outcomes">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Expected Heritage Outcomes<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
-        <!-- add the dynamic components -->
-        <div class="row-fluid space-after output-section" >
-<div class="span12">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>How will this activity contribute to existing conservation and / or management plans?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Describe how your activity will contribute to any and all relevant conservation and / or management plans.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.activityContributionToPlans'></textarea></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>What heritage outcomes do you expect as a result of the work undertaken?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Describe any heritage outcomes you expect as a result of work undertaken by your team on this project.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.heritageOutcomesExpected'></textarea></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>What are the expected outcomes / impacts on the local community as a result of this project?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Describe any outcomes / impacts you expect on the local community as a result of this project.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.communityOutcomesExpected'></textarea></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Comments / Notes:</label></span><textarea  class="span8" data-bind='value:data.notes'></textarea></span></div></div></div>
+<span class="span12">    <span  class="preLabel"><label>Notes</label></span><textarea  class="span12" data-bind='value:data.notes'></textarea></span></div>
 
         
     </div>
@@ -283,17 +278,26 @@
 <script type="text/javascript">
         $(function(){
 
-            var viewModelName = "Heritage_Conservation_InformationViewModel",
+            var viewModelName = "Planned_Monitoring_ApproachViewModel",
                 viewModelInstance = viewModelName + "Instance";
 
             // load dynamic models - usually objects in a list
-                    var speciesLists = [];
+                    var PlannedActionsRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.plannedActivityType = ko.observable(orBlank(data['plannedActivityType']));
+            self.transients.plannedActivityTypeConstraints = ["Fauna Survey - general","Flora Survey - general","Pest Animal Survey and Monitoring","Plant Survival Survey","Vegetation Assessment - Commonwealth government methodology","Water Quality Survey","Weed Mapping and Monitoring","Other (specify in notes)"];
+            this.plannedActivityDescription = ko.observable(orBlank(data['plannedActivityDescription']));
+            this.noOfMonitoringAreas = ko.observable(orZero(data['noOfMonitoringAreas']));
+        };
+        var speciesLists = [];
         var site = {};
 
 
             this[viewModelName] = function (output) {
                 var self = this;
-                self.name = "Heritage Conservation Information";
+                self.name = "Planned Monitoring Approach";
                 self.outputId = orBlank(output.outputId);
 
                 self.data = {};
@@ -302,139 +306,68 @@
 
                 // add declarations for dynamic data
                 
-            self.data.typeOfHeritage = ko.observable();
-            self.transients.typeOfHeritageConstraints = ["Historical","Indigenous","Natural","Other (specify in notes)"];
+            self.data.sitePlanningTimeSpent = ko.observable();
 
-            self.data.levelOfHeritageListing = ko.observable();
-            self.transients.levelOfHeritageListingConstraints = ["Local","National","State","World","Other (specify in notes)"];
-
-            self.data.heritageConservationPlan = ko.observable();
-            self.transients.heritageConservationPlanConstraints = ["No","Yes"];
-
-            self.data.otherManagementPlan = ko.observable();
-            self.transients.otherManagementPlanConstraints = ["No","Yes"];
-
-            self.data.otherManagementPlanDetails = ko.observable();
-
-            self.data.managementGuide = ko.observable();
-            self.transients.managementGuideConstraints = ["No","Yes"];
-
-            self.data.professionalConsultation = ko.observable();
-            self.transients.professionalConsultationConstraints = ["No","Yes"];
-
-            self.data.conservationPurpose = ko.observable();
-            self.transients.conservationPurposeConstraints = ["Adaptation","Asset conservation","Asset protection","Interpretation","Other (specify in notes)"];
-
-            self.data.notes = ko.observable();
-            self.transients.site = site;
-
-                // this will be called when generating a savable model to remove transient properties
-                self.removeBeforeSave = function (jsData) {
-                    // add code to remove any transients added by the dynamic tags
-                    
-                    delete jsData.activityType;
-                    delete jsData.transients;
-                    return jsData;
-                };
-
-                // this returns a JS object ready for saving
-                self.modelForSaving = function () {
-                    // get model as a plain javascript object
-                    var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
-                    // get rid of any transient observables
-                    return self.removeBeforeSave(jsData);
-                };
-
-                // this is a version of toJSON that just returns the model as it will be saved
-                // it is used for detecting when the model is modified (in a way that should invoke a save)
-                // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
-                self.modelAsJSON = function () {
-                    return JSON.stringify(self.modelForSaving());
-                };
-
-                self.loadData = function (data) {
-                    // load dynamic data
-                                    self.data['typeOfHeritage'](data['typeOfHeritage']);
-                self.data['levelOfHeritageListing'](data['levelOfHeritageListing']);
-                self.data['heritageConservationPlan'](data['heritageConservationPlan']);
-                self.data['otherManagementPlan'](data['otherManagementPlan']);
-                self.data['otherManagementPlanDetails'](data['otherManagementPlanDetails']);
-                self.data['managementGuide'](data['managementGuide']);
-                self.data['professionalConsultation'](data['professionalConsultation']);
-                self.data['conservationPurpose'](data['conservationPurpose']);
-                self.data['notes'](data['notes']);
-
-
-                    // if there is no data in tables then add an empty row for the user to add data
-                    if (typeof self.addRow === 'function' && self.rowCount() === 0) {
-                        self.addRow();
-                    }
-                    self.transients.dummy.notifySubscribers();
-                };
-            };
-
-
-            var savedData = activity;
-            if (!savedData.outputs) {
-                savedData.outputs = [];
-            }
-            var savedOutput = {};
-            if (savedData) {
-
-                $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'Heritage Conservation Information') {
-                        savedOutput = tmpOutput;
-                    }
-                });
-            }
-
-            window[viewModelInstance] = new this[viewModelName](savedOutput);
-            var output = savedOutput.data ? savedOutput.data : {};
-
-            window[viewModelInstance].loadData(output);
-            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
-
-            ko.applyBindings(window[viewModelInstance], document.getElementById("koHeritage_Conservation_Information"));
-
-            // this resets the baseline for detecting changes to the model
-            // - shouldn't be required if everything behaves itself but acts as a backup for
-            //   any binding side-effects
-            // - note that it is not foolproof as applying the bindings happens asynchronously and there
-            //   is no easy way to detect its completion
-            window[viewModelInstance].dirtyFlag.reset();
-
-            // register with the master controller so this model can participate in the save cycle
-            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
-            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
-        });
-
+            self.data.plannedActions = ko.observableArray([]);
+            self.selectedplannedActionsRow = ko.observable();
         
-        $(function(){
 
-            var viewModelName = "Expected_Heritage_OutcomesViewModel",
-                viewModelInstance = viewModelName + "Instance";
+            self.loadplannedActions = function (data, append) {
+                if (!append) {
+                    self.data.plannedActions([]);
+                }
+                if (data === undefined) {
+                    self.addplannedActionsRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.plannedActions.push(new PlannedActionsRow(obj));
+                    });
+                }
+            };
 
-            // load dynamic models - usually objects in a list
-                    var speciesLists = [];
-        var site = {};
-
-
-            this[viewModelName] = function (output) {
-                var self = this;
-                self.name = "Expected Heritage Outcomes";
-                self.outputId = orBlank(output.outputId);
-
-                self.data = {};
-                self.transients = {};
-                self.transients.dummy = ko.observable();
-
-                // add declarations for dynamic data
+            self.addplannedActionsRow = function () {
+                var newRow = new PlannedActionsRow();
+                self.data.plannedActions.push(newRow);
                 
-            self.data.activityContributionToPlans = ko.observable();
+            };
+            self.removeplannedActionsRow = function (row) {
+                self.data.plannedActions.remove(row);
+                
+            };
+            self.plannedActionsrowCount = function () {
+                return self.data.plannedActions().length;
+            };
 
-            self.data.heritageOutcomesExpected = ko.observable();
+            self.plannedActionsTableDataUploadVisible = ko.observable(false);
+            self.showplannedActionsTableDataUpload = function() {
+                self.plannedActionsTableDataUploadVisible(!self.plannedActionsTableDataUploadVisible());
+            };
 
-            self.data.communityOutcomesExpected = ko.observable();
+            self.plannedActionsTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadplannedActions(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "plannedActionstemplate-upload",
+                    downloadTemplateId: "plannedActionstemplate-download",
+                    formData:{type:'Planned Monitoring Approach', listName:'plannedActions'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
 
             self.data.notes = ko.observable();
             self.transients.site = site;
@@ -442,7 +375,10 @@
                 // this will be called when generating a savable model to remove transient properties
                 self.removeBeforeSave = function (jsData) {
                     // add code to remove any transients added by the dynamic tags
-                    
+                                    delete jsData.selectedplannedActionsRow;
+                delete jsData.plannedActionsTableDataUploadOptions
+                delete jsData.plannedActionsTableDataUploadVisible
+
                     delete jsData.activityType;
                     delete jsData.transients;
                     return jsData;
@@ -465,9 +401,8 @@
 
                 self.loadData = function (data) {
                     // load dynamic data
-                                    self.data['activityContributionToPlans'](data['activityContributionToPlans']);
-                self.data['heritageOutcomesExpected'](data['heritageOutcomesExpected']);
-                self.data['communityOutcomesExpected'](data['communityOutcomesExpected']);
+                                    self.data['sitePlanningTimeSpent'](orZero(data['sitePlanningTimeSpent']));
+                self.loadplannedActions(data.plannedActions);
                 self.data['notes'](data['notes']);
 
 
@@ -488,7 +423,7 @@
             if (savedData) {
 
                 $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'Expected Heritage Outcomes') {
+                    if (tmpOutput.name === 'Planned Monitoring Approach') {
                         savedOutput = tmpOutput;
                     }
                 });
@@ -500,7 +435,7 @@
             window[viewModelInstance].loadData(output);
             window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
 
-            ko.applyBindings(window[viewModelInstance], document.getElementById("koExpected_Heritage_Outcomes"));
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koPlanned_Monitoring_Approach"));
 
             // this resets the baseline for detecting changes to the model
             // - shouldn't be required if everything behaves itself but acts as a backup for

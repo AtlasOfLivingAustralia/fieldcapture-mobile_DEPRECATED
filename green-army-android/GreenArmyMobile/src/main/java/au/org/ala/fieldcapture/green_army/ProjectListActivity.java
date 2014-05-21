@@ -101,6 +101,8 @@ public class ProjectListActivity extends FragmentActivity
                 getContentResolver().setSyncAutomatically(account, FieldCaptureContent.AUTHORITY, true);
                 setContentView(R.layout.activity_project_list);
 
+                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
                 if (findViewById(R.id.project_detail_container) != null) {
                     // The detail container view will be present only in the
                     // large-screen layouts (res/values-large and
@@ -110,22 +112,23 @@ public class ProjectListActivity extends FragmentActivity
 
                     // In two-pane mode, list items should be given the
                     // 'activated' state when touched.
-                    ((ProjectListFragment) getSupportFragmentManager()
-                            .findFragmentById(R.id.project_list))
-                            .setActivateOnItemClick(true);
-
+                    if (drawer == null) {
+                        ((ProjectListFragment) getSupportFragmentManager()
+                                .findFragmentById(R.id.project_list))
+                                .setActivateOnItemClick(true);
+                    }
                     if (savedInstanceState != null) {
                         if (getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT) != null) {
                             findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
                         }
                     }
+
                 }
-                if (findViewById(R.id.drawer_layout) != null) {
+                if (drawer != null) {
                     drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                     toggle = new ActionBarDrawerToggle(this, drawer, R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close) {
                         public void onDrawerClosed(View view) {
                             super.onDrawerClosed(view);
-                            getActionBar().setTitle("Project Activities");
                         }
 
                         /**
@@ -133,7 +136,6 @@ public class ProjectListActivity extends FragmentActivity
                          */
                         public void onDrawerOpened(View drawerView) {
                             super.onDrawerOpened(drawerView);
-                            getActionBar().setTitle("Projects");
                         }
                     };
                     drawer.setDrawerListener(toggle);
@@ -153,6 +155,13 @@ public class ProjectListActivity extends FragmentActivity
         // Sync the toggle state after onRestoreInstanceState has occurred.
         if (toggle != null) {
             toggle.syncState();
+        }
+
+        if (savedInstanceState == null) {
+            String projectId = preferenceStorage.getMostRecentProjectId();
+            if (projectId != null) {
+                onItemSelected(projectId);
+            }
         }
     }
 
@@ -211,7 +220,7 @@ public class ProjectListActivity extends FragmentActivity
         if (welcome != null) {
             welcome.setVisibility(View.GONE);
         }
-        if (searchItem.isActionViewExpanded()) {
+        if (searchItem != null && searchItem.isActionViewExpanded()) {
             searchItem.collapseActionView();
         }
         if (mTwoPane) {
@@ -234,6 +243,7 @@ public class ProjectListActivity extends FragmentActivity
             detailIntent.putExtra(ActivityListFragment.ARG_PROJECT_ID, projectId);
             startActivity(detailIntent);
         }
+        preferenceStorage.setMostRecentProjectId(projectId);
     }
 
 

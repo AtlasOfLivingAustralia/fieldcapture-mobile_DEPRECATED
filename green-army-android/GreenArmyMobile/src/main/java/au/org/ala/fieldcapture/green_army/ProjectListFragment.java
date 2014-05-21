@@ -54,6 +54,8 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
     /** Identifies the loader we are using */
     private static final int PROJECT_LOADER_ID = 0;
 
+    private PreferenceStorage preferences;
+
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -100,11 +102,35 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.changeCursor(data);
         if (data.getCount() == 0) {
             // Force a refresh from the server.
             FieldCaptureContent.requestSync(getActivity());
         }
-        mAdapter.changeCursor(data);
+        else {
+
+            if (mActivatedPosition == ListView.INVALID_POSITION) {
+                String projectId = preferences.getMostRecentProjectId();
+                if (projectId != null) {
+
+                    while (data.moveToNext()) {
+                        if (projectId.equals(data.getString(data.getColumnIndex(FieldCaptureContent.PROJECT_ID)))) {
+                            setActivatedPosition(data.getPosition());
+                            String projectName = data.getString(data.getColumnIndex("name"));
+                            getActivity().setTitle(projectName);
+                        }
+                    }
+
+                }
+            }
+            else {
+                data.moveToPosition(mActivatedPosition);
+                String projectName = data.getString(data.getColumnIndex("name"));
+                getActivity().setTitle(projectName);
+            }
+        }
+
+
     }
 
     @Override
@@ -127,6 +153,7 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         int layout = inDrawer ? R.layout.project_drawer_layout : R.layout.project_layout;
         String[] columns = new String[] {"projectId", "name", "description"};
         mAdapter = new SimpleCursorAdapter(getActivity(), layout, null, columns, new int[]{-1, android.R.id.text1,android.R.id.text2}, 0);
+        preferences = PreferenceStorage.getInstance(getActivity());
 
     }
 
@@ -160,6 +187,7 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
+
     }
 
     @Override
@@ -189,7 +217,9 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         // fragment is attached to one) that an item has been selected.
         Cursor cursor = (Cursor)mAdapter.getItem(position);
 
-        mCallbacks.onItemSelected(cursor.getString(cursor.getColumnIndex("projectId")));
+        String projectName = cursor.getString(cursor.getColumnIndex("name"));
+        mCallbacks.onItemSelected(cursor.getString(cursor.getColumnIndex(FieldCaptureContent.PROJECT_ID)));
+        getActivity().setTitle(projectName);
     }
 
     @Override
