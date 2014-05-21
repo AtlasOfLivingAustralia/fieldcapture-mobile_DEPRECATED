@@ -63,5 +63,6 @@
     <string name="network_warning">Your device doesn\'t appear to be connected to the network.  The map may not be visible, however your location will be found using GPS</string>
     <string name="no_gps_title">Enable GPS?</string>
     <string name="no_gps_message">The GPS on this device is currently disabled, do you want to enable it?  Enabling GPS will allow accurate survey locations to be recorded.</string>
+    <string name="unassigned_site"><![CDATA[Site: <i>Unassigned </i>]]></string>
 
 </resources>

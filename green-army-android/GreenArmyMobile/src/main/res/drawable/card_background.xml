@@ -19,7 +19,7 @@
 
             <solid android:color="@android:color/white" />
 
-            <padding android:bottom="8dp"
+            <padding android:bottom="0dp"
                 android:left="8dp"
                 android:right="8dp"
                 android:top="8dp" />

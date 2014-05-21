@@ -13,6 +13,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -53,9 +55,11 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
         private SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         private SimpleDateFormat displayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        private Spanned noSiteText;
 
         public ActivityAdapter(Context context, Cursor cursor, int flags) {
             super(context, R.layout.activity_layout, cursor, flags);
+            noSiteText = Html.fromHtml(context.getString(R.string.unassigned_site));
         }
 
         @Override
@@ -89,11 +93,10 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
             String siteName = cursor.getString(cursor.getColumnIndex("siteName"));
             if (siteName != null) {
-                viewHolder.activitySite.setVisibility(View.VISIBLE);
-                viewHolder.activitySite.setText(siteName);
+                viewHolder.activitySite.setText("Site: "+siteName);
             }
             else {
-                viewHolder.activitySite.setVisibility(View.GONE);
+                viewHolder.activitySite.setText(noSiteText);
             }
 
             // Format dates for display.
