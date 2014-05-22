@@ -64,5 +64,9 @@
     <string name="no_gps_title">Enable GPS?</string>
     <string name="no_gps_message">The GPS on this device is currently disabled, do you want to enable it?  Enabling GPS will allow accurate survey locations to be recorded.</string>
     <string name="unassigned_site"><![CDATA[Site: <i>Unassigned </i>]]></string>
+    <string name="new_site_menu">New Site</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+    <string name="no_projects">No projects found</string>
 
 </resources>

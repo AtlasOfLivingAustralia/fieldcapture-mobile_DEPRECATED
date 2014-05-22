@@ -51,6 +51,10 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
 
     private ListView mListView;
 
+    private View listContainer;
+    private View progress;
+    private View noProjectsMessage;
+
     /** Identifies the loader we are using */
     private static final int PROJECT_LOADER_ID = 0;
 
@@ -102,12 +106,22 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
         mAdapter.changeCursor(data);
+        listContainer.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.GONE);
+
         if (data.getCount() == 0) {
             // Force a refresh from the server.
             FieldCaptureContent.requestSync(getActivity());
+            noProjectsMessage.setVisibility(View.VISIBLE);
+            mListView.setVisibility(View.GONE);
+
         }
         else {
+
+            noProjectsMessage.setVisibility(View.GONE);
+            mListView.setVisibility(View.VISIBLE);
 
             if (mActivatedPosition == ListView.INVALID_POSITION) {
                 String projectId = preferences.getMostRecentProjectId();
@@ -173,6 +187,10 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         PreferenceStorage storage = PreferenceStorage.getInstance(getActivity());
         TextView heading = (TextView)root.findViewById(R.id.project_title);
         heading.setText(storage.getUsername());
+
+        listContainer = root.findViewById(R.id.project_list_container);
+        progress = root.findViewById(R.id.project_list_progress);
+        noProjectsMessage = root.findViewById(R.id.no_projects_message);
 
         return root;
     }

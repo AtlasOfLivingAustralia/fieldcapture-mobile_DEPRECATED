@@ -2,7 +2,9 @@ package au.org.ala.fieldcapture.green_army;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.SearchManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,8 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+import au.org.ala.fieldcapture.green_army.service.Mapper;
 
 
 /**
@@ -41,6 +48,7 @@ public class ProjectListActivity extends FragmentActivity
         implements ProjectListFragment.Callbacks, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchView.OnCloseListener {
 
     public static final String PROJECT_ACTIVITIES_FRAGMENT = "projectActivitiesFragment";
+    private static final int NEW_SITE_REQUEST = 1;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -216,6 +224,7 @@ public class ProjectListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(String projectId) {
+
         View welcome = findViewById(R.id.project_list_welcome);
         if (welcome != null) {
             welcome.setVisibility(View.GONE);
@@ -263,11 +272,39 @@ public class ProjectListActivity extends FragmentActivity
             case R.id.refresh_menu_item:
                 FieldCaptureContent.requestSync(this, true);
                 return true;
+
+            case R.id.new_site:
+                createNewSite();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void createNewSite() {
+        Intent newSiteIntent = new Intent(this, SiteActivity.class);
+        startActivityForResult(newSiteIntent, NEW_SITE_REQUEST);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == NEW_SITE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                ContentValues site = data.getParcelableExtra(SiteActivity.SITE_KEY);
+                if (site != null) {
+                    site.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE);
+
+                    site.put(FieldCaptureContent.PROJECT_ID, preferenceStorage.getMostRecentProjectId());
+                    getContentResolver().insert(FieldCaptureContent.siteUri(site.getAsString(FieldCaptureContent.SITE_ID)), site);
+
+                }
+            }
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     public void openDrawer(View view) {
         if (drawer != null) {
