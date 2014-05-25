@@ -30,7 +30,7 @@
     <string name="drawer_open">Filter activities</string>
     <string name="open_drawer_button">Select a Project</string>
     <string name="drawer_close">Filter activities</string>
-    <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by clicking the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your provider to get this fixed.</string>
+    <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by clicking the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your service provider to get this fixed.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
     <string name="refresh">Refresh data</string>
@@ -58,7 +58,7 @@
     <string name="site_name_required">Site name is required</string>
     <string name="location_title">SITE LOCATION</string>
     <string name="accuracy_title">Accuracy:</string>
-    <string name="location_status_searching">Locating your position</string>
+    <string name="location_status_searching">Locating your position...</string>
     <string name="status_refining_location">Refining your location...</string>
     <string name="network_warning">Your device doesn\'t appear to be connected to the network.  The map may not be visible, however your location will be found using GPS</string>
     <string name="no_gps_title">Enable GPS?</string>
