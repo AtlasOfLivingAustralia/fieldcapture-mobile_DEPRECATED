@@ -48,6 +48,7 @@ public class ProjectListActivity extends FragmentActivity
         implements ProjectListFragment.Callbacks, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchView.OnCloseListener {
 
     public static final String PROJECT_ACTIVITIES_FRAGMENT = "projectActivitiesFragment";
+    private static final String SELECTED_PROJECT_KEY = "selectedProjectId";
     private static final int NEW_SITE_REQUEST = 1;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -60,6 +61,8 @@ public class ProjectListActivity extends FragmentActivity
     private PreferenceStorage preferenceStorage;
     private Account account;
     private MenuItem searchItem;
+    private MenuItem newSiteItem;
+    private String selectedProjectId;
 
     private String checkLogin() {
 
@@ -126,8 +129,15 @@ public class ProjectListActivity extends FragmentActivity
                                 .setActivateOnItemClick(true);
                     }
                     if (savedInstanceState != null) {
+                        selectedProjectId = savedInstanceState.getString(SELECTED_PROJECT_KEY);
                         if (getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT) != null) {
                             findViewById(R.id.project_list_welcome).setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        String projectId = preferenceStorage.getMostRecentProjectId();
+                        if (projectId != null) {
+                            onItemSelected(projectId);
                         }
                     }
 
@@ -165,12 +175,6 @@ public class ProjectListActivity extends FragmentActivity
             toggle.syncState();
         }
 
-        if (savedInstanceState == null) {
-            String projectId = preferenceStorage.getMostRecentProjectId();
-            if (projectId != null) {
-                onItemSelected(projectId);
-            }
-        }
     }
 
     @Override
@@ -179,6 +183,13 @@ public class ProjectListActivity extends FragmentActivity
         if (toggle != null) {
             toggle.onConfigurationChanged(newConfig);
         }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putString(SELECTED_PROJECT_KEY, selectedProjectId);
     }
 
     @Override
@@ -210,6 +221,11 @@ public class ProjectListActivity extends FragmentActivity
         searchView.setOnCloseListener(this);
         searchView.setOnSuggestionListener(this);
 
+        newSiteItem = menu.findItem(R.id.new_site);
+        if (selectedProjectId == null) {
+            newSiteItem.setEnabled(false);
+        }
+
         return true;
     }
 
@@ -225,12 +241,16 @@ public class ProjectListActivity extends FragmentActivity
     @Override
     public void onItemSelected(String projectId) {
 
+        selectedProjectId = projectId;
         View welcome = findViewById(R.id.project_list_welcome);
         if (welcome != null) {
             welcome.setVisibility(View.GONE);
         }
         if (searchItem != null && searchItem.isActionViewExpanded()) {
             searchItem.collapseActionView();
+        }
+        if (newSiteItem != null) {
+            newSiteItem.setEnabled(true);
         }
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
