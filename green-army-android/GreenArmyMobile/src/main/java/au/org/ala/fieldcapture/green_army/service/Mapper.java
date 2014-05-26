@@ -62,6 +62,7 @@ public class Mapper {
 
         // Special case of JSON encoded arrays and nested objects.
         String encodedThemes = cursor.getString(cursor.getColumnIndex("themes"));
+
         if (StringUtils.hasLength(encodedThemes)) {
             activity.put("themes", new JSONArray(encodedThemes));
         }
@@ -69,14 +70,27 @@ public class Mapper {
             activity.put("themes", new JSONArray());
         }
 
+        decodeOutputs(cursor, activity);
+
+        return activity;
+    }
+
+    private static void decodeOutputs(Cursor cursor, JSONObject activity) throws JSONException {
         String encodedOutputs = cursor.getString(cursor.getColumnIndex("outputs"));
-        if (StringUtils.hasLength(encodedThemes)) {
+        if (StringUtils.hasLength(encodedOutputs)) {
             activity.put("outputs", new JSONArray(encodedOutputs));
         }
         else {
             activity.put("outputs", new JSONArray());
         }
+    }
 
+    public static JSONObject mapActivityForUpload(Cursor cursor) throws JSONException {
+        JSONObject activity = toJSONObject(cursor, FieldCaptureContent.ACTIVITY_FLAT_COLUMNS);
+        activity.remove("themes");
+        activity.remove(FieldCaptureContent.SYNC_STATUS);
+
+        decodeOutputs(cursor, activity);
         return activity;
     }
 
@@ -114,7 +128,6 @@ public class Mapper {
         }
 
         return newSite;
-
     }
 
     public static ContentValues[] mapSites(JSONArray sitesJSON) throws JSONException {
@@ -189,6 +202,12 @@ public class Mapper {
 //        else {
 //            site.put(FieldCaptureContent.PHOTO_POINTS_COLUMN, new JSONArray());
 //        }
+        return site;
+    }
+
+    public static JSONObject mapSiteForUpload(Cursor data) throws JSONException {
+        JSONObject site = toJSONObject(data, FieldCaptureContent.SITE_FLAT_COLUMNS);
+        site.remove(FieldCaptureContent.SYNC_STATUS);
         return site;
     }
 }

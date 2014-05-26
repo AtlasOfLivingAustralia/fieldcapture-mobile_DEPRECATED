@@ -62,7 +62,7 @@ public class EcodataInterface extends WebService {
         public boolean success;
     }
 
-    //private static final String ECODATA_URL = "http://152.83.195.62:8080/fieldcapture/mobile";
+    //private static final String FIELDCAPTURE_URL = "http://152.83.195.62:8087/fieldcapture/mobile";
     private static final String FIELDCAPTURE_URL = "https://fieldcapture-test.ala.org.au/mobile";
 
     public EcodataInterface(Context ctx) {
@@ -225,7 +225,6 @@ public class EcodataInterface extends WebService {
         SaveSiteResult result = new SaveSiteResult();
         result.success = false;
 
-        boolean success = false;
         try {
 
             JSONObject resultJSON = template.postForObject(url, siteJSON, JSONObject.class);

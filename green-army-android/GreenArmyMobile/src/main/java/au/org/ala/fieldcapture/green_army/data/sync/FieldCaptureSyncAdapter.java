@@ -153,8 +153,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
                 String id = sites.getString(sites.getColumnIndex(FieldCaptureContent.SITE_ID));
                 boolean success = false;
                 try {
-                    JSONObject json = Mapper.mapSite(sites);
-                    json.remove("syncStatus");
+                    JSONObject json = Mapper.mapSiteForUpload(sites);
 
                     EcodataInterface.SaveSiteResult result = ecodataInterface.saveSite(json);
                     if (result.success) {
@@ -200,12 +199,8 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
                 String id = activities.getString(activities.getColumnIndex(FieldCaptureContent.ACTIVITY_ID));
                 boolean success = false;
                 try {
-                    JSONObject json = Mapper.toJSONObject(activities, null);
-                    String outputData = json.optString("outputs");
-                    if (outputData != null) {
-                        json.remove("outputs");
-                        json.put("outputs", new JSONArray(outputData));
-                    }
+                    JSONObject json = Mapper.mapActivityForUpload(activities);
+
                     success = ecodataInterface.saveActivity(json);
                 } catch (JSONException e) {
                     Log.e("FieldCaptureSyncAdapter", "Unable to save to to invalid JSON", e);
