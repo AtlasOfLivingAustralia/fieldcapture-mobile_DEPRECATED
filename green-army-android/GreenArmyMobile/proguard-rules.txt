@@ -32,3 +32,19 @@
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
+
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+-dontwarn org.springframework.http.client.CommonsClientHttpRequest
+-dontwarn org.springframework.http.client.CommonsClientHttpRequestFactory
+-dontwarn org.springframework.http.client.CommonsClientHttpResponse
+-dontwarn org.springframework.http.converter.feed.AbstractWireFeedHttpMessageConverter
+-dontwarn org.springframework.http.converter.feed.AtomFeedHttpMessageConverter
+-dontwarn org.springframework.http.converter.feed.RssChannelHttpMessageConverter
+-dontwarn org.springframework.http.converter.feed.SyndFeedHttpMessageConverter
+-dontwarn org.springframework.http.converter.json.GsonHttpMessageConverter
+-dontwarn org.springframework.http.converter.json.MappingJacksonHttpMessageConverter
+-dontwarn org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+-dontwarn org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter

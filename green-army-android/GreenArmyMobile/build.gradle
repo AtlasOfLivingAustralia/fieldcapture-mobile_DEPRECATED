@@ -10,9 +10,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        ala {
+            storeFile file(alaKeyStore)
+            storePassword alaStorePass
+            keyAlias alaKeyAlias
+            keyPassword alaKeyPass
+        }
+    }
     buildTypes {
         release {
-            runProguard false
+            debuggable false
+            jniDebugBuild false
+            signingConfig signingConfigs.ala
+            runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
