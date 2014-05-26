@@ -189,44 +189,6 @@
     
     
     
-    
-    <div class="output-block" id="koSurvey_Information">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Survey Information<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
-        <!-- add the dynamic components -->
-        <div class="row-fluid space-after " >
-<span class="span12">    <span  class="span12">This is a generalised form for recording biological survey data and should cover the basic structured data gathering requirements of most surveys. If additional structured data is required, please contact <a href='mailto: MERIT@environment.gov.au'>MERIT@environment.gov.au</a>.</span></span></div>
-<div class="row-fluid space-after output-section" >
-<div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey Id / Reference No.:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='An identifier or reference number that may be applicable to the survey event.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input  class="span8 input-small" data-bind='value:data.surveyId'  type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey title:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Short descriptive title of the survey. This provides context for the survey event and enables you to search for it easily.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input  class="span8 input-small" data-bind='value:data.surveyTitle'  type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey objectives:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Description of the objectives of the survey event'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.surveyObjectives'></textarea></span></div></div><div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey leader:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the person leading the survey event'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input  class="span8 input-small" data-bind='value:data.surveyLeader'  type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey participants:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='List of people people participating in the survey event.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.surveyParticipants'></textarea></span></div></div></div>
-<div class="row-fluid space-after output-section" >
-<div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey area (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The area in hectares over which the survey is being conducted'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surveyArea' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Survey methodology used:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the methodology used. Note this should be the short-form name by which a standard methodology is commonly referred to (eg. 2 Ha 20 min Bird Survey). If it is not a common or standard methodology, please create a short-form name for it.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input  class="span8 input-small" data-bind='value:data.surveyMethodologyName'  data-validation-engine='validate[required]' type='text' class='input-small'/></span></div></div><div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Description of survey methodology:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Long description of the methodology used for the survey event'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.surveyMethodologyDescription'></textarea></span></div></div></div>
-
-        
-    </div>
-    
-
-    
-    
-    
     <style type="text/css">
         table.revegetationMonitoring th {white-space:normal;}
         table.revegetationMonitoring td:nth-child(1) {width:25%;}
@@ -308,6 +270,35 @@
     
 
     
+    
+    
+    
+    <div class="output-block" id="koParticipant_Information">
+        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Participant Information<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
+        <!-- add the dynamic components -->
+        <div class="row-fluid space-after output-section" >
+<div class="span4">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of volunteers (ie. not employed on project):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of participants involved in an activity who are not delivery partners or employed in the project. These would typically be the volunteer participants.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipantsNotEmployed' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of Indigenous volunteers (ie. not employed on project):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of indigenous people participating in an activity who are not delivery partners or employed in the project (ie. Indigenous volunteers)'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOfIndigenousParticipants' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div><div class="span4">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of new people attending project activities:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of participants involved in an activity who have not attended other activities associated with the project'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipantsNew' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of farming entities participating in project activities for the first time:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Total number of farm entities participating in project activities for the first time'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOfFarmingEntitiesNew' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div><div class="span4">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of community groups (non delivery partners) participating:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of different community groups (non delivery partners) participating in this activity'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOfCommunityGroups' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of Indigenous on-country visits:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of unique indigenous on-country visits undertaken as part of this activity'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOnCountryVisits' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+
+        
+    </div>
+    
+
+    
 
 <!-- /ko -->
 
@@ -349,124 +340,6 @@
 <script src="static/ZbrF5cz3bJrkAqBXLrAlOmoaIYntVDIKpviQs5E8Rhy.js" type="text/javascript" ></script>
 <script src="static/IZCc6ZgD3MepYbz4UqlDLzMDNNghSCivcfGebmF9V2d.js" type="text/javascript" ></script>
 <script type="text/javascript">
-        $(function(){
-
-            var viewModelName = "Survey_InformationViewModel",
-                viewModelInstance = viewModelName + "Instance";
-
-            // load dynamic models - usually objects in a list
-                    var speciesLists = [];
-        var site = {};
-
-
-            this[viewModelName] = function (output) {
-                var self = this;
-                self.name = "Survey Information";
-                self.outputId = orBlank(output.outputId);
-
-                self.data = {};
-                self.transients = {};
-                self.transients.dummy = ko.observable();
-
-                // add declarations for dynamic data
-                
-            self.data.surveyId = ko.observable();
-
-            self.data.surveyTitle = ko.observable();
-
-            self.data.surveyObjectives = ko.observable();
-
-            self.data.surveyLeader = ko.observable();
-
-            self.data.surveyParticipants = ko.observable();
-
-            self.data.surveyArea = ko.observable();
-
-            self.data.surveyMethodologyName = ko.observable();
-
-            self.data.surveyMethodologyDescription = ko.observable();
-            self.transients.site = site;
-
-                // this will be called when generating a savable model to remove transient properties
-                self.removeBeforeSave = function (jsData) {
-                    // add code to remove any transients added by the dynamic tags
-                    
-                    delete jsData.activityType;
-                    delete jsData.transients;
-                    return jsData;
-                };
-
-                // this returns a JS object ready for saving
-                self.modelForSaving = function () {
-                    // get model as a plain javascript object
-                    var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
-                    // get rid of any transient observables
-                    return self.removeBeforeSave(jsData);
-                };
-
-                // this is a version of toJSON that just returns the model as it will be saved
-                // it is used for detecting when the model is modified (in a way that should invoke a save)
-                // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
-                self.modelAsJSON = function () {
-                    return JSON.stringify(self.modelForSaving());
-                };
-
-                self.loadData = function (data) {
-                    // load dynamic data
-                                    self.data['surveyId'](data['surveyId']);
-                self.data['surveyTitle'](data['surveyTitle']);
-                self.data['surveyObjectives'](data['surveyObjectives']);
-                self.data['surveyLeader'](data['surveyLeader']);
-                self.data['surveyParticipants'](data['surveyParticipants']);
-                self.data['surveyArea'](orZero(data['surveyArea']));
-                self.data['surveyMethodologyName'](data['surveyMethodologyName']);
-                self.data['surveyMethodologyDescription'](data['surveyMethodologyDescription']);
-
-
-                    // if there is no data in tables then add an empty row for the user to add data
-                    if (typeof self.addRow === 'function' && self.rowCount() === 0) {
-                        self.addRow();
-                    }
-                    self.transients.dummy.notifySubscribers();
-                };
-            };
-
-
-            var savedData = activity;
-            if (!savedData.outputs) {
-                savedData.outputs = [];
-            }
-            var savedOutput = {};
-            if (savedData) {
-
-                $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'Survey Information') {
-                        savedOutput = tmpOutput;
-                    }
-                });
-            }
-
-            window[viewModelInstance] = new this[viewModelName](savedOutput);
-            var output = savedOutput.data ? savedOutput.data : {};
-
-            window[viewModelInstance].loadData(output);
-            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
-
-            ko.applyBindings(window[viewModelInstance], document.getElementById("koSurvey_Information"));
-
-            // this resets the baseline for detecting changes to the model
-            // - shouldn't be required if everything behaves itself but acts as a backup for
-            //   any binding side-effects
-            // - note that it is not foolproof as applying the bindings happens asynchronously and there
-            //   is no easy way to detect its completion
-            window[viewModelInstance].dirtyFlag.reset();
-
-            // register with the master controller so this model can participate in the save cycle
-            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
-            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
-        });
-
-        
         $(function(){
 
             var viewModelName = "Revegetation_Monitoring_ResultsViewModel",
@@ -649,6 +522,118 @@
             window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
 
             ko.applyBindings(window[viewModelInstance], document.getElementById("koRevegetation_Monitoring_Results"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+        
+        $(function(){
+
+            var viewModelName = "Participant_InformationViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                    var speciesLists = [];
+        var site = {};
+
+
+            this[viewModelName] = function (output) {
+                var self = this;
+                self.name = "Participant Information";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                
+            self.data.totalParticipantsNotEmployed = ko.observable();
+
+            self.data.numberOfIndigenousParticipants = ko.observable();
+
+            self.data.numberOnCountryVisits = ko.observable();
+
+            self.data.totalParticipantsNew = ko.observable();
+
+            self.data.numberOfCommunityGroups = ko.observable();
+
+            self.data.numberOfFarmingEntitiesNew = ko.observable();
+            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                    
+                    delete jsData.activityType;
+                    delete jsData.transients;
+                    return jsData;
+                };
+
+                // this returns a JS object ready for saving
+                self.modelForSaving = function () {
+                    // get model as a plain javascript object
+                    var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                    // get rid of any transient observables
+                    return self.removeBeforeSave(jsData);
+                };
+
+                // this is a version of toJSON that just returns the model as it will be saved
+                // it is used for detecting when the model is modified (in a way that should invoke a save)
+                // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+                self.modelAsJSON = function () {
+                    return JSON.stringify(self.modelForSaving());
+                };
+
+                self.loadData = function (data) {
+                    // load dynamic data
+                                    self.data['totalParticipantsNotEmployed'](orZero(data['totalParticipantsNotEmployed']));
+                self.data['numberOfIndigenousParticipants'](orZero(data['numberOfIndigenousParticipants']));
+                self.data['numberOnCountryVisits'](orZero(data['numberOnCountryVisits']));
+                self.data['totalParticipantsNew'](orZero(data['totalParticipantsNew']));
+                self.data['numberOfCommunityGroups'](orZero(data['numberOfCommunityGroups']));
+                self.data['numberOfFarmingEntitiesNew'](orZero(data['numberOfFarmingEntitiesNew']));
+
+
+                    // if there is no data in tables then add an empty row for the user to add data
+                    if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                        self.addRow();
+                    }
+                    self.transients.dummy.notifySubscribers();
+                };
+            };
+
+
+            var savedData = activity;
+            if (!savedData.outputs) {
+                savedData.outputs = [];
+            }
+            var savedOutput = {};
+            if (savedData) {
+
+                $.each(savedData.outputs, function(i, tmpOutput) {
+                    if (tmpOutput.name === 'Participant Information') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koParticipant_Information"));
 
             // this resets the baseline for detecting changes to the model
             // - shouldn't be required if everything behaves itself but acts as a backup for
@@ -914,17 +899,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });

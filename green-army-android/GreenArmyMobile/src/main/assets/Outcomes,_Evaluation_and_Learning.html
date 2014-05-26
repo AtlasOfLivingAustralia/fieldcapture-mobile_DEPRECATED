@@ -239,7 +239,7 @@
         <!-- add the dynamic components -->
         <div class="row-fluid space-after output-section" >
 <div class="span12">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Describe the effectiveness of the project and whether it delivered what was intended:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Discussion of the assumptions and project design. Did the project implementation happen as it was planned/envisaged?'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Did the project implementation happen as it was planned/envisaged?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Discussion of the assumptions and project design. Did the project implementation happen as it was planned/envisaged?'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><textarea  class="span8" data-bind='value:data.assumptions'></textarea></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Discuss the effectiveness of your approach to managing project risks:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Discussion on whether the project risks impacted the project outcomes, or whether the controls to mitigate them were acceptable.'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -854,17 +854,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });

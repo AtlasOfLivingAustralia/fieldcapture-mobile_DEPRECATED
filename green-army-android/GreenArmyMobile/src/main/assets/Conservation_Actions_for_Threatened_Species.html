@@ -221,9 +221,9 @@
         <a href="#" data-bind="popover: {title: name, content: transients.speciesInformation}"><i class="icon-info-sign"></i></a>
     </span>
 </span>
-</span><span class="span4">    <span  class="preLabel"><label>No. of animals in captive breeding programs:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of individual animals in a captive breeding program'>
+</span><span class="span4">    <span  class="preLabel"><label>No. of animals in captive breeding programs or plants propagated:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of individual animals in a captive breeding program or plants in a propagation program.'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.animalBreedingNos' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span><span class="span4">    <span  class="preLabel"><label>No. of animals released back into the wild:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of individual animals released back into the wild'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.animalBreedingNos' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span><span class="span4">    <span  class="preLabel"><label>No. of animals / plants released back into the wild:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of individual animals / plants released back into the wild'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.animalReleaseNumber' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div>
 <div class="row-fluid output-section">
@@ -360,7 +360,7 @@
             if (!data) data = {};
             self.transients = {};
             this.conservationActionType = ko.observable(orBlank(data['conservationActionType']));
-            self.transients.conservationActionTypeConstraints = ["Ecological thinning","Installation of nest boxes or other breeding/refuge structures","Restoring niche habitats","Seed bank establishment","Ex-situ breeding program","Other (specify in notes)"];
+            self.transients.conservationActionTypeConstraints = ["Ecological thinning","Installation of nest boxes or other breeding/refuge structures","Restoring niche habitats","Seed bank establishment","Ex-situ breeding / propagation program","Other (specify in notes)"];
             this.areaImpactedByWorks = ko.observable(orZero(data['areaImpactedByWorks']));
         };
         var ProtectionMechanismsRow = function (data) {
@@ -964,17 +964,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });

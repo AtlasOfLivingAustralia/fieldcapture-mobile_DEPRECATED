@@ -210,7 +210,9 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.debrisWeightTonnes' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Volume of debris removed (m3):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Volume in cubic metres of debris removed during the activity'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.debrisVolumeM3' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Comments / Notes:</label></span><textarea  class="span8" data-bind='value:data.debrisNotes'></textarea></span></div></div></div>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.debrisVolumeM3' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Area covered by this activity (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area in hectares covered by the debris removal activity.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.debrisActivityArea' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Comments / Notes:</label></span><textarea  class="span8" data-bind='value:data.debrisNotes'></textarea></span></div></div></div>
 
         
     </div>
@@ -312,6 +314,8 @@
             self.data.debrisWeightTonnes = ko.observable();
 
             self.data.debrisVolumeM3 = ko.observable();
+
+            self.data.debrisActivityArea = ko.observable();
                 self.data.debrisRemovalMethod=ko.observableArray([]);
             self.transients.debrisRemovalMethodConstraints = ["Trap and screen","Trap and skim","Removal by mobile machinery","Hand removal","Other (specify in notes)"];
                 
@@ -354,6 +358,7 @@
                                     self.data['debrisType'](data['debrisType']);
                 self.data['debrisWeightTonnes'](orZero(data['debrisWeightTonnes']));
                 self.data['debrisVolumeM3'](orZero(data['debrisVolumeM3']));
+                self.data['debrisActivityArea'](orZero(data['debrisActivityArea']));
                 self.loaddebrisRemovalMethod(data['debrisRemovalMethod']);
                 self.data['debrisNotes'](data['debrisNotes']);
 
@@ -765,17 +770,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });

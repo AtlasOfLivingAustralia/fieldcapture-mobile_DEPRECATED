@@ -195,21 +195,23 @@
         <!-- add the dynamic components -->
         <div class="row-fluid space-after output-section" >
 <div class="span4">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Sampler name:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the person or group undertaking the sampling event'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Sampler name:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the person or group undertaking the sampling event'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input  class="span8 input-small" data-bind='value:data.samplerName'  data-validation-engine='validate[required]' type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Type of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Broad class of water body being sampled'>
+</a></label></span><input  class="span8 input-small" data-bind='value:data.samplerName'  type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Type of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the water body being sampled.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><select class="span8" data-bind='value:data.waterbodyName,options:transients.waterbodyNameConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Type of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Broad class of water body being sampled'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><select class="span8" data-bind='value:data.waterType,options:transients.waterTypeConstraints,optionsCaption:"Please select"'></select></span></div></div><div class="span4">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Number in sampler group:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The total number of people participating in the sampling event'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Number in sampler group:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The total number of people participating in the sampling event'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipants' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>No. of volunteer participants:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of volunteers participating in the sampling event'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipants' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>No. of volunteer participants:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of volunteers participating in the sampling event'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOfVolunteerParticipants' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div><div class="span4">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey time:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The time of the day that the survey was undertaken'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surveyTime' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Survey duration (hrs):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The duration of the sampling event in hours'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surveyTime' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Survey duration (hrs):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The duration of the sampling event in hours'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surveyDuration' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div></div></div>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surveyDuration' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div></div>
 
         
     </div>
@@ -262,9 +264,9 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.waterTurbidity' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Nitrates (mg/L as N):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the amount of nitrogen dissolved in a water sample in milligrams per litre'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterNitrates' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Did you calibrate your EC meter?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicator as to whether the electrical conductivity meter used had been calibrated prior to sampling'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterNitrates' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Did you calibrate your EC meter?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicator as to whether the electrical conductivity meter used had been calibrated prior to sampling'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.instrumentCalibration,options:transients.instrumentCalibrationConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div></div><div class="span6">
+</a></label></span><select class="span8" data-bind='value:data.instrumentCalibration,options:transients.instrumentCalibrationConstraints,optionsCaption:"Please select"'></select></span></div></div><div class="span6">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Available Phosphate (mg/L):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the amount of available (soluble reactive component) phosphate in milligrams per litre of the water at the sampling site'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterAvailableP' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total Phosphate (mg/L):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the total amount of phosphate (reactive and unreactive components) in milligrams per litre of the water at the sampling site'>
@@ -356,6 +358,8 @@
 
             self.data.samplerName = ko.observable();
 
+            self.data.waterbodyName = ko.observable();
+
             self.data.numberOfVolunteerParticipants = ko.observable();
 
             self.data.waterType = ko.observable();
@@ -392,6 +396,7 @@
                 self.data['surveyDuration'](orZero(data['surveyDuration']));
                 self.data['totalParticipants'](orZero(data['totalParticipants']));
                 self.data['samplerName'](data['samplerName']);
+                self.data['waterbodyName'](data['waterbodyName']);
                 self.data['numberOfVolunteerParticipants'](orZero(data['numberOfVolunteerParticipants']));
                 self.data['waterType'](data['waterType']);
 
@@ -939,17 +944,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });

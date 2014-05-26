@@ -426,7 +426,7 @@
             self.data.connectivityIndex = ko.observable();
             self.transients.connectivityIndexConstraints = ["Connected to patch of more than 1000 ha","Connected to patch of 100 to 1000 ha","Connected to patch of 25 to 100 ha","Connected to patch of less than 25 ha","Patch linked to other vegetation via riparian link","Patch <1km from a patch of more than 1000ha","Patch <1km from a patch of 100 to 1000ha","Patch <1km from a patch of 25 to 100ha","Patch <1km from a patch of less than 25ha","Isolated forest or woodland remnant >1km from other remnants","Isolated grassland >1km from other remnants","No vegetation within 1km","Only isolated Paddock trees within 1 km","Patch surrounded by grazing","Patch surrounded by cropping"];
                 self.data.environmentalBenefits=ko.observableArray([]);
-            self.transients.environmentalBenefitsConstraints = ["Groundwater recharge management","Groundwater discharge or salinity management","Habitat enhancement - improved habitat connectivity","Habitat restoration - home range/extent improvement","Habitat restoration - habitat condition improvement","Improved vegetation condition","Improved vegetation connectivity","Improved vegetation extent","Nutrient cycling","Soil stabilisation","Riparian rehabilitation","Streambank protection"];
+            self.transients.environmentalBenefitsConstraints = ["Groundwater recharge management","Groundwater discharge or salinity management","Habitat enhancement - improved habitat connectivity","Habitat restoration - home range / extent improvement","Habitat restoration - habitat condition improvement","Improved vegetation condition","Improved vegetation connectivity","Improved vegetation extent","Nutrient cycling","Soil stabilisation","Riparian rehabilitation","Streambank protection"];
                 
         self.loadenvironmentalBenefits = function (data) {
             if (data !== undefined) {
@@ -972,17 +972,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });

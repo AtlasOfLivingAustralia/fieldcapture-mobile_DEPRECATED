@@ -215,11 +215,11 @@
             <table class="table table-bordered plantPropagation " >
                 <thead><tr><th class="required">Species:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Species propagated'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th class="required">Amount of seed (gms):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Weight in grams of seed propagated'>
+</a></th><th>Amount of seed (gms):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Weight in grams of seed propagated'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th>Germination method:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The main method used to germinate seed for each listed species'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th class="required">Finished type of plant stock:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of plant stock being supplied to the market for planting out'>
+</a></th><th>Finished type of plant stock:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of plant stock being supplied to the market for planting out'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th class="required">No. of plants:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of finished plant stock grown for shipment and planting out'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -237,9 +237,9 @@
     </span>
 </span>
 </td>
-                    <td><input class="input-mini" style="text-align:center" data-bind='value:seedWeight' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-mini" style="text-align:center" data-bind='value:seedWeight' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
                     <td><select data-bind='value:germinationMethod,options:transients.germinationMethodConstraints,optionsCaption:"Please select"'></select></td>
-                    <td><select data-bind='value:finishedStockType,options:transients.finishedStockTypeConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></td>
+                    <td><select data-bind='value:finishedStockType,options:transients.finishedStockTypeConstraints,optionsCaption:"Please select"'></select></td>
                     <td><input class="input-mini" style="text-align:center" data-bind='value:numberGrown' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></td>
                     <td><div class="input-append"><input data-bind="datepicker:propagationFinishDate.date" type="text" size="12"/><span class="add-on open-datepicker"><i class="icon-th"></i></span></div></td>
                     <td><i data-bind='click:$root.removeplantPropagationRow' class='icon-remove'></i></td>
@@ -351,7 +351,7 @@
             this.species =  new SpeciesViewModel(data['species'], speciesLists);
             this.seedWeight = ko.observable(orZero(data['seedWeight']));
             this.germinationMethod = ko.observable(orBlank(data['germinationMethod']));
-            self.transients.germinationMethodConstraints = ["Direct sowing - pre-treated (abrasion / scarification)","Direct sowing - pre-treated (cold stratification)","Direct sowing - pre-treated (moist stratification)","Direct sowing - pre-treated (cold moist stratification)","Direct sowing - pre-treated (freezing and thawing)","Direct sowing - pre-treated (light)","Direct sowing - pre-treated (Hot Water)","Direct sowing - pre-treated (fire)","Direct sowing - pre-treated (smoke)","Direct sowing - pre-treated (leaching)","Direct sowing - seeds untreated","vegetative - cuttings - direct striking","vegetative - cuttings - pre-rooting","vegetative - layering","vegetative - tissue culture","Other (specify in notes)"];
+            self.transients.germinationMethodConstraints = ["Direct sowing - pre-treated (abrasion / scarification)","Direct sowing - pre-treated (cold stratification)","Direct sowing - pre-treated (moist stratification)","Direct sowing - pre-treated (cold moist stratification)","Direct sowing - pre-treated (freezing and thawing)","Direct sowing - pre-treated (light)","Direct sowing - pre-treated (Hot Water)","Direct sowing - pre-treated (fire)","Direct sowing - pre-treated (smoke)","Direct sowing - pre-treated (leaching)","Direct sowing - seeds untreated","Mycorrhizal inoculation","Vegetative - cuttings - direct striking","Vegetative - cuttings - pre-rooting","Vegetative - layering","Vegetative - tissue culture","Other (specify in notes)"];
             this.finishedStockType = ko.observable(orBlank(data['finishedStockType']));
             self.transients.finishedStockTypeConstraints = ["Tube / tray - seedling","Growth container - seedling","Potted - seedling","Potted - advanced plant","Bare rooted","Other (specify in notes)"];
             this.numberGrown = ko.observable(orZero(data['numberGrown']));
@@ -894,17 +894,16 @@ master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.i
 // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
 var disabled = null;
 $('[data-bind^=datepicker]').datepicker().on('show', function() {
-
-    disabled = $("input:enabled, select:enabled, button:enabled");
-    disabled.prop('disabled', true);
-
+    if (disabled == null) {
+        disabled = $("input:enabled, select:enabled, button:enabled");
+        disabled.prop('disabled', true);
+    }
 });
 $('[data-bind^=datepicker]').datepicker().on('hide', function() {
     if (disabled !== null) {
         disabled.prop('disabled', false);
-        diabled = null;
+        disabled = null;
     }
-
 });
 
 });
