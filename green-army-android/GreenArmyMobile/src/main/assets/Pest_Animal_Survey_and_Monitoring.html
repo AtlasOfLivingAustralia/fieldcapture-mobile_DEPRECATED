@@ -261,7 +261,7 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th class="required">Population assessment methodology:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Methodology used to assess the population abundance for particular pest species over the sampled area'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th class="required">Estimated population density<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Estimated density class of particular pest species on a number of individuals  or colonies (for insects) per hectare basis within a range class. Calculate this value as: (population estimate (from method) / sample area in hectares) x (1 / sample area in hectares)'>
+</a></th><th class="required">Estimated population density<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Estimated density class of particular pest species on a number of individuals  or colonies (for insects) on a per hectare basis within a range class. Calculate this value as: (population estimate (from method) / sample area in hectares) x (1 / sample area in hectares)'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th>Population density confidence<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Confidence level of the accuracy of the estimated density class of particular pest species expressed as an percentage (0 = not at all confident, 100 = fully confident)'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -819,6 +819,9 @@
          * Validates the entire page before saving.
          */
         this.save = function (validate) {
+
+            // Ensure any active change is committed - the knockout binding typically fires on blur.
+            $( document.activeElement ).blur();
 
             if (validate === undefined) {
                 validate = true;
