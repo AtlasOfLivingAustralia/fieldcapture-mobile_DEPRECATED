@@ -17,15 +17,8 @@ import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
  */
 public class WebService {
 
-    public static final String SERVER_URL = "https://ecodata-test.ala.org.au";
-
     private static final String USER_NAME_HEADER = "userName";
     private static final String AUTH_KEY_HEADER = "authKey";
-
-    public static String getLoginUrl() {
-        return SERVER_URL + "/mobileauth/mobileKey/generateKey";
-    }
-
 
     private Context ctx;
     private PreferenceStorage storage;

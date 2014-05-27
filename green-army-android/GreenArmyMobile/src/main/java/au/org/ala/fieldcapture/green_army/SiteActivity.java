@@ -117,9 +117,19 @@ public class SiteActivity extends FragmentActivity implements
 
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                showNoGpsDialog();
+            // Some tablets incorrectly report they have GPS via the package manager.x
+            if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    showNoGpsDialog();
+                }
             }
+        }
+        if (location != null) {
+            LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+            marker = mMap.addMarker(new MarkerOptions().position(latlng).draggable(true));
+        }
+        else {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.0, 133.0), 4));
         }
 
     }
@@ -156,6 +166,9 @@ public class SiteActivity extends FragmentActivity implements
     @Override
     protected void onPause() {
         super.onPause();
+        if (marker != null) {
+            marker.remove();
+        }
         // Having the keyboard open on rotate was causing some strange drawing errors.
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(nameField.getWindowToken(), 0);
@@ -173,9 +186,7 @@ public class SiteActivity extends FragmentActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle savedState) {
-        if (marker != null) {
-            marker.remove();
-        }
+
         super.onSaveInstanceState(savedState);
         savedState.putParcelable(LOCATION_KEY, location);
         savedState.putBoolean(LOCATION_UPDATES_KEY, receivingLocationUpdates);
@@ -308,13 +319,7 @@ public class SiteActivity extends FragmentActivity implements
      */
     private void setUpMap() {
         mMap.setOnMarkerDragListener(this);
-        if (location != null) {
-            LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-            marker = mMap.addMarker(new MarkerOptions().position(latlng).draggable(true));
-        }
-        else {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.0, 133.0), 4));
-        }
+
     }
 
     public void onMarkerDrag(Marker marker) {
