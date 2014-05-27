@@ -20,11 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,14 +52,16 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         private String activityId;
         private String activityToLoad;
         private String sitesToLoad;
+        private ContentValues newSite;
         private Bundle savedState;
 
-        public MobileBindings(Fragment fragment, String activityId, String activityToLoad, String sitesToLoad) {
+        public MobileBindings(Fragment fragment, String activityId, String activityToLoad, String sitesToLoad, ContentValues newSite) {
             this.ctx = fragment.getActivity();
             this.fragment = fragment;
             this.activityId = activityId;
             this.activityToLoad = activityToLoad;
             this.sitesToLoad = sitesToLoad;
+            this.newSite = newSite;
 
         }
         @JavascriptInterface
@@ -84,33 +88,49 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         }
 
         @JavascriptInterface
-        public void saveActivity(String activityData) {
-            Log.d("Enter activity data", "save activity: "+activityData);
+        public void onSaveActivity(int status, String activityData) {
+            Log.d("Enter activity data", "save activity, status: "+status+", activity: "+activityData);
 
             if (savedState != null) {
                 savedState.putString("activity", activityData);
             }
             else {
-                try {
-                    JSONObject activity = new JSONObject(activityData);
+                if (status < 0) {
+                    Toast.makeText(ctx, R.string.activity_not_modified, Toast.LENGTH_LONG).show();
+                }
+                else if (status > 0) {
+                    try {
+                        JSONObject activity = new JSONObject(activityData);
 
 
-                    ContentValues values = Mapper.mapActivity(activity);
-                    values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE);
+                        ContentValues values = Mapper.mapActivity(activity);
+                        values.put(FieldCaptureContent.SYNC_STATUS, FieldCaptureContent.SYNC_STATUS_NEEDS_UPDATE);
 
-                    Uri uri = FieldCaptureContent.activityUri(activityId);
+                        Uri uri = FieldCaptureContent.activityUri(activityId);
 
-                    ctx.getContentResolver().update(uri, values, FieldCaptureContent.ACTIVITY_ID + "=?", new String[]{activityId});
+                        ctx.getContentResolver().update(uri, values, FieldCaptureContent.ACTIVITY_ID + "=?", new String[]{activityId});
 
+                        if (newSite != null) {
+                            ctx.getContentResolver().insert(FieldCaptureContent.siteUri(newSite.getAsString(FieldCaptureContent.SITE_ID)), newSite);
 
-                    Account account = PreferenceStorage.getInstance(ctx).getAccount();
-                    ctx.getContentResolver().requestSync(account, FieldCaptureContent.AUTHORITY, new Bundle());
+                        }
 
-                    ctx.finish();
-                } catch (Exception e) {
-                    Log.e("EnterActivityData", "Failed to save activity: " + activityData, e);
+                        Account account = PreferenceStorage.getInstance(ctx).getAccount();
+                        ctx.getContentResolver().requestSync(account, FieldCaptureContent.AUTHORITY, new Bundle());
+
+                        ctx.finish();
+                    } catch (Exception e) {
+                        Log.e("EnterActivityData", "Failed to save activity: " + activityData, e);
+                    }
+                }
+                else {
+                    Toast.makeText(ctx, R.string.activity_validation_failed, Toast.LENGTH_LONG).show();
                 }
             }
+        }
+
+        public void newSite(ContentValues newSite) {
+            this.newSite = newSite;
         }
 
         public void saveState(Bundle bundle) {
@@ -188,7 +208,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
                     try {
                         JSONObject activityJSON = new JSONObject(activity);
                         site.put(FieldCaptureContent.PROJECT_ID, activityJSON.getString(FieldCaptureContent.PROJECT_ID));
-                        getActivity().getContentResolver().insert(FieldCaptureContent.siteUri(site.getAsString(FieldCaptureContent.SITE_ID)), site);
+                        siteToSave = site;
+                        mobileBindings.newSite(siteToSave);
                         JSONObject newSite = Mapper.mapSite(site);
                         mWebView.loadUrl("javascript:master.addSite("+newSite.toString()+")");
                     }
@@ -253,7 +274,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         if (activityUrl != null && sites != null) {
             Log.i("EnterActivityData", "Loading page with sites="+sites);
 
-            mobileBindings = new MobileBindings(this, activityId, activity, sites);
+            mobileBindings = new MobileBindings(this, activityId, activity, sites, siteToSave);
             getWebView().addJavascriptInterface(mobileBindings, "mobileBindings");
             getWebView().loadUrl(activityUrl);
         }

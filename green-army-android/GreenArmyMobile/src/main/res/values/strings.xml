@@ -68,5 +68,7 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="no_projects">No projects found</string>
+    <string name="activity_not_modified">Nothing to save</string>
+    <string name="activity_validation_failed">Please correct the errors and try again</string>
 
 </resources>
