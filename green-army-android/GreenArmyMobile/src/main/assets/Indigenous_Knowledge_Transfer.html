@@ -189,65 +189,29 @@
     
     
     
-    <style type="text/css">
-        table.stockingDetails th {white-space:normal;}
-        table.stockingDetails td:nth-child(1) {width:50%;}
-        table.stockingDetails td:nth-child(1) select {width:100%;}
-        table.stockingDetails td:nth-child(2) {width:25%;text-align:center;}
-        table.stockingDetails td:nth-child(2) select {width:100%;}
-        table.stockingDetails td:nth-child(3) {width:25%;}
-        table.stockingDetails td:nth-child(3) select {width:100%;}
-        table.stockingDetails td:last-child {width:4%;text-align:center;}
-        table.stockingDetails textarea {width:100%; box-sizing:border-box; }
-    </style>
-    <div class="output-block" id="koStock_Management_Details">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Stock Management Details<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
+    
+    <div class="output-block" id="koIndigenous_Knowledge_Transfer_Details">
+        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Indigenous Knowledge Transfer Details<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
         <!-- add the dynamic components -->
         <div class="row-fluid space-after output-section" >
 <div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 checkbox-list-label  preLabel required"><label>What land management issue(s) are you using stock grazing to manage?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Purpose for which grazing is being used as a management tool'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of indigenous on-country visits with older and younger people together:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of unique indigenous on-country visits undertaken as part of this activity that were attended by older and younger people together'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span>
-            <ul class="checkbox-list" data-bind="foreach: transients.stockManagementReasonConstraints">
-                <li>
-                    <label data-bind="attr:{for: 'stockManagementReason'+$index()}"><input type="checkbox" name="data.stockManagementReason" data-bind="value:$data,checked:$root.data.stockManagementReason,attr:{id: 'stockManagementReason'+$index()}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
-                </li>
-            </ul>
-        </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Area managed (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area in hectares where grazing is used as a management tool under this activity'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOnCountryVisits' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Were indigenous decision-makers involved in organising or running this activity?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Involvement of indigenous decision-making bodies in the project'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.areaOfStockManagementHa' data-validation-engine='validate[required,custom[number],min[0]]' type='number' class='input-mini'/></span></div></div><div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Stocking strategy:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Description of the grazing strategy / methodology being used to achieve the purpose'>
+</a></label></span><select class="span8" data-bind='value:data.indigenousDecisionMakers,options:transients.indigenousDecisionMakersConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Has any indigenous knowledge been documented as part of this activity?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Has any indigenous knowledge been documented as part of this activity?'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><textarea  class="span8" data-bind='value:data.stockingStrategy'></textarea></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Comments / Notes:</label></span><textarea  class="span8" data-bind='value:data.notes'></textarea></span></div></div></div>
-<div class="row-fluid output-section">
-            <table class="table table-bordered stockingDetails " >
-                <thead><tr><th class="required">Type of stock used:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Type of stock species being used to achieve the purpose of the activity'>
+</a></label></span><select class="span8" data-bind='value:data.indigenousKnowledgeDocumented,options:transients.indigenousKnowledgeDocumentedConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div></div><div class="span6">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>No. of datasets shared publicly as a result of this activity:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of datasets collected and shared publicly'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th>Stocking density (DSE / Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The density of grazing stock used to achieve the purpose of the activity expressed in Dry Sheep Equivalents per hectare'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.datasetsShared' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>No. of formal partnerships established:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Number of formal partnerships (eg. MOUs, joint delivery, etc.) involved in design, delivery and/or monitoring to guide implementation'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th>Time stock are on-site (Hrs):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The duration in whole hours that stock are kept on-site.'>
-  <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th></th>
-                </tr></thead>
-                <tbody data-bind="template:{name:'stockingDetailsviewTmpl', foreach: data.stockingDetails}"></tbody>
-                <script id="stockingDetailsviewTmpl" type="text/html"><tr>
-                    <td><select data-bind='value:stockingManagementSpecies,options:transients.stockingManagementSpeciesConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></td>
-                    <td><input class="input-medium" style="text-align:center" data-bind='value:stockingDensity' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
-                    <td><select data-bind='value:stockingDuration,options:transients.stockingDurationConstraints,optionsCaption:"Please select"'></select></td>
-                    <td><i data-bind='click:$root.removestockingDetailsRow' class='icon-remove'></i></td>
-                </tr></script>
-                <tfoot>
-                <tr><td colspan="0" style="text-align:left;">
-                        <button type="button" class="btn btn-small" data-bind="click:addstockingDetailsRow">
-                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="stockingDetailstemplate-upload" type="text/x-tmpl">{% %}</script>
-                       <script id="stockingDetailstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
-            </table>
-        </div>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.formalPartnerships' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div></div>
+<div class="row-fluid space-after output-section" >
+<span class="span12">    <span  class="preLabel"><label>Notes / Comments:</label></span><textarea  class="span12" data-bind='value:data.notes'></textarea></span></div>
 
         
     </div>
-    
-
     
 
 <!-- /ko -->
@@ -292,28 +256,17 @@
 <script type="text/javascript">
         $(function(){
 
-            var viewModelName = "Stock_Management_DetailsViewModel",
+            var viewModelName = "Indigenous_Knowledge_Transfer_DetailsViewModel",
                 viewModelInstance = viewModelName + "Instance";
 
             // load dynamic models - usually objects in a list
-                    var StockingDetailsRow = function (data) {
-            var self = this;
-            if (!data) data = {};
-            self.transients = {};
-            this.stockingManagementSpecies = ko.observable(orBlank(data['stockingManagementSpecies']));
-            self.transients.stockingManagementSpeciesConstraints = ["Cattle","Sheep","Horses","Goats","Llama / Alpaca","Other (specify in notes)"];
-            this.stockingDensity = ko.observable(orZero(data['stockingDensity']));
-            this.stockingDuration = ko.observable(orBlank(data['stockingDuration']));
-            self.transients.stockingDurationConstraints = ["1 day or less","2 - 3 days","4 - 7 days","< 2 weeks","> 2 weeks","> 4 weeks","Ongoing"];
-            this.notes = ko.observable(orBlank(data['notes']));
-        };
-        var speciesLists = [];
+                    var speciesLists = [];
         var site = {};
 
 
             this[viewModelName] = function (output) {
                 var self = this;
-                self.name = "Stock Management Details";
+                self.name = "Indigenous Knowledge Transfer Details";
                 self.outputId = orBlank(output.outputId);
 
                 self.data = {};
@@ -321,89 +274,30 @@
                 self.transients.dummy = ko.observable();
 
                 // add declarations for dynamic data
-                                self.data.stockManagementReason=ko.observableArray([]);
-            self.transients.stockManagementReasonConstraints = ["Reduce competition & shading for revegetation areas","Promote woody plant growth","Reduce wildfire risk & intensity","Other (specify in notes)"];
                 
-        self.loadstockManagementReason = function (data) {
-            if (data !== undefined) {
-                $.each(data, function (i, obj) {
-                    self.data.stockManagementReason.push(obj);
-                });
-        }};
-        
-            self.data.areaOfStockManagementHa = ko.observable();
+            self.data.indigenousKnowledgeDocumented = ko.observable();
+            self.transients.indigenousKnowledgeDocumentedConstraints = ["Yes","No"];
 
-            self.data.stockingStrategy = ko.observable();
+            self.data.indigenousDecisionMakers = ko.observable();
+            self.transients.indigenousDecisionMakersConstraints = ["Yes","No"];
 
-            self.data.stockingDetails = ko.observableArray([]);
-            self.selectedstockingDetailsRow = ko.observable();
-        
+            self.data.numberOnCountryVisits = ko.observable();
 
-            self.loadstockingDetails = function (data, append) {
-                if (!append) {
-                    self.data.stockingDetails([]);
-                }
-                if (data === undefined) {
-                    self.addstockingDetailsRow();
-                } else {
-                    $.each(data, function (i, obj) {
-                        self.data.stockingDetails.push(new StockingDetailsRow(obj));
-                    });
-                }
-            };
+            self.data.datasetsShared = ko.observable();
 
-            self.addstockingDetailsRow = function () {
-                var newRow = new StockingDetailsRow();
-                self.data.stockingDetails.push(newRow);
-                
-            };
-            self.removestockingDetailsRow = function (row) {
-                self.data.stockingDetails.remove(row);
-                
-            };
-            self.stockingDetailsrowCount = function () {
-                return self.data.stockingDetails().length;
-            };
+            self.data.formalPartnerships = ko.observable();
 
-            self.stockingDetailsTableDataUploadVisible = ko.observable(false);
-            self.showstockingDetailsTableDataUpload = function() {
-                self.stockingDetailsTableDataUploadVisible(!self.stockingDetailsTableDataUploadVisible());
-            };
+            self.data.treatmentCostPerHa = ko.observable();
 
-            self.stockingDetailsTableDataUploadOptions = {
-                    url:'/activity/ajaxUpload',
-                    done:function(e, data) {
-                        if (data.result.error) {
-                            self.uploadFailed(data.result.error);
-                        }
-                        else {
-                            self.loadstockingDetails(data.result.data, self.appendTableRows());
-                        }
-                    },
-                    fail:function(e, data) {
-                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
-                        self.uploadFailed(data);
+            self.data.pestDensityPerHa = ko.observable();
 
-                    },
-                    uploadTemplateId: "stockingDetailstemplate-upload",
-                    downloadTemplateId: "stockingDetailstemplate-download",
-                    formData:{type:'Stock Management Details', listName:'stockingDetails'}
-            };
-            self.appendTableRows = ko.observable(true);
-            self.uploadFailed = function(message) {
-                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
-                        text += "<p>"+message+"</p>";
-                        bootbox.alert(text)
-            };
+            self.data.notes = ko.observable();
             self.transients.site = site;
 
                 // this will be called when generating a savable model to remove transient properties
                 self.removeBeforeSave = function (jsData) {
                     // add code to remove any transients added by the dynamic tags
-                                    delete jsData.selectedstockingDetailsRow;
-                delete jsData.stockingDetailsTableDataUploadOptions
-                delete jsData.stockingDetailsTableDataUploadVisible
-
+                    
                     delete jsData.activityType;
                     delete jsData.transients;
                     return jsData;
@@ -426,10 +320,14 @@
 
                 self.loadData = function (data) {
                     // load dynamic data
-                                    self.loadstockManagementReason(data['stockManagementReason']);
-                self.data['areaOfStockManagementHa'](orZero(data['areaOfStockManagementHa']));
-                self.data['stockingStrategy'](data['stockingStrategy']);
-                self.loadstockingDetails(data.stockingDetails);
+                                    self.data['indigenousKnowledgeDocumented'](data['indigenousKnowledgeDocumented']);
+                self.data['indigenousDecisionMakers'](data['indigenousDecisionMakers']);
+                self.data['numberOnCountryVisits'](orZero(data['numberOnCountryVisits']));
+                self.data['datasetsShared'](orZero(data['datasetsShared']));
+                self.data['formalPartnerships'](orZero(data['formalPartnerships']));
+                self.data['treatmentCostPerHa'](orZero(data['treatmentCostPerHa']));
+                self.data['pestDensityPerHa'](orZero(data['pestDensityPerHa']));
+                self.data['notes'](data['notes']);
 
 
                     // if there is no data in tables then add an empty row for the user to add data
@@ -449,7 +347,7 @@
             if (savedData) {
 
                 $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'Stock Management Details') {
+                    if (tmpOutput.name === 'Indigenous Knowledge Transfer Details') {
                         savedOutput = tmpOutput;
                     }
                 });
@@ -461,7 +359,7 @@
             window[viewModelInstance].loadData(output);
             window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
 
-            ko.applyBindings(window[viewModelInstance], document.getElementById("koStock_Management_Details"));
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koIndigenous_Knowledge_Transfer_Details"));
 
             // this resets the baseline for detecting changes to the model
             // - shouldn't be required if everything behaves itself but acts as a backup for

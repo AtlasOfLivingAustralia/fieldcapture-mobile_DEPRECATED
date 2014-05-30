@@ -245,12 +245,12 @@
         <!-- add the dynamic components -->
         <div class="row-fluid space-after output-section" >
 <div class="span4">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of volunteers (ie. not employed on project):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of participants involved in an activity who are not delivery partners or employed in the project. These would typically be the volunteer participants.'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of volunteers (ie. not employed on project):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of people involved in an activity who are not delivery partners or employed in the project. These would typically be the volunteer participants.'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipantsNotEmployed' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of Indigenous volunteers (ie. not employed on project):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of indigenous people participating in an activity who are not delivery partners or employed in the project (ie. Indigenous volunteers)'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.numberOfIndigenousParticipants' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div><div class="span4">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of new people attending project activities:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of participants involved in an activity who have not attended other activities associated with the project'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of new people attending project activities:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of people involved in an activity who have not attended other activities associated with the project'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipantsNew' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of farming entities participating in project activities for the first time:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Total number of farm entities participating in project activities for the first time'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -589,9 +589,9 @@
          * NOTE that the model for each section must register itself to be included in this save.
          *
          * Validates the entire page before saving.
+         * @return -1 if the page was not modified, 0 if validation failed, 1 if validation succeeded (or was not requested).
          */
         this.save = function (validate) {
-
             // Ensure any active change is committed - the knockout binding typically fires on blur.
             $( document.activeElement ).blur();
 
@@ -604,29 +604,30 @@
             if (validate) {
                 success = $('#validation-container').validationEngine('validate');
             }
+            if (!self.isDirty()) {
+                mobileBindings.onSaveActivity(-1, null);
+                return -1;
+            }
             if (success) {
                 $.each(this.subscribers, function(i, obj) {
-                   // if (obj.isDirty()) {
-                        if (obj.model === 'activityModel') {
-                            activityData = obj.get();
-                        } else {
-                            outputs.push(obj.get());
-                        }
-                    //}
+                    if (obj.model === 'activityModel') {
+                        activityData = obj.get();
+                    } else {
+                        outputs.push(obj.get());
+                    }
                 });
-                if (outputs.length === 0 && activityData === undefined) {
-                    alert("Nothing to save.");
-                    return;
-                }
+
                 if (activityData === undefined) { activityData = {}}
                 activityData.outputs = outputs;
 
                 var toSave = JSON.stringify(activityData);
-                mobileBindings.saveActivity(toSave);
+                mobileBindings.onSaveActivity(1, toSave);
 
             }
-
-            return success;
+            else {
+                mobileBindings.onSaveActivity(0, null);
+            }
+            return success?1:0;
         };
 
         this.reset = function () {
@@ -653,7 +654,7 @@
             loadSites:function(){return "[]"},
         
         supportsNewSite:function() { return true; },
-        saveActivity:function(){},
+        onSaveActivity:function(){},
         createNewSite:function(){}
 };
 }
