@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
+import com.google.android.gms.cast.RemoteMediaPlayer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,7 +47,7 @@ import au.org.ala.fieldcapture.green_army.service.Mapper;
  * to listen for item selections.
  */
 public class ProjectListActivity extends FragmentActivity
-        implements ProjectListFragment.Callbacks, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchView.OnCloseListener {
+        implements ProjectListFragment.Callbacks, StatusFragment.StatusCallback, SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchView.OnCloseListener {
 
     public static final String PROJECT_ACTIVITIES_FRAGMENT = "projectActivitiesFragment";
     private static final String SELECTED_PROJECT_KEY = "selectedProjectId";
@@ -106,6 +108,11 @@ public class ProjectListActivity extends FragmentActivity
             String user = checkLogin();
             // If the user isn't logged in this activity will be finished and the login activity started.
             if (user != null) {
+
+                if (savedInstanceState == null) {
+                    StatusFragment statusFragment = StatusFragment.newInstance();
+                    getSupportFragmentManager().beginTransaction().add(statusFragment, "statusFragment").commit();
+                }
 
                 account = CreateSyncAccount(this, user);
                 getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 1);
@@ -398,6 +405,17 @@ public class ProjectListActivity extends FragmentActivity
     @Override
     public boolean onSuggestionClick(int position) {
         return true;
+    }
+
+    @Override
+    public void onStatusChanged(StatusFragment.Status status) {
+
+        StatusFragment.StatusCallback callback = (StatusFragment.StatusCallback)getSupportFragmentManager().findFragmentByTag(PROJECT_ACTIVITIES_FRAGMENT);
+        if (callback != null) {
+            callback.onStatusChanged(status);
+        }
+
+
     }
 }
 

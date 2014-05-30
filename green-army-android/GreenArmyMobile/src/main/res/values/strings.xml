@@ -70,5 +70,7 @@
     <string name="no_projects">No projects found</string>
     <string name="activity_not_modified">Nothing to save</string>
     <string name="activity_validation_failed">Please correct the errors and try again</string>
+    <string name="sync_in_progress">Syncing with the server....</string>
+    <string name="waiting_for_sync">Waiting to sync with the server....</string>
 
 </resources>

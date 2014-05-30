@@ -36,6 +36,8 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SYNC_STATUS, SYNC);
     }
 
+    ThreadLocal<Uri> notifyUri = new ThreadLocal<Uri>();
+
     @Override
     protected SQLiteOpenHelper getDatabaseHelper(Context context) {
         return FieldCaptureDatabaseHelper.getInstance(getContext());
@@ -44,6 +46,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     @Override
     protected Uri insertInTransaction(Uri uri, ContentValues values) {
 
+        notifyUri.set(uri);
         String table = configForUri(uri, TABLE_KEY);
         mDb.insertWithOnConflict(table, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 
@@ -52,6 +55,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     @Override
     protected int updateInTransaction(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        notifyUri.set(uri);
         String table = configForUri(uri, TABLE_KEY);
         return mDb.update(table, values, selection, selectionArgs);
 
@@ -59,6 +63,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     @Override
     protected int deleteInTransaction(Uri uri, String selection, String[] selectionArgs) {
+        notifyUri.set(uri);
         if (uri.equals(FieldCaptureContent.deleteUri())) {
             int count = 0;
             for (int key : config.keySet()) {
@@ -73,7 +78,13 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     @Override
     protected void notifyChange() {
-        getContext().getContentResolver().notifyChange(FieldCaptureContent.allProjectsUri(), null);
+        Uri toNotify = notifyUri.get();
+        if (toNotify == null) {
+            toNotify = FieldCaptureContent.allProjectsUri();
+        }
+        getContext().getContentResolver().notifyChange(toNotify, null);
+
+        notifyUri.remove();
     }
 
     @Override

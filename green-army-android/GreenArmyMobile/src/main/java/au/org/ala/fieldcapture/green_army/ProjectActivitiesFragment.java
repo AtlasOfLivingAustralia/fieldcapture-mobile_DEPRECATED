@@ -1,54 +1,22 @@
 package au.org.ala.fieldcapture.green_army;
 
-import android.accounts.Account;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SyncInfo;
-import android.content.SyncStatusObserver;
-import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ResourceCursorAdapter;
-import android.widget.SearchView;
 import android.widget.TextView;
-
-import org.springframework.util.StringUtils;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
-import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
 /**
  * A fragment that displays various views of activities.
  */
-public class ProjectActivitiesFragment extends Fragment implements SyncStatusObserver {
+public class ProjectActivitiesFragment extends Fragment implements StatusFragment.StatusCallback {
 
     /**
      * The fragment argument representing the item ID that this fragment
@@ -73,8 +41,6 @@ public class ProjectActivitiesFragment extends Fragment implements SyncStatusObs
     private View syncStatusBar;
     private TextView syncText;
     private ImageView syncIcon;
-    private Account account;
-    private Object syncObserver;
 
 
     public static class PagerAdapter extends FragmentStatePagerAdapter {
@@ -148,79 +114,38 @@ public class ProjectActivitiesFragment extends Fragment implements SyncStatusObs
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("ProjectActivitiesFragment", "onStart");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (syncObserver != null) {
-            ContentResolver.removeStatusChangeListener(syncObserver);
-        }
-        Log.d("ProjectActivitiesFragment", "onPause");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        syncObserver = ContentResolver.addStatusChangeListener(0x7fffffff, this);
-        updateSyncStatus();
-        Log.d("ProjectActivitiesFragment", "onResume");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onResume();
-        Log.d("ProjectActivitiesFragment", "onDestroy");
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_project_activities, container, false);
 
         viewPager = (ViewPager)root.findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
-        account = PreferenceStorage.getInstance(getActivity()).getAccount();
         syncStatusBar = root.findViewById(R.id.sync_status_bar);
         syncText = (TextView)root.findViewById(R.id.sync_status_text);
         syncIcon = (ImageView)root.findViewById(R.id.sync_icon);
-
-
         return root;
     }
 
-    @Override
-    public void onStatusChanged(int which) {
-        Log.i("ActivityListFragment", "Sync notification: "+which);
-        getActivity().runOnUiThread(new Runnable() { public void run() {
-            updateSyncStatus();
-        }});
-
-    }
 
 
-    private void updateSyncStatus() {
 
-        if (ContentResolver.isSyncActive(account, FieldCaptureContent.AUTHORITY)) {
-            syncText.setText("Waiting to sync with the server....");
+    public void onStatusChanged(StatusFragment.Status status) {
 
-            syncStatusBar.setVisibility(View.VISIBLE);
-            ((AnimationDrawable)syncIcon.getDrawable()).stop();
-
-
-        }
-        else if (ContentResolver.isSyncPending(account, FieldCaptureContent.AUTHORITY)) {
-            syncText.setText("Syncing with the server....");
+        if (status.syncPending) {
+            syncText.setText(getString(R.string.waiting_for_sync));
             syncStatusBar.setVisibility(View.VISIBLE);
             ((AnimationDrawable)syncIcon.getDrawable()).start();
+        }
+        else if (status.syncInProgress) {
+            syncText.setText(getString(R.string.sync_in_progress));
 
+            syncStatusBar.setVisibility(View.VISIBLE);
+            ((AnimationDrawable)syncIcon.getDrawable()).start();
         }
         else {
             ((AnimationDrawable)syncIcon.getDrawable()).stop();
             syncStatusBar.setVisibility(View.GONE);
+
         }
     }
 }
