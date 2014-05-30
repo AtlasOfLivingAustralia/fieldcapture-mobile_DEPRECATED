@@ -24,11 +24,7 @@ public final class FieldCaptureContent {
 
     public static final String SITES = "sites";
 
-    public static final String ACTION_SYNC_STARTED = AUTHORITY+".action.syncStarted";
-    public static final String ACTION_SYNC_COMPLETE = AUTHORITY+".action.syncComplete";
-    public static final String ACTION_SYNC_ERROR = AUTHORITY+".action.syncError";
-
-
+    public static final int SYNC_STATUS_SINGLETON_KEY = 1;
 
 
 
@@ -45,6 +41,7 @@ public final class FieldCaptureContent {
     public static final String SITES_URI = "content://"+AUTHORITY+"/"+SITES;
     public static final String SITE_URI = "content://"+AUTHORITY+"/"+SITES+"/*";
     public static final String PROJECT_SITES_URI = "content://"+AUTHORITY+"/"+PROJECTS+"/*/"+SITES;
+    public static final String SYNC_STATUS_URI = "content://"+AUTHORITY+"/"+SYNC_STATUS;
 
 
     /** Column name / JSON attribute name for the id used by an activity */
@@ -131,6 +128,13 @@ public final class FieldCaptureContent {
 
     public static final String SITE_ID = "siteId";
 
+    // Constants relating to sync,
+    public static final int SYNC_IN_PROGRESS = 1;
+    public static final int SYNC_COMPLETE = 2;
+    public static final int SYNC_FAILED = 3;
+    public static final int SYNC_SUCCESS = 4;
+
+
     public static Uri activityUri(String activityId) {
         String uri = ACTIVITY_URI.replace("*", activityId);
         return Uri.parse(uri);
@@ -164,6 +168,7 @@ public final class FieldCaptureContent {
         return Uri.parse(DELETE_URI);
     }
 
+    public static Uri syncStatusUri() { return Uri.parse(SYNC_STATUS_URI); }
 
     public static void requestSync(Context ctx) {
         FieldCaptureContent.requestSync(ctx, false);

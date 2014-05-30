@@ -22,6 +22,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     private static final int ACTIVITIES = 3;
     private static final int SITES = 4;
     private static final int PROJECT_SITES = 5;
+    private static final int SYNC = 6;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -32,6 +33,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SITES+"/*", SITES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES+"/*", ACTIVITIES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES, ACTIVITIES);
+        uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SYNC_STATUS, SYNC);
     }
 
     @Override
@@ -141,6 +143,12 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         projectSitesConfig.put(TABLE_KEY, "project_sites");
         projectSitesConfig.put(TYPE_KEY, "vnd.android.cursor.dir/site");
         config.put(PROJECT_SITES, projectSitesConfig);
+
+        Map<String, String> syncConfig = new HashMap<String, String>(2);
+        syncConfig.put(TABLE_KEY, "sync_status");
+        syncConfig.put(TYPE_KEY, "vnd.android.cursor.dir/sync_status");
+        config.put(SYNC, syncConfig);
+
 
     }
 

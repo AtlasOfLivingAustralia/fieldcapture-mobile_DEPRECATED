@@ -58,19 +58,25 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
         Log.i("FieldCaptureSyncAdapter", "sync called");
 
 
-
         PreferenceStorage storage = PreferenceStorage.getInstance(getContext());
         if (storage.getUsername() != null) {
             boolean forceRefresh = extras.getBoolean(FORCE_REFRESH_ARG, false);
 
-            Intent intent = new Intent(FieldCaptureContent.ACTION_SYNC_STARTED);
-            getContext().sendBroadcast(intent);
-            performUpdates();
-            performQueries(forceRefresh);
+            long now = System.currentTimeMillis();
 
-            intent = new Intent(FieldCaptureContent.ACTION_SYNC_COMPLETE);
-            getContext().sendBroadcast(intent);
+            try {
+                updateSyncStatus(now, FieldCaptureContent.SYNC_IN_PROGRESS, -1);
 
+                performUpdates();
+                performQueries(forceRefresh);
+
+                updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_SUCCESS);
+
+            }
+            catch (Exception e) {
+                Log.e("FieldCaptureSyncAdapter", "sync failed", e);
+                updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_FAILED);
+            }
             Log.i("FieldCaptureSyncAdapter", "sync complete");
         }
         else {
@@ -78,6 +84,19 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
 
+    }
+
+    private void updateSyncStatus(long time, int status, int result) {
+
+        ContentValues syncStatus = new ContentValues();
+        syncStatus.put("_id", FieldCaptureContent.SYNC_STATUS_SINGLETON_KEY);
+        syncStatus.put("lastSyncTime", time);
+        syncStatus.put("currentStatus", status);
+        if (result > 0) {
+            syncStatus.put("lastSyncResult", result);
+        }
+
+        mContentResolver.insert(FieldCaptureContent.syncStatusUri(), syncStatus);
     }
 
     private void performQueries(boolean forceRefresh) {

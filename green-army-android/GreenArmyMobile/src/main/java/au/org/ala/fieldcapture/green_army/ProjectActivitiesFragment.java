@@ -6,6 +6,7 @@ import android.app.SearchableInfo;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SyncInfo;
 import android.content.SyncStatusObserver;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
@@ -39,6 +40,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
 import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
@@ -73,8 +75,6 @@ public class ProjectActivitiesFragment extends Fragment implements SyncStatusObs
     private ImageView syncIcon;
     private Account account;
     private Object syncObserver;
-
-
 
 
     public static class PagerAdapter extends FragmentStatePagerAdapter {
