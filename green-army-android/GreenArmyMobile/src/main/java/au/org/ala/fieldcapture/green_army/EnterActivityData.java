@@ -222,6 +222,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
     }
 
+    /** TODO this should be on background thread */
     private void siteToJSON(Cursor data) {
         List<JSONObject> sites = new ArrayList<JSONObject>(data.getCount());
 
@@ -232,9 +233,8 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
                 sites.add(Mapper.mapSite(data));
 
                 result = data.moveToNext();
-
-                this.sites = sites.toString();
             }
+            this.sites = sites.toString();
         }
         catch (JSONException e) {
             this.sites = "[]";

@@ -123,21 +123,26 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
             noProjectsMessage.setVisibility(View.GONE);
             mListView.setVisibility(View.VISIBLE);
 
+            // Attempt to initialise from the saved preference.
             if (mActivatedPosition == ListView.INVALID_POSITION) {
                 String projectId = preferences.getMostRecentProjectId();
                 if (projectId != null) {
 
-                    while (data.moveToNext()) {
+                    int foundPosition = ListView.INVALID_POSITION;
+                    for (int pos = 0; pos<data.getCount(); pos++) {
+                        data.moveToPosition(pos);
                         if (projectId.equals(data.getString(data.getColumnIndex(FieldCaptureContent.PROJECT_ID)))) {
-                            setActivatedPosition(data.getPosition());
-                            String projectName = data.getString(data.getColumnIndex("name"));
-                            getActivity().setTitle(projectName);
+                            foundPosition = pos;
+                            break;
                         }
+                    }
+                    if (foundPosition != ListView.INVALID_POSITION) {
+                        setActivatedPosition(foundPosition);
                     }
 
                 }
             }
-            else {
+            if (mActivatedPosition != ListView.INVALID_POSITION) {
                 data.moveToPosition(mActivatedPosition);
                 String projectName = data.getString(data.getColumnIndex("name"));
                 getActivity().setTitle(projectName);
