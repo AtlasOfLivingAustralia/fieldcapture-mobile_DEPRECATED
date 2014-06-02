@@ -77,6 +77,10 @@
     <string name="no_location">Waiting for your location</string>
     <string name="location_accuracy_too_low">Waiting for a more accurate location</string>
     <string name="gps_timeout">GPS timeout.  Please update the site location using the MERIT website</string>
+    <string name="logout_message">Are you sure you want to logout?\n Any edits not yet synced to the server will be lost.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="logout_title">Logout</string>
 
 
 </resources>

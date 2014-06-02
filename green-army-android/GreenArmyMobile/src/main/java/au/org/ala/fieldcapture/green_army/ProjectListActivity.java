@@ -3,9 +3,11 @@ package au.org.ala.fieldcapture.green_army;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -79,12 +81,20 @@ public class ProjectListActivity extends FragmentActivity
     }
 
     private void logout() {
-        getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 0);
 
-        preferenceStorage.clear();
-        // This will delete everything.
-        getContentResolver().delete(FieldCaptureContent.deleteUri(), null, null);
-        checkFirstUse();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.logout_title).setMessage(R.string.logout_message).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 0);
+
+                preferenceStorage.clear();
+                // This will delete everything.
+                getContentResolver().delete(FieldCaptureContent.deleteUri(), null, null);
+                checkFirstUse();
+            }
+        }).setNegativeButton(R.string.no, null).show();
+
     }
 
     private boolean checkFirstUse() {
