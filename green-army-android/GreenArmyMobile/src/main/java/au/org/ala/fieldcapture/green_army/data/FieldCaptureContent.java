@@ -186,16 +186,34 @@ public final class FieldCaptureContent {
             params.putBoolean(FieldCaptureSyncAdapter.FORCE_REFRESH_ARG, forceSync);
             params.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, forceSync);
 
-            ContentResolver.requestSync(
-                    new Account(username, FieldCaptureContent.ACCOUNT_TYPE), FieldCaptureContent.AUTHORITY, params);
+            Account account = getAccount(ctx);
+            ContentResolver.setSyncAutomatically(account, AUTHORITY, true);
+            ContentResolver.requestSync(account, AUTHORITY, params);
         }
         else {
             Log.i("FieldCaptureContent", "Ignoring sync request for logged out user");
         }
     }
 
+    private static Account account;
+
+    public static Account getAccount(Context ctx) {
+        if (account == null) {
+            PreferenceStorage storage = PreferenceStorage.getInstance(ctx);
+
+            String username = storage.getUsername();
+            account = new Account(username, ACCOUNT_TYPE);
+        }
+        return account;
+    }
+
 
     public static Uri projectSitesUri() {
         return null;
+    }
+
+    public static void syncComplete(Context ctx) {
+
+        ContentResolver.setSyncAutomatically(getAccount(ctx), AUTHORITY, false);
     }
 }

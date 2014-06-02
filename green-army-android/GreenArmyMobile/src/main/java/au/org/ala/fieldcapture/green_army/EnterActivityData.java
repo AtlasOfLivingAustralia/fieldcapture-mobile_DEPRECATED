@@ -1,6 +1,5 @@
 package au.org.ala.fieldcapture.green_army;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -35,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
-import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.service.Mapper;
 
 /**
@@ -120,8 +117,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
 
                         }
 
-                        Account account = PreferenceStorage.getInstance(ctx).getAccount();
-                        ctx.getContentResolver().requestSync(account, FieldCaptureContent.AUTHORITY, new Bundle());
+                        FieldCaptureContent.requestSync(ctx, true);
 
                         ctx.finish();
                     } catch (Exception e) {

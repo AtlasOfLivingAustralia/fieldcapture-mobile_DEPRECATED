@@ -72,6 +72,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
                 updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_SUCCESS);
 
+                FieldCaptureContent.syncComplete(getContext());
             }
             catch (Exception e) {
                 Log.e("FieldCaptureSyncAdapter", "sync failed", e);
