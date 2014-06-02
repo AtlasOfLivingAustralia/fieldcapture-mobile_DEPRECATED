@@ -184,6 +184,7 @@ public final class FieldCaptureContent {
 
             Bundle params = new Bundle();
             params.putBoolean(FieldCaptureSyncAdapter.FORCE_REFRESH_ARG, forceSync);
+            params.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, forceSync);
 
             ContentResolver.requestSync(
                     new Account(username, FieldCaptureContent.ACCOUNT_TYPE), FieldCaptureContent.AUTHORITY, params);

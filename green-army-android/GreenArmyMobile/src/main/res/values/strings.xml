@@ -72,5 +72,7 @@
     <string name="activity_validation_failed">Please correct the errors and try again</string>
     <string name="sync_in_progress">Syncing with the server....</string>
     <string name="waiting_for_sync">Waiting to sync with the server....</string>
+    <string name="loading_projects">Loading projects</string>
+    <string name="reload_projects">Load Projects</string>
 
 </resources>

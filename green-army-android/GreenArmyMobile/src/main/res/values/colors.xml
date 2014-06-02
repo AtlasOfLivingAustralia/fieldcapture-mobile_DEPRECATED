@@ -30,4 +30,7 @@
     <color name="logo_background">#529a5b</color>
     <color name="light_grey">#ccc</color>
 
+    <color name="error_background">#bd372c</color>
+    <color name="error_text">#FFFF</color>
+
 </resources>

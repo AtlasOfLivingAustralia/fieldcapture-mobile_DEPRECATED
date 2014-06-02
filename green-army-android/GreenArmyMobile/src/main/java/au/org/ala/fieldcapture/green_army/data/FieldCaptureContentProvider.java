@@ -82,8 +82,14 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         if (toNotify == null) {
             toNotify = FieldCaptureContent.allProjectsUri();
         }
-        getContext().getContentResolver().notifyChange(toNotify, null);
 
+        String table = configForUri(toNotify, TABLE_KEY);
+        if ("activity".equals(table)) {
+            getContext().getContentResolver().notifyChange(Uri.parse(FieldCaptureContent.ACTIVITY_URI), null);
+        }
+        else {
+            getContext().getContentResolver().notifyChange(toNotify, null);
+        }
         notifyUri.remove();
     }
 
@@ -96,13 +102,13 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
         Cursor result;
         if ("activity".equals(table)) {
-
             result = joinActivitiesAndSites(selection, selectionArgs, sortOrder, db);
+            result.setNotificationUri(getContext().getContentResolver(), Uri.parse(FieldCaptureContent.ACTIVITY_URI));
         }
         else  {
             result = db.query(table, projection, selection, selectionArgs, null, null, sortOrder);
+            result.setNotificationUri(getContext().getContentResolver(), uri);
         }
-        result.setNotificationUri(getContext().getContentResolver(), uri);
 
         return result;
     }

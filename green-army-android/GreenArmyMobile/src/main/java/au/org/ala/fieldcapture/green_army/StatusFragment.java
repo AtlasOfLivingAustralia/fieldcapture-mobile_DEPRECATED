@@ -4,8 +4,11 @@ package au.org.ala.fieldcapture.green_army;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.SyncStatusObserver;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -45,6 +48,14 @@ public class StatusFragment extends Fragment implements SyncStatusObserver,  Loa
          * Callback for when an item has been selected.
          */
         public void onStatusChanged(Status status);
+    }
+
+    public static boolean isNetworkAvaialble(Context ctx) {
+        ConnectivityManager cm =
+                (ConnectivityManager)ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     /**

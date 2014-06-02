@@ -415,7 +415,15 @@ public class ProjectListActivity extends FragmentActivity
             callback.onStatusChanged(status);
         }
 
+        callback = (StatusFragment.StatusCallback)getSupportFragmentManager().findFragmentById(R.id.project_list);
+        if (callback != null) {
+            callback.onStatusChanged(status);
+        }
 
+    }
+
+    public void reloadProjects(View button) {
+        FieldCaptureContent.requestSync(this, true);
     }
 }
 

@@ -28,7 +28,7 @@ import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ProjectListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+public class ProjectListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, StatusFragment.StatusCallback {
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -54,6 +54,9 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
     private View listContainer;
     private View progress;
     private View noProjectsMessage;
+    private View loadingProjectsMessage;
+    private View noNetworkWarning;
+    private boolean noProjects;
 
     /** Identifies the loader we are using */
     private static final int PROJECT_LOADER_ID = 0;
@@ -112,15 +115,19 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         progress.setVisibility(View.GONE);
 
         if (data.getCount() == 0) {
+            noProjects = true;
             // Force a refresh from the server.
-            FieldCaptureContent.requestSync(getActivity());
+            FieldCaptureContent.requestSync(getActivity(), true);
             noProjectsMessage.setVisibility(View.VISIBLE);
-            mListView.setVisibility(View.GONE);
+            noNetworkWarning.setVisibility(StatusFragment.isNetworkAvaialble(getActivity())?View.GONE:View.VISIBLE);
 
+            mListView.setVisibility(View.GONE);
         }
         else {
 
+            noProjects = false;
             noProjectsMessage.setVisibility(View.GONE);
+            loadingProjectsMessage.setVisibility(View.GONE);
             mListView.setVisibility(View.VISIBLE);
 
             // Attempt to initialise from the saved preference.
@@ -173,6 +180,7 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         String[] columns = new String[] {"projectId", "name", "description"};
         mAdapter = new SimpleCursorAdapter(getActivity(), layout, null, columns, new int[]{-1, android.R.id.text1,android.R.id.text2}, 0);
         preferences = PreferenceStorage.getInstance(getActivity());
+        noProjects = true;
 
     }
 
@@ -196,6 +204,8 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         listContainer = root.findViewById(R.id.project_list_container);
         progress = root.findViewById(R.id.project_list_progress);
         noProjectsMessage = root.findViewById(R.id.no_projects_message);
+        loadingProjectsMessage = root.findViewById(R.id.loading_projects_message);
+        noNetworkWarning = root.findViewById(R.id.no_network_warning);
 
         return root;
     }
@@ -276,4 +286,18 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
 
         mActivatedPosition = position;
     }
+
+    @Override
+    public void onStatusChanged(StatusFragment.Status status) {
+        if (!noProjects) {
+            return;
+        }
+
+        loadingProjectsMessage.setVisibility(status.syncInProgress?View.VISIBLE:View.GONE);
+        noProjectsMessage.setVisibility(status.syncInProgress?View.GONE:View.VISIBLE);
+        noNetworkWarning.setVisibility(StatusFragment.isNetworkAvaialble(getActivity())?View.GONE:View.VISIBLE);
+
+
+    }
+
 }

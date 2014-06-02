@@ -54,14 +54,16 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         private String sitesToLoad;
         private ContentValues newSite;
         private Bundle savedState;
+        private String themesToLoad;
 
-        public MobileBindings(Fragment fragment, String activityId, String activityToLoad, String sitesToLoad, ContentValues newSite) {
+        public MobileBindings(Fragment fragment, String activityId, String activityToLoad, String sitesToLoad, ContentValues newSite, String themesToLoad) {
             this.ctx = fragment.getActivity();
             this.fragment = fragment;
             this.activityId = activityId;
             this.activityToLoad = activityToLoad;
             this.sitesToLoad = sitesToLoad;
             this.newSite = newSite;
+            this.themesToLoad = themesToLoad;
 
         }
         @JavascriptInterface
@@ -75,6 +77,9 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         public String loadSites() {
             return sitesToLoad;
         }
+
+        @JavascriptInterface
+        public String loadThemes() { return themesToLoad;}
 
         @JavascriptInterface
         public void createNewSite() {
@@ -155,6 +160,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
     private String activity;
     private String sites;
     private String activityUrl;
+    private String themes;
     private ContentValues siteToSave;
 
     private MobileBindings mobileBindings;
@@ -258,6 +264,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
                 type = type.replaceAll(" ", "_"); // Some android versions don't seem to be able to load even encoded spaces in URLs
                 activityUrl = "file:///android_asset/" + type + ".html";
                 this.activity = activity.toString();
+                this.themes = activity.getString("themes").toString();
 
             } catch (Exception e) {
                 Log.e("EnterActivityData", "Unable to load activity: " + data, e);
@@ -274,7 +281,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         if (activityUrl != null && sites != null) {
             Log.i("EnterActivityData", "Loading page with sites="+sites);
 
-            mobileBindings = new MobileBindings(this, activityId, activity, sites, siteToSave);
+            mobileBindings = new MobileBindings(this, activityId, activity, sites, siteToSave, themes);
             getWebView().addJavascriptInterface(mobileBindings, "mobileBindings");
             getWebView().loadUrl(activityUrl);
         }
@@ -345,6 +352,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
             sites = savedInstanceState.getString("sites");
             activityUrl = savedInstanceState.getString("activityUrl");
             siteToSave = savedInstanceState.getParcelable("newSite");
+            themes = savedInstanceState.getString("themes");
 
             tryLoadPage();
         }
@@ -389,6 +397,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         savedInstanceState.putString("sites", sites);
         savedInstanceState.putString("activityUrl", activityUrl);
         savedInstanceState.putParcelable("newSite", siteToSave);
+        savedInstanceState.putString("themes", themes);
 
     }
 

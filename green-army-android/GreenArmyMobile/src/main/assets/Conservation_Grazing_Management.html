@@ -110,7 +110,7 @@
                             </div>
 
                         </div>
-                        <div class="span6" data-bind="css:{required:transients.activityComplete}">
+                        <div class="span6" data-bind="css:{required:transients.markedAsFinished}">
                             <label for="endDate"><b>Actual end date</b>
                                 <a href='#' class='helphover' data-original-title='End date' data-placement='top' data-content='Date the activity finished.'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -135,7 +135,7 @@
 
                         <div class="span6">
                             <label><b>Progress</b></label>
-                            <label for="activityComplete"><input type="checkbox" id="activityComplete" data-bind="checked:transients.activityComplete" style="margin-right:1em;"><span>This activity is complete</span></label>
+                            <label for="activityComplete"><input type="checkbox" id="activityComplete" data-bind="checked:transients.markedAsFinished" style="margin-right:1em;"><span>This activity is complete</span></label>
 
                         </div>
 
@@ -199,6 +199,7 @@
         table.stockingDetails td:nth-child(3) select {width:100%;}
         table.stockingDetails td:last-child {width:4%;text-align:center;}
         table.stockingDetails textarea {width:100%; box-sizing:border-box; }
+        table.stockingDetails select {width:100%; box-sizing:border-box; }
     </style>
     <div class="output-block" id="koStock_Management_Details">
         <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Stock Management Details<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
@@ -573,15 +574,19 @@
         
             loadSites:function(){return "[]"},
         
+        
+            loadThemes:function(){return "[]"},
+        
+
         supportsNewSite:function() { return true; },
         onSaveActivity:function(){},
         createNewSite:function(){}
-};
+    };
 }
 var master = new Master();
 var activity = JSON.parse(mobileBindings.loadActivity());
 var sites = JSON.parse(mobileBindings.loadSites());
-
+var themes = JSON.parse(mobileBindings.loadThemes());
 
 $(function(){
 
@@ -625,13 +630,15 @@ init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingCo
 }
 };
 
-function ViewModel (act, sites) {
+function ViewModel (act, sites, themes) {
 var self = this;
+var today = new Date().toISOStringNoMillis();
+
 self.activityId = act.activityId;
 self.description = ko.observable(act.description);
 self.notes = ko.observable(act.notes);
-self.startDate = ko.observable(act.startDate).extend({simpleDate: false});
-self.endDate = ko.observable(act.endDate || act.plannedEndDate).extend({simpleDate: false});
+self.startDate = ko.observable(act.startDate || today).extend({simpleDate: false});
+self.endDate = ko.observable(act.endDate).extend({simpleDate: false});
 self.plannedStartDate = ko.observable(act.plannedStartDate).extend({simpleDate: false});
 self.plannedEndDate = ko.observable(act.plannedEndDate).extend({simpleDate: false});
 self.eventPurpose = ko.observable(act.eventPurpose);
@@ -644,10 +651,6 @@ self.type = ko.observable(act.type);
 self.siteId = ko.observable(act.siteId);
 self.projectId = act.projectId;
 self.transients = {};
-self.transients.activityComplete = ko.observable(false);
-self.transients.activityComplete.subscribe(function(newValue) {
-    self.progress(newValue?'finished':'started');
-});
 self.transients.sites = ko.observableArray(sites);
 self.transients.photoPoints = ko.computed(function() {
     var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
@@ -657,10 +660,13 @@ self.transients.photoPoints = ko.computed(function() {
      return [];
 });
 self.transients.activityProgressValues = ['planned','started','finished'];
-self.transients.themes = act.themes ? act.themes: [];
+self.transients.themes = themes?themes:[];
 self.transients.markedAsFinished = ko.observable(act.progress === 'finished');
 self.transients.markedAsFinished.subscribe(function (finished) {
     self.progress(finished ? 'finished' : 'started');
+    if (finished || !self.endDate()) {
+        self.endDate(today);
+    }
 });
 self.transients.siteImgUrl = ko.computed(function() {
     if (self.siteId()) {
@@ -721,7 +727,7 @@ self.progress(self.transients.markedAsFinished() ? 'finished' : 'started');
 }
 
 
-var viewModel = new ViewModel(activity, sites);
+var viewModel = new ViewModel(activity, sites, themes);
 
 ko.applyBindings(viewModel);
 
