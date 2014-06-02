@@ -41,6 +41,19 @@
             android:layout_marginBottom="15dp"
             android:layout_below="@id/site_description"/>
 
+        <TextView
+            android:id="@+id/location_validation_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:visibility="gone"
+            android:background="@color/error_background"
+            android:textColor="@color/error_text"
+            android:drawableLeft="@android:drawable/stat_notify_error"
+            android:layout_below="@id/location_title"
+            />
+
+
         <RelativeLayout
             android:id="@+id/progress_bar"
             android:layout_width="match_parent"
@@ -49,8 +62,7 @@
             android:layout_marginBottom="15dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-
-            android:layout_below="@id/location_title">
+            android:layout_below="@id/location_validation_error">
             <ProgressBar
                 android:id="@+id/progress_bar_indicator"
                 android:layout_width="wrap_content"
@@ -73,7 +85,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/progress_bar_indicator"/>
 
-            </RelativeLayout>
+        </RelativeLayout>
 
 
         <TextView

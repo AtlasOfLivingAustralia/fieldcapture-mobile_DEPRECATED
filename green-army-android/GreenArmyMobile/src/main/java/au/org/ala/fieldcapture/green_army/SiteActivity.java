@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -53,10 +55,13 @@ public class SiteActivity extends FragmentActivity implements
 
     public static final String LOCATION_KEY = "location";
     public static final String LOCATION_UPDATES_KEY = "locationUpdates";
+    public static final String GPS_TIMEOUT_KEY = "gpsTimeout";
     public static final String SITE_KEY = "site";
-    public static final float ACCEPTABLE_ACCURACY_THRESHOLD = 50f;
+    public static final float ACCEPTABLE_ACCURACY_THRESHOLD = 100f;
     // Accept a new location if the old location is 10 minutes old, even if the accuracy is worse.
     public static final long STALE_LOCATION_THRESHOLD = 10*60*1000;
+
+    public static final long GPS_TIMEOUT = 120000;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -72,6 +77,8 @@ public class SiteActivity extends FragmentActivity implements
     private View progressBar;
     private TextView locationStatus;
     private TextView networkStatus;
+    private TextView locationValidationError;
+    private boolean gpsTimeout = false;
 
     private Marker marker;
 
@@ -91,6 +98,7 @@ public class SiteActivity extends FragmentActivity implements
         if (savedInstanceState != null) {
             location = savedInstanceState.getParcelable(LOCATION_KEY);
             receivingLocationUpdates = savedInstanceState.getBoolean(LOCATION_UPDATES_KEY);
+            gpsTimeout = savedInstanceState.getBoolean(GPS_TIMEOUT_KEY);
         }
         nameField = (EditText)findViewById(R.id.site_name);
         description = (EditText)findViewById(R.id.site_description);
@@ -100,6 +108,7 @@ public class SiteActivity extends FragmentActivity implements
         progressBar = findViewById(R.id.progress_bar);
         locationStatus = (TextView)findViewById(R.id.location_status);
         networkStatus = (TextView)findViewById(R.id.network_status);
+        locationValidationError = (TextView)findViewById(R.id.location_validation_error);
 
 
     }
@@ -190,6 +199,7 @@ public class SiteActivity extends FragmentActivity implements
         super.onSaveInstanceState(savedState);
         savedState.putParcelable(LOCATION_KEY, location);
         savedState.putBoolean(LOCATION_UPDATES_KEY, receivingLocationUpdates);
+        savedState.putBoolean(GPS_TIMEOUT_KEY, gpsTimeout);
     }
 
     @Override
@@ -215,11 +225,25 @@ public class SiteActivity extends FragmentActivity implements
     private boolean validate() {
 
         Editable siteName = nameField.getText();
+        boolean valid = true;
         if (siteName.length() == 0) {
             nameField.setError(getResources().getString(R.string.site_name_required));
-            return false;
+            valid = false;
         }
-        return true;
+        if (location == null && !gpsTimeout) {
+
+            locationValidationError.setText(getString(R.string.no_location));
+            locationValidationError.setVisibility(View.VISIBLE);
+            valid = false;
+        }
+        else if (location != null && !gpsTimeout) {
+            if (location.getAccuracy() > ACCEPTABLE_ACCURACY_THRESHOLD || location.getAccuracy() < 0) {
+                locationValidationError.setText(getString(R.string.location_accuracy_too_low));
+                locationValidationError.setVisibility(View.VISIBLE);
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     private void done() {
@@ -230,9 +254,10 @@ public class SiteActivity extends FragmentActivity implements
             values.put(FieldCaptureContent.SITE_ID, siteId);
             values.put("name", nameField.getText().toString());
             values.put("description", description.getText().toString());
-            values.put("centroidLat", location.getLatitude());
-            values.put("centroidLon", location.getLongitude());
-
+            if (location != null) {
+                values.put("centroidLat", location.getLatitude());
+                values.put("centroidLon", location.getLongitude());
+            }
             // Return the site data here to prevent any synchronisation issues when returning to the
             // data entry activity.
             Intent result = new Intent();
@@ -295,15 +320,19 @@ public class SiteActivity extends FragmentActivity implements
             this.accuracy.setText("Unknown");
             progressBar.setVisibility(View.GONE);
             locationStatus.setVisibility(View.GONE);
+            locationValidationError.setVisibility(View.GONE);
         }
         else {
-            if (accuracy < ACCEPTABLE_ACCURACY_THRESHOLD) {
+            if (accuracy <= ACCEPTABLE_ACCURACY_THRESHOLD) {
                 progressBar.setVisibility(View.GONE);
                 locationStatus.setVisibility(View.GONE);
                 mLocationClient.removeLocationUpdates(this);
+                locationValidationError.setVisibility(View.GONE);
+
             }
             else {
                 locationStatus.setText(getResources().getString(R.string.status_refining_location));
+                locationValidationError.setText(getString(R.string.location_accuracy_too_low));
             }
             this.accuracy.setText(Float.toString(accuracy));
         }
@@ -348,6 +377,20 @@ public class SiteActivity extends FragmentActivity implements
 
         if (receivingLocationUpdates) {
             mLocationClient.requestLocationUpdates(mRequest, this);
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    gpsTimeout();
+                }
+            }, GPS_TIMEOUT);
+        }
+    }
+
+    private void gpsTimeout() {
+        if (receivingLocationUpdates) {
+            locationValidationError.setVisibility(View.GONE);
+            Toast.makeText(this, R.string.gps_timeout, Toast.LENGTH_LONG).show();
+
+            gpsTimeout = true;
         }
     }
 
