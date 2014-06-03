@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.UUID;
 
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
+import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
 
 public class SiteActivity extends FragmentActivity implements
@@ -124,14 +125,18 @@ public class SiteActivity extends FragmentActivity implements
             networkStatus.setVisibility(View.VISIBLE);
         }
 
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            // Some tablets incorrectly report they have GPS via the package manager.x
-            if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
-                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    showNoGpsDialog();
+        PreferenceStorage storage = PreferenceStorage.getInstance(this);
+        if (!storage.askedAboutGps()) {
+            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                // Some tablets incorrectly report they have GPS via the package manager.x
+                if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        showNoGpsDialog();
+                    }
                 }
             }
+            storage.setAskedAboutGps(true);
         }
         if (location != null) {
             LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());

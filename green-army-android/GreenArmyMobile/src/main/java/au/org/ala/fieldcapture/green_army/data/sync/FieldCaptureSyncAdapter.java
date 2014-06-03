@@ -1,6 +1,7 @@
 package au.org.ala.fieldcapture.green_army.data.sync;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -33,7 +34,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public FieldCaptureSyncAdapter(Context context, boolean autoInitialise) {
         super(context, autoInitialise);
-        ecodataInterface =  EcodataInterface.getInstance(context);
+
         mContentResolver = context.getContentResolver();
     }
 
@@ -43,7 +44,6 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
             boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
 
-        ecodataInterface = EcodataInterface.getInstance(context);
         mContentResolver = context.getContentResolver();
     }
 
@@ -55,34 +55,43 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
             ContentProviderClient provider,
             SyncResult syncResult) {
 
-        Log.i("FieldCaptureSyncAdapter", "sync called");
-
-
-        PreferenceStorage storage = PreferenceStorage.getInstance(getContext());
-        if (storage.getUsername() != null) {
-            boolean forceRefresh = extras.getBoolean(FORCE_REFRESH_ARG, false);
-
-            long now = System.currentTimeMillis();
-
-            try {
-                updateSyncStatus(now, FieldCaptureContent.SYNC_IN_PROGRESS, -1);
-
-                performUpdates();
-                performQueries(forceRefresh);
-
-                updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_SUCCESS);
-
-                FieldCaptureContent.syncComplete(getContext());
-            }
-            catch (Exception e) {
-                Log.e("FieldCaptureSyncAdapter", "sync failed", e);
-                updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_FAILED);
-            }
-            Log.i("FieldCaptureSyncAdapter", "sync complete");
+        Log.i("FieldCaptureSyncAdapter", "sync called for account "+account.name);
+        if (account == null || account.name == null) {
+            throw new IllegalArgumentException("The user account parameter is required.");
         }
-        else {
-            Log.i("FieldCaptureSyncAdapter", "Ignoring sync for logged out user");
+
+        boolean forceRefresh = extras.getBoolean(FORCE_REFRESH_ARG, false);
+        long now = System.currentTimeMillis();
+
+        try {
+            Cursor status = provider.query(FieldCaptureContent.userUri(), new String[]{FieldCaptureContent.TOKEN}, "userName=?", new String[] {account.name}, null);
+            if (!status.moveToFirst()) {
+                Log.e("FieldCaptureSyncAdapter", "No status in database.");
+
+                return;
+            };
+            String authKey = status.getString(0);
+
+            if (authKey == null) {
+                Log.e("FieldCaptureSyncAdapter", "No token stored in the database!");
+                return;
+            }
+            ecodataInterface = new EcodataInterface(account.name, authKey);
+
+            updateSyncStatus(now, FieldCaptureContent.SYNC_IN_PROGRESS, -1);
+
+            performUpdates();
+            performQueries(forceRefresh);
+
+            updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_SUCCESS);
+
+            FieldCaptureContent.syncComplete(getContext());
         }
+        catch (Exception e) {
+            Log.e("FieldCaptureSyncAdapter", "sync failed", e);
+            updateSyncStatus(now, FieldCaptureContent.SYNC_COMPLETE, FieldCaptureContent.SYNC_FAILED);
+        }
+        Log.i("FieldCaptureSyncAdapter", "sync complete");
 
 
     }

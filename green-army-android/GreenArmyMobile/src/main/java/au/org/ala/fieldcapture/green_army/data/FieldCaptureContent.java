@@ -24,6 +24,8 @@ public final class FieldCaptureContent {
 
     public static final String SITES = "sites";
 
+    public static final String USER = "user";
+
     public static final int SYNC_STATUS_SINGLETON_KEY = 1;
 
 
@@ -42,6 +44,7 @@ public final class FieldCaptureContent {
     public static final String SITE_URI = "content://"+AUTHORITY+"/"+SITES+"/*";
     public static final String PROJECT_SITES_URI = "content://"+AUTHORITY+"/"+PROJECTS+"/*/"+SITES;
     public static final String SYNC_STATUS_URI = "content://"+AUTHORITY+"/"+SYNC_STATUS;
+    public static final String USER_URI = "content://"+AUTHORITY+"/"+USER;
 
 
     /** Column name / JSON attribute name for the id used by an activity */
@@ -133,6 +136,7 @@ public final class FieldCaptureContent {
     public static final int SYNC_COMPLETE = 2;
     public static final int SYNC_FAILED = 3;
     public static final int SYNC_SUCCESS = 4;
+    public static final String TOKEN = "token";
 
 
     public static Uri activityUri(String activityId) {
@@ -170,6 +174,8 @@ public final class FieldCaptureContent {
 
     public static Uri syncStatusUri() { return Uri.parse(SYNC_STATUS_URI); }
 
+    public static Uri userUri() { return Uri.parse(USER_URI); };
+
     public static void requestSync(Context ctx) {
         FieldCaptureContent.requestSync(ctx, false);
     }
@@ -195,16 +201,12 @@ public final class FieldCaptureContent {
         }
     }
 
-    private static Account account;
 
     public static Account getAccount(Context ctx) {
-        if (account == null) {
-            PreferenceStorage storage = PreferenceStorage.getInstance(ctx);
 
-            String username = storage.getUsername();
-            account = new Account(username, ACCOUNT_TYPE);
-        }
-        return account;
+        PreferenceStorage storage = PreferenceStorage.getInstance(ctx);
+
+        return storage.getAccount();
     }
 
 

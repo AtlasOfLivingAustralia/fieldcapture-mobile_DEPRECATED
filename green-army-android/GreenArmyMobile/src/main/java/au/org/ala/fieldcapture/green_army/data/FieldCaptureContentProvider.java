@@ -23,6 +23,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     private static final int SITES = 4;
     private static final int PROJECT_SITES = 5;
     private static final int SYNC = 6;
+    private static final int USER = 7;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -34,6 +35,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES+"/*", ACTIVITIES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.ACTIVITIES, ACTIVITIES);
         uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.SYNC_STATUS, SYNC);
+        uriMatcher.addURI(FieldCaptureContent.AUTHORITY, FieldCaptureContent.USER, USER);
     }
 
     ThreadLocal<Uri> notifyUri = new ThreadLocal<Uri>();
@@ -67,7 +69,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         if (uri.equals(FieldCaptureContent.deleteUri())) {
             int count = 0;
             for (int key : config.keySet()) {
-                count += mDb.delete(config.get(key).get(TABLE_KEY), "1", null);
+                count += mDb.delete(config.get(key).get(TABLE_KEY), null, null);
             }
             return count;
         }
@@ -166,7 +168,10 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         syncConfig.put(TYPE_KEY, "vnd.android.cursor.dir/sync_status");
         config.put(SYNC, syncConfig);
 
-
+        Map<String, String> userConfig = new HashMap<String, String>(2);
+        userConfig.put(TABLE_KEY, FieldCaptureContent.USER);
+        userConfig.put(TYPE_KEY, "vnd.android.cursor.dir/user");
+        config.put(USER, userConfig);
     }
 
     private String configForUri(Uri uri, String key) {

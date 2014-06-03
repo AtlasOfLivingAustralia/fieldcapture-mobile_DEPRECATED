@@ -66,6 +66,7 @@ public class FieldCaptureDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE project_sites (projectId INTEGER, siteId INTEGER, UNIQUE(projectId, siteId))");
 
             db.execSQL("CREATE TABLE sync_status (_id INTEGER PRIMARY KEY, lastSyncTime TEXT, lastSyncResult INTEGER, currentStatus INTEGER)");
+            db.execSQL("CREATE TABLE user (userName TEXT PRIMARY KEY, token TEXT)");
 
             db.setTransactionSuccessful();
         } finally {

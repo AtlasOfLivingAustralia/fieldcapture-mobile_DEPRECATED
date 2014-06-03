@@ -1,6 +1,7 @@
 package au.org.ala.fieldcapture.green_army.data;
 
 import android.accounts.Account;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
@@ -15,6 +16,7 @@ public class PreferenceStorage {
 	private static final String USERNAME_KEY = "username";
     private static final String FIRST_USE_KEY = "firstUse";
     private static final String PROJECT = "project";
+    private static final String GPS_QUESTION_KEY = "gpsQuestion";
 
     private static Account account;
 
@@ -48,11 +50,7 @@ public class PreferenceStorage {
     }
 
 	public boolean isAuthenticated() {
-		return getAuthToken() != null;
-	}
-	
-	public String getAuthToken() {
-		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(TOKEN_KEY, null);
+		return getUsername() != null;
 	}
 	
 	public String getUsername() {
@@ -67,15 +65,24 @@ public class PreferenceStorage {
 		if (authToken == null) {
 			throw new IllegalArgumentException("Authentication token cannot be null");
 		}
-		Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
+        account = null;
+
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
 		editor.putString(USERNAME_KEY, username);
-		editor.putString(TOKEN_KEY, authToken);
 		editor.commit();
+
+        // We are storing the token in the database as there are issues with cross process
+        // synchronization of preferences.
+        ContentValues values = new ContentValues(2);
+        values.put("userName", username);
+        values.put(FieldCaptureContent.TOKEN, authToken);
+        ctx.getContentResolver().insert(FieldCaptureContent.userUri(), values);
 
         return getAccount();
 	}
 
     public void clear() {
+        account = null;
         Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
         editor.clear();
         editor.commit();
@@ -96,5 +103,15 @@ public class PreferenceStorage {
         Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
         editor.putString(PROJECT, projectId);
         editor.apply();
+    }
+
+    public boolean askedAboutGps() {
+        return PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(GPS_QUESTION_KEY, false);
+    }
+
+    public void setAskedAboutGps(boolean askedAboutGps) {
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(ctx).edit();
+        editor.putBoolean(GPS_QUESTION_KEY, askedAboutGps);
+        editor.commit();
     }
 }

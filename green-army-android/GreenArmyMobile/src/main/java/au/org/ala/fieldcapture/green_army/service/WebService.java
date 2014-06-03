@@ -1,16 +1,12 @@
 package au.org.ala.fieldcapture.green_army.service;
 
 
-import android.content.Context;
-
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-
-import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
 /**
  * Base class for classes that want to use web services.
@@ -20,13 +16,13 @@ public class WebService {
     private static final String USER_NAME_HEADER = "userName";
     private static final String AUTH_KEY_HEADER = "authKey";
 
-    private Context ctx;
-    private PreferenceStorage storage;
+    private String userName;
+    private String authKey;
 
-    public WebService(Context ctx) {
+    public WebService(String userName, String authKey) {
 
-        this.ctx = ctx;
-        storage = PreferenceStorage.getInstance(ctx);
+        this.userName = userName;
+        this.authKey = authKey;
         // This shouldn't be necessary however I am seeing frequent failures
         // due to recycled closed connections (possibly something I am doing
         // wrong).  This is working around that.
@@ -63,8 +59,8 @@ public class WebService {
         restTemplate.getMessageConverters().add(new JSONArrayMessageConverter());
         restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
 
-        if (requiresAuthentication) {
-            restTemplate.setRequestFactory(new RequestFactory(storage.getUsername(), storage.getAuthToken()));
+        if (requiresAuthentication && userName != null && authKey != null) {
+            restTemplate.setRequestFactory(new RequestFactory(userName, authKey));
         }
         return restTemplate;
     }

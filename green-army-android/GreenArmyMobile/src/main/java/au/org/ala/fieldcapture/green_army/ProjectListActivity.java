@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,14 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
-import com.google.android.gms.cast.RemoteMediaPlayer;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 import au.org.ala.fieldcapture.green_army.data.FieldCaptureContent;
-import au.org.ala.fieldcapture.green_army.service.Mapper;
 
 
 /**
@@ -124,9 +117,7 @@ public class ProjectListActivity extends FragmentActivity
                     getSupportFragmentManager().beginTransaction().add(statusFragment, "statusFragment").commit();
                 }
 
-                account = CreateSyncAccount(this, user);
-                getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 1);
-                getContentResolver().setSyncAutomatically(account, FieldCaptureContent.AUTHORITY, true);
+                account = createSyncAccount(this);
                 setContentView(R.layout.activity_project_list);
 
                 drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -156,6 +147,7 @@ public class ProjectListActivity extends FragmentActivity
                         if (projectId != null) {
                             onItemSelected(projectId);
                         }
+                        FieldCaptureContent.requestSync(this);
                     }
 
                 }
@@ -364,27 +356,15 @@ public class ProjectListActivity extends FragmentActivity
         }
     }
 
-    public  Account CreateSyncAccount(Context context, String userName) {
+    public  Account createSyncAccount(Context context) {
         // Create the account type and default account
         Account newAccount = preferenceStorage.getAccount();
         // Get an instance of the Android account manager
-        AccountManager accountManager =
-                (AccountManager) context.getSystemService(
-                        ACCOUNT_SERVICE);
-        /*
-         * Add the account and account type, no password or user data
-         * If successful, return the Account object, otherwise report an error.
-         */
-        if (accountManager.addAccountExplicitly(newAccount, null, null)) {
+        AccountManager accountManager = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
 
+        accountManager.addAccountExplicitly(newAccount, null, null);
+        getContentResolver().setIsSyncable(newAccount, FieldCaptureContent.AUTHORITY, 1);
 
-            /*
-             * If you don't set android:syncable="true" in
-             * in your <provider> element in the manifest,
-             * then call context.setIsSyncable(account, AUTHORITY, 1)
-             * here.
-             */
-        }
         return newAccount;
     }
 

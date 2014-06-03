@@ -170,7 +170,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		private EcodataInterface.LoginResult login() {
 
-            EcodataInterface ecodataInterface = new EcodataInterface(ctx);
+            EcodataInterface ecodataInterface = new EcodataInterface();
 
             return ecodataInterface.login(username, password);
 		}
