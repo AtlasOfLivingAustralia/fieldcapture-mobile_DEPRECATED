@@ -30,12 +30,12 @@
     <string name="drawer_open">Filter activities</string>
     <string name="open_drawer_button">Select a Project</string>
     <string name="drawer_close">Filter activities</string>
-    <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by clicking the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your service provider to get this fixed.</string>
+    <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by tapping the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your service provider to get this fixed.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
     <string name="refresh">Refresh data</string>
     <string name="title_activity_welcome">Green Army</string>
-    <string name="welcome_message">Welcome to the Green Army Mobile application.  Before you get started, you will need to:\n   1. Create an account with the Atlas of Living Australia.\n  2. Ask your resource manager to add you as an editor for your projects in the MERIT tool.\n\nIf you already have an account, please ensure your device has internet access and press the "Start" button to login.</string>
+    <string name="welcome_message">Welcome to the Green Army Programme application.  Before you get started, you will need to:\n   1. Create an account with the Atlas of Living Australia.\n  2. Ask your service provider to add you as an editor for your projects in the MERIT tool.\n\nIf you already have an account, please ensure your device has internet access and press the "Start" button to login.</string>
     <string name="start">Start</string>
     <string name="loading_activities">Loading activities...</string>
     <string name="project_list_welcome_text">Welcome to the Green Army mobile application.  To get started, touch one of your projects in the list on the left hand side of the screen.</string>
@@ -62,7 +62,7 @@
     <string name="status_refining_location">Refining your location...</string>
     <string name="network_warning">Your device doesn\'t appear to be connected to the network.  The map may not be visible, however your location will be found using GPS</string>
     <string name="no_gps_title">Enable GPS?</string>
-    <string name="no_gps_message">The GPS on this device is currently disabled, do you want to enable it?  Enabling GPS will allow accurate survey locations to be recorded.</string>
+    <string name="no_gps_message">The GPS on this device is currently disabled, do you want to enable it?  Enabling GPS will allow accurate activity locations to be recorded.</string>
     <string name="unassigned_site"><![CDATA[Site: <i>Unassigned </i>]]></string>
     <string name="new_site_menu">New Site</string>
     <string name="help">Help</string>
@@ -77,7 +77,7 @@
     <string name="reload_activities">Load Activities</string>
     <string name="no_location">Waiting for your location</string>
     <string name="location_accuracy_too_low">Waiting for a more accurate location</string>
-    <string name="gps_timeout">GPS timeout.  Please update the site location using the MERIT website</string>
+    <string name="gps_timeout">Unable to determine your position.  Please update the site location using the MERIT website when you have internet access.</string>
     <string name="logout_message">Are you sure you want to logout?\n Any edits not yet synced to the server will be lost.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
