@@ -10,20 +10,21 @@
 
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.5"
+        android:layout_marginBottom="50dp"
         android:id="@+id/imageView"
-        android:gravity="center"
-        android:src="@drawable/green_army_logo_large"
-        android:layout_gravity="center" />
+        android:gravity="center_horizontal|bottom"
+        android:src="@drawable/green_army_logo_landscape"
+        android:layout_gravity="center_horizontal|bottom" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal|top"
         android:layout_margin="50dp"
-        android:layout_weight="0.6">
+        android:layout_weight="0.5">
 
 
         <TextView

@@ -235,7 +235,7 @@ public class SiteActivity extends FragmentActivity implements
             nameField.setError(getResources().getString(R.string.site_name_required));
             valid = false;
         }
-        if (location == null && !gpsTimeout) {
+        if (location == null) {
 
             locationValidationError.setText(getString(R.string.no_location));
             locationValidationError.setVisibility(View.VISIBLE);

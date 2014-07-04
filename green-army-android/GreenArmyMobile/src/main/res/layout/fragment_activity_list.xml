@@ -35,20 +35,18 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
             android:id="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
             android:layout_marginLeft="0dp"
-            android:src="@drawable/green_army_logo_large"
+            android:src="@drawable/green_army_logo_landscape"
             android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/welcome_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.5"
             android:textColor="@android:color/white"
             android:text="@string/no_activities_text"
             android:gravity="center_vertical|center_horizontal"

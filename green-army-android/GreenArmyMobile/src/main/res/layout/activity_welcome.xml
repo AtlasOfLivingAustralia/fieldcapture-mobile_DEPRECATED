@@ -16,7 +16,7 @@
         android:layout_weight="0.4"
         android:id="@+id/imageView"
         android:gravity="center"
-        android:src="@drawable/green_army_logo_large"
+        android:src="@drawable/green_army_logo_landscape"
         android:layout_gravity="center" />
 
     <RelativeLayout
