@@ -24,11 +24,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -57,6 +55,9 @@ public class SiteActivity extends FragmentActivity implements
     public static final String LOCATION_KEY = "location";
     public static final String LOCATION_UPDATES_KEY = "locationUpdates";
     public static final String GPS_TIMEOUT_KEY = "gpsTimeout";
+    public static final String VALIDATION_VISIBLE_KEY = "validationVisible";
+    public static final String VALIDATION_TEXT_KEY = "validationText";
+
     public static final String SITE_KEY = "site";
     public static final float ACCEPTABLE_ACCURACY_THRESHOLD = 100f;
     // Accept a new location if the old location is 10 minutes old, even if the accuracy is worse.
@@ -80,8 +81,51 @@ public class SiteActivity extends FragmentActivity implements
     private TextView networkStatus;
     private TextView locationValidationError;
     private boolean gpsTimeout = false;
-
     private Marker marker;
+    private boolean paused;
+
+
+    public static class TimeoutWithLocationDialogFragment extends DialogFragment {
+
+        public TimeoutWithLocationDialogFragment() {}
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.gps_timeout).setTitle(R.string.gps_timout_title).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            return builder.create();
+
+        }
+    }
+
+    public static class TimeoutDialogFragment extends DialogFragment {
+
+        public TimeoutDialogFragment() {}
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.gps_timeout_no_location).setTitle(R.string.gps_timout_title).setPositiveButton(R.string.ok,  new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            return builder.create();
+
+
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +140,7 @@ public class SiteActivity extends FragmentActivity implements
         mRequest.setInterval(5*1000);
         mRequest.setFastestInterval(1*1000);
 
-        if (savedInstanceState != null) {
-            location = savedInstanceState.getParcelable(LOCATION_KEY);
-            receivingLocationUpdates = savedInstanceState.getBoolean(LOCATION_UPDATES_KEY);
-            gpsTimeout = savedInstanceState.getBoolean(GPS_TIMEOUT_KEY);
-        }
+
         nameField = (EditText)findViewById(R.id.site_name);
         description = (EditText)findViewById(R.id.site_description);
         lat = (TextView)findViewById(R.id.latitude);
@@ -111,11 +151,22 @@ public class SiteActivity extends FragmentActivity implements
         networkStatus = (TextView)findViewById(R.id.network_status);
         locationValidationError = (TextView)findViewById(R.id.location_validation_error);
 
+        if (savedInstanceState != null) {
+            location = savedInstanceState.getParcelable(LOCATION_KEY);
+            receivingLocationUpdates = savedInstanceState.getBoolean(LOCATION_UPDATES_KEY);
+            gpsTimeout = savedInstanceState.getBoolean(GPS_TIMEOUT_KEY);
+            boolean validationVisible = savedInstanceState.getBoolean(VALIDATION_VISIBLE_KEY);
+            locationValidationError.setVisibility(validationVisible?View.VISIBLE:View.GONE);
+            if (validationVisible) {
+                locationValidationError.setText(savedInstanceState.getString(VALIDATION_TEXT_KEY));
+            }
+        }
 
     }
 
     @Override
     protected void onResume() {
+        paused = false;
         super.onResume();
         setUpMapIfNeeded();
         if (isNetworkAvailable()) {
@@ -141,6 +192,7 @@ public class SiteActivity extends FragmentActivity implements
         if (location != null) {
             LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
             marker = mMap.addMarker(new MarkerOptions().position(latlng).draggable(true));
+            setLocation(location);
         }
         else {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.0, 133.0), 4));
@@ -179,6 +231,7 @@ public class SiteActivity extends FragmentActivity implements
 
     @Override
     protected void onPause() {
+        paused = true;
         super.onPause();
         if (marker != null) {
             marker.remove();
@@ -186,6 +239,7 @@ public class SiteActivity extends FragmentActivity implements
         // Having the keyboard open on rotate was causing some strange drawing errors.
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(nameField.getWindowToken(), 0);
+
     }
 
     /*
@@ -205,6 +259,8 @@ public class SiteActivity extends FragmentActivity implements
         savedState.putParcelable(LOCATION_KEY, location);
         savedState.putBoolean(LOCATION_UPDATES_KEY, receivingLocationUpdates);
         savedState.putBoolean(GPS_TIMEOUT_KEY, gpsTimeout);
+        savedState.putBoolean(VALIDATION_VISIBLE_KEY, locationValidationError.getVisibility() == View.VISIBLE);
+        savedState.putString(VALIDATION_TEXT_KEY, locationValidationError.getText().toString());
     }
 
     @Override
@@ -242,7 +298,7 @@ public class SiteActivity extends FragmentActivity implements
             valid = false;
         }
         else if (location != null && !gpsTimeout) {
-            if (location.getAccuracy() > ACCEPTABLE_ACCURACY_THRESHOLD || location.getAccuracy() < 0) {
+            if (location.getAccuracy() > ACCEPTABLE_ACCURACY_THRESHOLD) {
                 locationValidationError.setText(getString(R.string.location_accuracy_too_low));
                 locationValidationError.setVisibility(View.VISIBLE);
                 valid = false;
@@ -304,6 +360,7 @@ public class SiteActivity extends FragmentActivity implements
     @Override
     public void onLocationChanged(Location location) {
         // Update location
+
         float currentAccuracy = this.location != null ? this.location.getAccuracy() : Float.MAX_VALUE;
         long lastTime = this.location != null ? this.location.getTime() : 0;
         if (location.getAccuracy() < currentAccuracy || (location.getTime() - lastTime) > STALE_LOCATION_THRESHOLD) {
@@ -326,14 +383,20 @@ public class SiteActivity extends FragmentActivity implements
             progressBar.setVisibility(View.GONE);
             locationStatus.setVisibility(View.GONE);
             locationValidationError.setVisibility(View.GONE);
+            if (receivingLocationUpdates) {
+                mLocationClient.removeLocationUpdates(this);
+                receivingLocationUpdates = false;
+            }
         }
         else {
             if (accuracy <= ACCEPTABLE_ACCURACY_THRESHOLD) {
                 progressBar.setVisibility(View.GONE);
                 locationStatus.setVisibility(View.GONE);
-                mLocationClient.removeLocationUpdates(this);
                 locationValidationError.setVisibility(View.GONE);
-
+                if (receivingLocationUpdates) {
+                    mLocationClient.removeLocationUpdates(this);
+                    receivingLocationUpdates = false;
+                }
             }
             else {
                 locationStatus.setText(getResources().getString(R.string.status_refining_location));
@@ -382,6 +445,7 @@ public class SiteActivity extends FragmentActivity implements
 
         if (receivingLocationUpdates) {
             mLocationClient.requestLocationUpdates(mRequest, this);
+
             new Handler().postDelayed(new Runnable() {
                 public void run() {
                     gpsTimeout();
@@ -391,10 +455,25 @@ public class SiteActivity extends FragmentActivity implements
     }
 
     private void gpsTimeout() {
+
+        if (paused) {
+
+            Log.i("Site Activity", "GPS timer fired while paused.");
+            return;
+        }
         if (receivingLocationUpdates) {
             locationValidationError.setVisibility(View.GONE);
-            Toast.makeText(this, R.string.gps_timeout, Toast.LENGTH_LONG).show();
 
+            DialogFragment dialog;
+            if (location != null && location.getAccuracy() > ACCEPTABLE_ACCURACY_THRESHOLD) {
+                 dialog = new TimeoutWithLocationDialogFragment();
+            }
+            else {
+                dialog = new TimeoutDialogFragment();
+            }
+            if (dialog != null) {
+                dialog.show(getSupportFragmentManager(), "Timeout dialog");
+            }
             gpsTimeout = true;
         }
     }

@@ -77,11 +77,14 @@
     <string name="reload_activities">Load Activities</string>
     <string name="no_location">Waiting for your location</string>
     <string name="location_accuracy_too_low">Waiting for a more accurate location</string>
-    <string name="gps_timeout">Unable to determine your position.  Please update the site location using the MERIT website when you have internet access.</string>
+    <string name="gps_timeout">The system is unable to determine your position accurately.  Please update the site location using the MERIT website when you have internet access.</string>
+    <string name="gps_timeout_no_location">The site cannot be created as the system is unable to determine your location.  Please tap back then create the site location using the MERIT website when you have internet access.</string>
     <string name="logout_message">Are you sure you want to logout?\n Any edits not yet synced to the server will be lost.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="logout_title">Logout</string>
+    <string name="gps_timout_title">GPS Timeout</string>
+    <string name="ok">Ok</string>
 
 
 </resources>
