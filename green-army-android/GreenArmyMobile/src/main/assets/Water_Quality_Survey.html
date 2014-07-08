@@ -23,7 +23,7 @@
 <link href="static/KYGDEVRRaKjNbTXJkHmicmzo9vFrnnzCnGLcxKjR04f.css" type="text/css" rel="stylesheet" media="screen,print" />
 
 <link href="static/uUQBvO5ITMKwLfoRb2u62GbHXEzxtsbrSWq8MBAOrbX.css" type="text/css" rel="stylesheet" media="screen,print" />
-<link href="static/A1gq5aX5AVMoaQ2R6VeVW9ATKxuPeQfLuMw52ruNjQl.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<link href="static/Rvy1AbvbH6TVlcTqc4lz71v5o0HJyz9D7Q8u2LCGGX2.css" type="text/css" rel="stylesheet" media="screen, projection" />
 <link href="static/AcXIjLTuc87n8sfxBjJRQSoBIUwP9RnCyK8Sv82i7eV.css" type="text/css" rel="stylesheet" media="screen, projection" />
 <script type="text/javascript">
     var fcConfig = {
@@ -92,84 +92,84 @@
                 <div class="row-fluid">
 
                     <span class="span8">
-                    <div class="row-fluid space-after">
+                        <div class="row-fluid space-after">
 
-                        <div class="span6 required">
-                            <label for="startDate"><b>Actual start date</b>
-                                <a href='#' class='helphover' data-original-title='Start date' data-placement='top' data-content='Date the activity was started.'>
+                            <div class="span6 required">
+                                <label for="startDate"><b>Actual start date</b>
+                                    <a href='#' class='helphover' data-original-title='Start date' data-placement='top' data-content='Date the activity was started.'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a>
-                            </label>
+                                </label>
 
 
-                            <div class="input-append">
-                                <input data-bind='datepicker:startDate.date' name='startDate' id='startDate' type='text' size='16' class='input-xlarge' readonly='readonly' targetField='startDate.date' data-validation-engine='validate[required]' />
+                                <div class="input-append">
+                                    <input data-bind='datepicker:startDate.date' name='startDate' id='startDate' type='text' size='16' class='input-xlarge' readonly='readonly' targetField='startDate.date' data-validation-engine='validate[required]' />
 <span class='add-on open-datepicker'>
   <i class='icon-th'>&nbsp;</i>
 </span>
-                            </div>
+                                </div>
 
-                        </div>
-                        <div class="span6" data-bind="css:{required:transients.markedAsFinished}">
-                            <label for="endDate"><b>Actual end date</b>
-                                <a href='#' class='helphover' data-original-title='End date' data-placement='top' data-content='Date the activity finished.'>
+                            </div>
+                            <div class="span6" data-bind="css:{required:transients.markedAsFinished}">
+                                <label for="endDate"><b>Actual end date</b>
+                                    <a href='#' class='helphover' data-original-title='End date' data-placement='top' data-content='Date the activity finished.'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a>
-                            </label>
+                                </label>
 
-                            <div class="input-append">
-                                <input data-bind='datepicker:endDate.date' name='endDate' id='endDate' type='text' size='16' class='input-xlarge' readonly='readonly' targetField='endDate.date' data-validation-engine='validate[future[startDate]]' />
+                                <div class="input-append">
+                                    <input data-bind='datepicker:endDate.date' name='endDate' id='endDate' type='text' size='16' class='input-xlarge' readonly='readonly' targetField='endDate.date' data-validation-engine='validate[future[startDate]]' />
 <span class='add-on open-datepicker'>
   <i class='icon-th'>&nbsp;</i>
 </span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row-fluid space-after">
+                            <div class="span6">
+                                <label for="theme"><b>Major theme</b></label>
+                                <select id="theme" data-bind="value:mainTheme, options:transients.themes, optionsCaption:'Choose..'" class="input-xlarge" style="width:90%">
+                                </select>
+                            </div>
+
+                            <div class="span6">
+                                <label><b>Progress</b></label>
+                                <label for="activityComplete"><input type="checkbox" id="activityComplete" data-bind="checked:transients.markedAsFinished" style="margin-right:1em;"><span>This activity is complete</span></label>
+
                             </div>
 
                         </div>
-                    </div>
-                    <div class="row-fluid space-after">
-                        <div class="span6">
-                            <label for="theme"><b>Major theme</b></label>
-                            <select id="theme" data-bind="value:mainTheme, options:transients.themes, optionsCaption:'Choose..'" class="input-xlarge" style="width:90%">
-                            </select>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label for="site"><b>Site</b></label>
+                                <select id='site' style='width:90%' data-bind='options:transients.sites,optionsText:"name",optionsValue:"siteId",value:siteId,optionsCaption:"Choose a site..."'>&nbsp;</select>
+
+                            </div>
+
+                            <div class="span3">
+
+                                <button class="btn btn-info" style="margin-top:25px;" data-bind="visible:transients.newSiteSupported,click:createNewSite">Create new Site</button>
+                            </div>
                         </div>
 
-                        <div class="span6">
-                            <label><b>Progress</b></label>
-                            <label for="activityComplete"><input type="checkbox" id="activityComplete" data-bind="checked:transients.markedAsFinished" style="margin-right:1em;"><span>This activity is complete</span></label>
-
-                        </div>
-
-                    </div>
-                    <div class="row-fluid">
-                        <div class="span6">
-                            <label for="site"><b>Site</b></label>
-                            <select id='site' style='width:90%' data-bind='options:transients.sites,optionsText:"name",optionsValue:"siteId",value:siteId,optionsCaption:"Choose a site..."'>&nbsp;</select>
-
-                        </div>
-
-                        <div class="span3">
-
-                            <button class="btn btn-info" style="margin-top:25px;" data-bind="visible:transients.newSiteSupported,click:createNewSite">Create new Site</button>
-                        </div>
-                    </div>
-
-                    
                         
-                            
-                                
-                            
-                            
-                                
-                                    
-                                    
-                                    
-                                    
-
-                                
-                            
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
 
-                    
+                        
+                        
+                        
+
+                        
                     </span>
                     <span class="span4">
 
@@ -187,21 +187,21 @@
 <!-- ko stopBinding: true -->
 
     
-    
-    
-    
-    <div class="output-block" id="koGeneral_information_&_Participants">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">General information & Participants<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
-        <!-- add the dynamic components -->
-        <div class="row-fluid space-after output-section" >
+        
+        
+        
+        <div class="output-block" id="koGeneral_information_&_Participants">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">General information & Participants</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after output-section" >
 <div class="span4">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Sampler name:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the person or group undertaking the sampling event'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input  class="span8 input-small" data-bind='value:data.samplerName'  type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Type of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the water body being sampled.'>
+</a></label></span><input  class="span8 input-small" data-bind='value:data.samplerName'  type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Name of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The name of the water body being sampled.'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.waterbodyName,options:transients.waterbodyNameConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Type of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Broad class of water body being sampled'>
+</a></label></span><input  class="span8 input-small" data-bind='value:data.waterbodyName'  data-validation-engine='validate[required]' type='text' class='input-small'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Type of water body:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Broad class of water body being sampled'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.waterType,options:transients.waterTypeConstraints,optionsCaption:"Please select"'></select></span></div></div><div class="span4">
+</a></label></span><select class="span8" data-bind='value:data.waterType,options:transients.waterTypeConstraints,optionsCaption:"Please select"' data-validation-engine='validate[required]'></select></span></div></div><div class="span4">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Number in sampler group:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The total number of people participating in the sampling event'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalParticipants' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>No. of volunteer participants:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of volunteers participating in the sampling event'>
@@ -213,18 +213,18 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surveyDuration' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div></div>
 
-        
-    </div>
+            
+        </div>
     
 
     
-    
-    
-    
-    <div class="output-block" id="koEnvironmental_Information_at_the_Time_of_Sampling">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Environmental Information at the Time of Sampling<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
-        <!-- add the dynamic components -->
-        <div class="row-fluid space-after output-section" >
+        
+        
+        
+        <div class="output-block" id="koEnvironmental_Information_at_the_Time_of_Sampling">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Environmental Information at the Time of Sampling</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after output-section" >
 <div class="span6">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Rainfall in last 7 days:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='General character of rainfall received at the sampling site over the 7 days prior to sampling.'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -239,18 +239,18 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><textarea  class="span12" data-bind='value:data.notes'></textarea></span></div>
 
-        
-    </div>
+            
+        </div>
     
 
     
-    
-    
-    
-    <div class="output-block" id="koWater_Quality_Measurements">
-        <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Water Quality Measurements<i class="icon-asterisk modified-icon" data-bind="visible:dirtyFlag.isDirty" title="Has been modified" style="display: none;"></i></h3>
-        <!-- add the dynamic components -->
-        <div class="row-fluid space-after output-section" >
+        
+        
+        
+        <div class="output-block" id="koWater_Quality_Measurements">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Water Quality Measurements</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after output-section" >
 <div class="span6">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Air Temperature (deg C):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The temperature of the air (in degrees Celsius) at 1.2 metres above the surface of the water at the time of sampling.'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -258,15 +258,15 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterTemperature' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>pH (pH units):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The average pH of the top few centimetres of water at the sampling site'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterPh' data-validation-engine='validate[min[0],max[14],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Electrical Conductivity (µS/cm):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The average electrical conductivity (in microsiemens per centimetre) of the top few centimetres of water at the sampling site'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterPh' data-validation-engine='validate[min[0],max[14],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Turbidity (NTUs):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The average turbidity (in nephelometric turbidity units (NTUs)) of the water column at the sampling site'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterEc' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Turbidity (NTUs):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The average turbidity (in nephelometric turbidity units (NTUs)) of the water column at the sampling site'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.waterTurbidity' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Electrical Conductivity (µS/cm):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The average electrical conductivity (in microsiemens per centimetre) of the top few centimetres of water at the sampling site'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.waterTurbidity' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Nitrates (mg/L as N):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the amount of nitrogen dissolved in a water sample in milligrams per litre'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterEc' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total Nitrogen (mg/L as N):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the total amount of nitrogen dissolved in a water sample in milligrams per litre'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterNitrates' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Did you calibrate your EC meter?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicator as to whether the electrical conductivity meter used had been calibrated prior to sampling'>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterTotalNitrogen' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Nitrates (mg/L as N):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the amount of nitrates dissolved in a water sample in milligrams per litre'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><select class="span8" data-bind='value:data.instrumentCalibration,options:transients.instrumentCalibrationConstraints,optionsCaption:"Please select"'></select></span></div></div><div class="span6">
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterNitrates' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div><div class="span6">
 <div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Available Phosphate (mg/L):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the amount of available (soluble reactive component) phosphate in milligrams per litre of the water at the sampling site'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterAvailableP' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total Phosphate (mg/L):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the total amount of phosphate (reactive and unreactive components) in milligrams per litre of the water at the sampling site'>
@@ -279,14 +279,16 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterColiforms' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>E. coli (CFU/100mL):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Measure of the density of the bacteria E. coli in a 100 millilitre sample of water'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterEcoli' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div></div></div>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.surfaceWaterEcoli' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Did you calibrate your EC meter?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Indicator as to whether the electrical conductivity meter used had been calibrated prior to sampling'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><select class="span8" data-bind='value:data.instrumentCalibration,options:transients.instrumentCalibrationConstraints,optionsCaption:"Please select"'></select></span></div></div></div>
 <div class="row-fluid space-after output-section" >
 <span class="span12">    <span  class="preLabel"><label>Water Testing Notes/Issues:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='General comments and notes about this water quality monitoring event.'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><textarea  class="span12" data-bind='value:data.notes'></textarea></span></div>
 
-        
-    </div>
+            
+        </div>
     
 
 <!-- /ko -->
@@ -298,7 +300,7 @@
 
 </div>
 
-<script src="static/OmI7Xdb1NrxdcV1bHVzLwvhYVcLEtkZPZ8HsZT3ZLGA.js" type="text/javascript" ></script>
+<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
 
 
 
@@ -329,19 +331,19 @@
 <script src="static/ZbrF5cz3bJrkAqBXLrAlOmoaIYntVDIKpviQs5E8Rhy.js" type="text/javascript" ></script>
 <script src="static/IZCc6ZgD3MepYbz4UqlDLzMDNNghSCivcfGebmF9V2d.js" type="text/javascript" ></script>
 <script type="text/javascript">
-        $(function(){
+            $(function(){
 
-            var viewModelName = "General_information_&_ParticipantsViewModel",
+                var viewModelName = "General_information_&_ParticipantsViewModel",
                 viewModelInstance = viewModelName + "Instance";
 
             // load dynamic models - usually objects in a list
-                    var speciesLists = [];
+                        var speciesLists = [];
         var site = {};
 
 
-            this[viewModelName] = function (output) {
-                var self = this;
-                self.name = "General information & Participants";
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "General information & Participants";
                 self.outputId = orBlank(output.outputId);
 
                 self.data = {};
@@ -369,30 +371,30 @@
                 // this will be called when generating a savable model to remove transient properties
                 self.removeBeforeSave = function (jsData) {
                     // add code to remove any transients added by the dynamic tags
-                    
-                    delete jsData.activityType;
-                    delete jsData.transients;
-                    return jsData;
-                };
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
 
-                // this returns a JS object ready for saving
-                self.modelForSaving = function () {
-                    // get model as a plain javascript object
-                    var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
-                    // get rid of any transient observables
-                    return self.removeBeforeSave(jsData);
-                };
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
 
-                // this is a version of toJSON that just returns the model as it will be saved
-                // it is used for detecting when the model is modified (in a way that should invoke a save)
-                // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
-                self.modelAsJSON = function () {
-                    return JSON.stringify(self.modelForSaving());
-                };
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
 
-                self.loadData = function (data) {
-                    // load dynamic data
-                                    self.data['surveyTime'](orZero(data['surveyTime']));
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.data['surveyTime'](orZero(data['surveyTime']));
                 self.data['surveyDuration'](orZero(data['surveyDuration']));
                 self.data['totalParticipants'](orZero(data['totalParticipants']));
                 self.data['samplerName'](data['samplerName']);
@@ -401,24 +403,24 @@
                 self.data['waterType'](data['waterType']);
 
 
-                    // if there is no data in tables then add an empty row for the user to add data
-                    if (typeof self.addRow === 'function' && self.rowCount() === 0) {
-                        self.addRow();
-                    }
-                    self.transients.dummy.notifySubscribers();
-                };
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
             };
+        };
 
 
-            var savedData = activity;
-            if (!savedData.outputs) {
-                savedData.outputs = [];
-            }
-            var savedOutput = {};
-            if (savedData) {
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
 
-                $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'General information & Participants') {
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === 'General information & Participants') {
                         savedOutput = tmpOutput;
                     }
                 });
@@ -444,20 +446,20 @@
             window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
         });
 
-        
-        $(function(){
+            
+            $(function(){
 
-            var viewModelName = "Environmental_Information_at_the_Time_of_SamplingViewModel",
+                var viewModelName = "Environmental_Information_at_the_Time_of_SamplingViewModel",
                 viewModelInstance = viewModelName + "Instance";
 
             // load dynamic models - usually objects in a list
-                    var speciesLists = [];
+                        var speciesLists = [];
         var site = {};
 
 
-            this[viewModelName] = function (output) {
-                var self = this;
-                self.name = "Environmental Information at the Time of Sampling";
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "Environmental Information at the Time of Sampling";
                 self.outputId = orBlank(output.outputId);
 
                 self.data = {};
@@ -482,54 +484,54 @@
                 // this will be called when generating a savable model to remove transient properties
                 self.removeBeforeSave = function (jsData) {
                     // add code to remove any transients added by the dynamic tags
-                    
-                    delete jsData.activityType;
-                    delete jsData.transients;
-                    return jsData;
-                };
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
 
-                // this returns a JS object ready for saving
-                self.modelForSaving = function () {
-                    // get model as a plain javascript object
-                    var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
-                    // get rid of any transient observables
-                    return self.removeBeforeSave(jsData);
-                };
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
 
-                // this is a version of toJSON that just returns the model as it will be saved
-                // it is used for detecting when the model is modified (in a way that should invoke a save)
-                // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
-                self.modelAsJSON = function () {
-                    return JSON.stringify(self.modelForSaving());
-                };
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
 
-                self.loadData = function (data) {
-                    // load dynamic data
-                                    self.data['rainfall7Days'](data['rainfall7Days']);
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.data['rainfall7Days'](data['rainfall7Days']);
                 self.data['rainfallMm'](orZero(data['rainfallMm']));
                 self.data['waterLevel'](data['waterLevel']);
                 self.data['waterFlowRate'](data['waterFlowRate']);
                 self.data['notes'](data['notes']);
 
 
-                    // if there is no data in tables then add an empty row for the user to add data
-                    if (typeof self.addRow === 'function' && self.rowCount() === 0) {
-                        self.addRow();
-                    }
-                    self.transients.dummy.notifySubscribers();
-                };
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
             };
+        };
 
 
-            var savedData = activity;
-            if (!savedData.outputs) {
-                savedData.outputs = [];
-            }
-            var savedOutput = {};
-            if (savedData) {
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
 
-                $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'Environmental Information at the Time of Sampling') {
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === 'Environmental Information at the Time of Sampling') {
                         savedOutput = tmpOutput;
                     }
                 });
@@ -555,20 +557,20 @@
             window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
         });
 
-        
-        $(function(){
+            
+            $(function(){
 
-            var viewModelName = "Water_Quality_MeasurementsViewModel",
+                var viewModelName = "Water_Quality_MeasurementsViewModel",
                 viewModelInstance = viewModelName + "Instance";
 
             // load dynamic models - usually objects in a list
-                    var speciesLists = [];
+                        var speciesLists = [];
         var site = {};
 
 
-            this[viewModelName] = function (output) {
-                var self = this;
-                self.name = "Water Quality Measurements";
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "Water Quality Measurements";
                 self.outputId = orBlank(output.outputId);
 
                 self.data = {};
@@ -599,6 +601,8 @@
 
             self.data.surfaceWaterEcoli = ko.observable();
 
+            self.data.surfaceWaterTotalNitrogen = ko.observable();
+
             self.data.surfaceWaterNitrates = ko.observable();
 
             self.data.instrumentCalibration = ko.observable();
@@ -610,30 +614,30 @@
                 // this will be called when generating a savable model to remove transient properties
                 self.removeBeforeSave = function (jsData) {
                     // add code to remove any transients added by the dynamic tags
-                    
-                    delete jsData.activityType;
-                    delete jsData.transients;
-                    return jsData;
-                };
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
 
-                // this returns a JS object ready for saving
-                self.modelForSaving = function () {
-                    // get model as a plain javascript object
-                    var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
-                    // get rid of any transient observables
-                    return self.removeBeforeSave(jsData);
-                };
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
 
-                // this is a version of toJSON that just returns the model as it will be saved
-                // it is used for detecting when the model is modified (in a way that should invoke a save)
-                // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
-                self.modelAsJSON = function () {
-                    return JSON.stringify(self.modelForSaving());
-                };
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
 
-                self.loadData = function (data) {
-                    // load dynamic data
-                                    self.data['airTemperature'](orZero(data['airTemperature']));
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.data['airTemperature'](orZero(data['airTemperature']));
                 self.data['surfaceWaterTemperature'](orZero(data['surfaceWaterTemperature']));
                 self.data['surfaceWaterPh'](orZero(data['surfaceWaterPh']));
                 self.data['surfaceWaterEc'](orZero(data['surfaceWaterEc']));
@@ -644,29 +648,30 @@
                 self.data['surfaceWaterDoPcSat'](orZero(data['surfaceWaterDoPcSat']));
                 self.data['surfaceWaterColiforms'](orZero(data['surfaceWaterColiforms']));
                 self.data['surfaceWaterEcoli'](orZero(data['surfaceWaterEcoli']));
+                self.data['surfaceWaterTotalNitrogen'](orZero(data['surfaceWaterTotalNitrogen']));
                 self.data['surfaceWaterNitrates'](orZero(data['surfaceWaterNitrates']));
                 self.data['instrumentCalibration'](data['instrumentCalibration']);
                 self.data['notes'](data['notes']);
 
 
-                    // if there is no data in tables then add an empty row for the user to add data
-                    if (typeof self.addRow === 'function' && self.rowCount() === 0) {
-                        self.addRow();
-                    }
-                    self.transients.dummy.notifySubscribers();
-                };
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
             };
+        };
 
 
-            var savedData = activity;
-            if (!savedData.outputs) {
-                savedData.outputs = [];
-            }
-            var savedOutput = {};
-            if (savedData) {
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
 
-                $.each(savedData.outputs, function(i, tmpOutput) {
-                    if (tmpOutput.name === 'Water Quality Measurements') {
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === 'Water Quality Measurements') {
                         savedOutput = tmpOutput;
                     }
                 });
@@ -692,7 +697,7 @@
             window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
         });
 
-        
+            
 
 
     /* Master controller for page. This handles saving each model as required. */
@@ -819,33 +824,6 @@ master.reset();
 });
 
 
-ko.bindingHandlers.editOutput = {
-init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-    var outputName = ko.utils.unwrapObservable(valueAccessor()),
-        activity = bindingContext.$root,
-        outputId;
-
-    // search for corresponding outputs in the activity data
-    $.each(activity.outputs, function (i,output) { // iterate output data in the activity to
-                                                      // find any matching the meta-model name
-        if (output.name === outputName) {
-            outputId = output.outputId;
-        }
-    });
-    if (outputId) {
-        // build edit link
-        $(element).html('Edit data');
-        $(element).attr('href', fcConfig.serverUrl + "/output/edit/" + outputId +
-            "?returnTo=" + here);
-    } else {
-        // build create link
-        $(element).attr('href', fcConfig.serverUrl + '/output/create?activityId=' + activity.activityId +
-            '&outputName=' + encodeURIComponent(outputName) +
-            "&returnTo=" + here);
-    }
-}
-};
-
 function ViewModel (act, sites, themes) {
 var self = this;
 var today = new Date().toISOStringNoMillis();
@@ -950,20 +928,20 @@ ko.applyBindings(viewModel);
 master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.isDirty, viewModel.dirtyFlag.reset);
 
 
-// Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
-var disabled = null;
-$('[data-bind^=datepicker]').datepicker().on('show', function() {
-    if (disabled == null) {
-        disabled = $("input:enabled, select:enabled, button:enabled");
-        disabled.prop('disabled', true);
-    }
-});
-$('[data-bind^=datepicker]').datepicker().on('hide', function() {
-    if (disabled !== null) {
-        disabled.prop('disabled', false);
-        disabled = null;
-    }
-});
+    // Workaround for Android bug 6721 - prevents components under the datepicker from receiving clicks on the datepicker.
+    var disabled = null;
+    $('[data-bind^=datepicker]').datepicker().on('show', function() {
+        if (disabled == null) {
+            disabled = $("input:enabled, select:enabled, button:enabled");
+            disabled.prop('disabled', true);
+        }
+    });
+    $('[data-bind^=datepicker]').datepicker().on('hide', function() {
+        if (disabled !== null) {
+            disabled.prop('disabled', false);
+            disabled = null;
+        }
+    });
 
 });
 
