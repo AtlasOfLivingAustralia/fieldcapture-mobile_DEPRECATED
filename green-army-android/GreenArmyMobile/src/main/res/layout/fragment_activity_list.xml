@@ -8,7 +8,9 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+
+        android:visibility="visible">
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +31,8 @@
         android:layout_height="match_parent"
         android:background="@color/logo_background"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
 
         <ImageView
@@ -40,25 +43,35 @@
 
             android:layout_marginLeft="0dp"
             android:src="@drawable/green_army_logo_landscape"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:padding="10dp"/>
 
-        <TextView
-            android:id="@+id/welcome_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:textColor="@android:color/white"
-            android:text="@string/no_activities_text"
-            android:gravity="center_vertical|center_horizontal"
-            android:autoText="false" />
+            android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:onClick="reloadProjects"
-            android:text="@string/reload_activities"/>
+            <TextView
+                android:id="@+id/welcome_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:textColor="@android:color/white"
+                android:text="@string/no_project_activities_text"
+                android:layout_gravity="center"
+                android:autoText="false" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:onClick="reloadProjects"
+                android:text="@string/reload_activities"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

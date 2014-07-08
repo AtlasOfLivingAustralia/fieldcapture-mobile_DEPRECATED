@@ -244,10 +244,6 @@ public class ActivityListFragment extends Fragment implements LoaderManager.Load
 
         loading.setVisibility(View.GONE);
         if (mAdapter.getCount() == 0) {
-            if (!StringUtils.hasLength(getArguments().getString(ARG_QUERY_STRING))) {
-                // Force a refresh from the server if we have no project activites.
-                FieldCaptureContent.requestSync(getActivity(), true);
-            }
             root.findViewById(R.id.no_activities).setVisibility(View.VISIBLE);
             root.findViewById(R.id.project_activities_list).setVisibility(View.GONE);
         }

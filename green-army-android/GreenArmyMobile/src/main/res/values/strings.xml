@@ -30,7 +30,9 @@
     <string name="drawer_open">Filter activities</string>
     <string name="open_drawer_button">Select a Project</string>
     <string name="drawer_close">Filter activities</string>
-    <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by tapping the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your service provider to get this fixed.</string>
+    <string name="no_activities_text">Welcome to the Green Army Mobile application.  To get started, select a project by tapping the home icon or swiping right from the left hand edge of the screen.  If you do not have any projects assigned to you, please contact your service provider to get this corrected.</string>
+    <string name="no_project_activities_text">This project has no activities.  Please contact your service provider to have this corrected.</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
     <string name="refresh">Refresh data</string>
