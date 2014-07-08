@@ -305,6 +305,13 @@ public class ProjectListActivity extends FragmentActivity
             case R.id.new_site:
                 createNewSite();
                 return true;
+
+            case R.id.about_menu_item:
+                showHelpAbout(HelpAboutActivity.ABOUT);
+                return true;
+            case R.id.help_menu_item:
+                showHelpAbout(HelpAboutActivity.HELP);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -414,6 +421,13 @@ public class ProjectListActivity extends FragmentActivity
 
     public void reloadProjects(View button) {
         FieldCaptureContent.requestSync(this, true);
+    }
+
+
+    public void showHelpAbout(String which) {
+        Intent helpAboutIntent = new Intent(this, HelpAboutActivity.class);
+        helpAboutIntent.putExtra(HelpAboutActivity.PAGE_TYPE_EXTRA, which);
+        startActivity(helpAboutIntent);
     }
 }
 

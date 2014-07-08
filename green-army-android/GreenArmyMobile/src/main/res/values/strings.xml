@@ -85,6 +85,8 @@
     <string name="logout_title">Logout</string>
     <string name="gps_timout_title">GPS Timeout</string>
     <string name="ok">Ok</string>
+    <string name="help_title">Green Army Help</string>
+    <string name="about_title">About the Green Army</string>
 
 
 </resources>
