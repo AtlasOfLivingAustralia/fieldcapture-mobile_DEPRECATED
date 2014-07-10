@@ -2,10 +2,12 @@ package au.org.ala.fieldcapture.green_army;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -311,6 +313,7 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
@@ -327,12 +330,22 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         });
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setSupportMultipleWindows(true);
         webView.setWebChromeClient(new WebChromeClient() {
             public boolean onConsoleMessage(ConsoleMessage cm) {
                 Log.d("EnterActivityData", cm.message() + " -- From line "
                         + cm.lineNumber() + " of "
                         + cm.sourceId() );
                 return true;
+            }
+            @Override
+            public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
+                WebView.HitTestResult result = view.getHitTestResult();
+                String data = result.getExtra();
+                Context context = view.getContext();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data));
+                context.startActivity(browserIntent);
+                return false;
             }
         });
 
