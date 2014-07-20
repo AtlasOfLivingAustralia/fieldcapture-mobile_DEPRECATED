@@ -40,6 +40,7 @@ public final class FieldCaptureContent {
     public static final String ACTIVITY_URI = "content://"+AUTHORITY+"/"+ACTIVITIES+"/*";
     public static final String ACTIVITIES_URI = "content://"+AUTHORITY+"/"+ACTIVITIES;
     public static final String DELETE_URI = "content://"+AUTHORITY+"/"+PROJECTS;
+    public static final String DELETE_ALL_URI = "content://"+AUTHORITY+"/"+"all";
     public static final String SITES_URI = "content://"+AUTHORITY+"/"+SITES;
     public static final String SITE_URI = "content://"+AUTHORITY+"/"+SITES+"/*";
     public static final String PROJECT_SITES_URI = "content://"+AUTHORITY+"/"+PROJECTS+"/*/"+SITES;
@@ -170,6 +171,10 @@ public final class FieldCaptureContent {
 
     public static Uri deleteUri() {
         return Uri.parse(DELETE_URI);
+    }
+
+    public static Uri deleteAllUri() {
+        return Uri.parse(DELETE_ALL_URI);
     }
 
     public static Uri syncStatusUri() { return Uri.parse(SYNC_STATUS_URI); }

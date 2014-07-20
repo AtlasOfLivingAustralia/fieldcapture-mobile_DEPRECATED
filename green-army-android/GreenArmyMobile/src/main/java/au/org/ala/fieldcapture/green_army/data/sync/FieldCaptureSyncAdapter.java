@@ -127,6 +127,7 @@ public class FieldCaptureSyncAdapter extends AbstractThreadedSyncAdapter {
 
                 if (projects != null) {
                     try {
+                        mContentResolver.delete(FieldCaptureContent.deleteUri(), null, null);
                         mContentResolver.bulkInsert(projectsUri, Mapper.mapProjects(projects));
 
                         for (JSONObject project : projects) {

@@ -83,7 +83,7 @@ public class ProjectListActivity extends FragmentActivity
 
                 preferenceStorage.clear();
                 // This will delete everything.
-                getContentResolver().delete(FieldCaptureContent.deleteUri(), null, null);
+                getContentResolver().delete(FieldCaptureContent.deleteAllUri(), null, null);
                 checkFirstUse();
             }
         }).setNegativeButton(R.string.no, null).show();

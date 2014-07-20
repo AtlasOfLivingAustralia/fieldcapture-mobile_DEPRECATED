@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,15 +67,23 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     @Override
     protected int deleteInTransaction(Uri uri, String selection, String[] selectionArgs) {
         notifyUri.set(uri);
-        if (uri.equals(FieldCaptureContent.deleteUri())) {
+        if (uri.equals(FieldCaptureContent.deleteAllUri())) {
             int count = 0;
             for (int key : config.keySet()) {
                 count += mDb.delete(config.get(key).get(TABLE_KEY), null, null);
             }
             return count;
         }
+        else if (uri.equals(FieldCaptureContent.deleteUri())) {
+            int count = 0;
+            int[] toDelete = new int[] {PROJECTS, ACTIVITIES, SITES};
+            for (int key : toDelete) {
+                count += mDb.delete(config.get(key).get(TABLE_KEY), null, null);
+            }
+            return count;
+        }
         else {
-            throw new IllegalArgumentException("Only "+FieldCaptureContent.deleteUri()+" is supported for deletes");
+            throw new IllegalArgumentException("Delete "+uri+" not supported.");
         }
     }
 
