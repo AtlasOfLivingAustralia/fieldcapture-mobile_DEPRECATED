@@ -3,9 +3,11 @@ package au.org.ala.fieldcapture.green_army;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import au.org.ala.fieldcapture.green_army.data.PreferenceStorage;
 
@@ -18,6 +20,8 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        TextView eula = (TextView)findViewById(R.id.eula_text);
+        eula.setText(Html.fromHtml(getString(R.string.eula)));
         AndroidBug5497Workaround.assistActivity(this);
     }
 

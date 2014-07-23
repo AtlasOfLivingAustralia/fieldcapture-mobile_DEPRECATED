@@ -15,43 +15,64 @@
         android:layout_height="match_parent"
         android:layout_weight="0.4"
         android:id="@+id/imageView"
+        android:layout_marginLeft="30dp"
         android:gravity="center"
         android:src="@drawable/green_army_logo_landscape"
         android:layout_gravity="center" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_weight="0.6">
 
-
         <TextView
-            android:id="@+id/welcome_label"
+            android:id="@+id/eula_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="50dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:text="@string/eula_title"
             android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
 
-            android:text="@string/welcome_message"
-             />
+        <ScrollView
+            android:id="@+id/eula_scroller"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/eula_title"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="20dp"
+            >
+            <TextView
+                android:id="@+id/eula_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
 
+                android:textColor="@android:color/white"
+
+
+                 />
+        </ScrollView>
 
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/welcome_label"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/eula_scroller"
+            android:layout_gravity="center_horizontal"
             android:onClick="start"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             android:ems="20"
-            android:text="@string/start" />
+            android:text="@string/agree" />
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 
