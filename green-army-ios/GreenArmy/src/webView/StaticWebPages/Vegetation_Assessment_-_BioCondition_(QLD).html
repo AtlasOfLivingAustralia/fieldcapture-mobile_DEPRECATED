@@ -1,0 +1,2009 @@
+
+
+<!DOCTYPE html>
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <script src="static/UGoJGyG3j2UCffTg3vnOdi0FsnS2OvrmrsZD6WxaXGy.js" type="text/javascript" ></script>
+<link href="static/Eu8FNKwJJQI8mVJO3VIshatRN1bunflYHvvdqk06tbf.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<link href="static/090onaZX1M508oSWqGmMeETZ9NkUA9p4CCTW3MUpRPc.css" type="text/css" rel="stylesheet" media="screen, projection" />
+
+<link href="static/CidRUyEAqkZsnDRPRiaGZBy7vd4DOlnRqweu4CsVcIG.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="static/tDKPE9VWZfBnSnxBkPC52ml2dXticvlQDl9aR8VpM2o.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<!--[if lt IE 7]><link href="static/v1vjA9BeNpSU8cuoTuVhTEUm6boSzwYQcgfPKKMkqgv.css" type="text/css" rel="stylesheet" media="screen, projection" /><![endif]-->
+
+<link href="http://www.ala.org.au/wp-content/themes/ala2011/images/favicon.ico" rel="shortcut icon" />
+<!--[if lt IE 9]><script src="static/Yh1Txee3hFzExJ4P1str7tGV24zQMEYtxqtlYJ5ukR0.js" type="text/javascript" ></script><![endif]-->
+<link href="static/6tuLClj7N5eYCZpx7vLn8juIbQUXBkCnWRUJFY7UDCz.css" type="text/css" rel="stylesheet" media="screen,print" />
+<link href="/static/7ARiB2rJgSkfi68hxnSlcG9Ot0gQ863DYxkCmSHQweE.png" rel="shortcut icon" />
+<link href="/static/14SWTr4VqVh6tnlUlgBtue6IJZ7gwE1y42RT7ya5GGW.png" rel="shortcut icon" />
+
+<link href="static/KYGDEVRRaKjNbTXJkHmicmzo9vFrnnzCnGLcxKjR04f.css" type="text/css" rel="stylesheet" media="screen,print" />
+
+<link href="static/uUQBvO5ITMKwLfoRb2u62GbHXEzxtsbrSWq8MBAOrbX.css" type="text/css" rel="stylesheet" media="screen,print" />
+<link href="static/Rvy1AbvbH6TVlcTqc4lz71v5o0HJyz9D7Q8u2LCGGX2.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<link href="static/AcXIjLTuc87n8sfxBjJRQSoBIUwP9RnCyK8Sv82i7eV.css" type="text/css" rel="stylesheet" media="screen, projection" />
+<script type="text/javascript">
+    var fcConfig = {
+        bieUrl: "http://bie.ala.org.au",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
+        googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
+        },
+        here = document.location.href;
+    </script>
+    
+
+    <meta name="layout" content="mobile"/>
+
+    
+    
+
+    <style type="text/css">
+        input[type=checkbox] {  -webkit-transform: scale(1.5); }
+        .checkbox-list label { min-height: 40px; }
+        .speciesAutocompleteRow {min-height:40px;}
+        .datepicker td, .datepicker th {
+            width:40px;
+            height:40px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="content" class="clearfix">
+    
+<div class="container-fluid validationEngineContainer" id="validation-container">
+<div id="koActivityMainBlock">
+
+    <div class="row-fluid">
+        <div class="span12">
+            <!-- Common activity fields -->
+
+            <div class="row-fluid space-after">
+                <div class="span4">
+
+                    <label class="for-readonly">Type</label>
+                    <span class="readonly-text" data-bind="text:type"></span>
+                </div>
+                <div class="span8">
+
+                    <label class="for-readonly">Description</label>
+                    <span class="readonly-text" data-bind="text:description"></span>
+                </div>
+            </div>
+
+
+            <div class="row-fluid space-after">
+                <div class="span4">
+                    <label class="for-readonly inline">Planned start date</label>
+                    <span class="readonly-text" data-bind="text:plannedStartDate.formattedDate"></span>
+                </div>
+                <div class="span8">
+                    <label class="for-readonly inline">Planned end date</label>
+                    <span class="readonly-text" data-bind="text:plannedEndDate.formattedDate"></span>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="row-fluid">
+
+                    <span class="span8">
+                        <div class="row-fluid space-after">
+
+                            <div class="span6 required">
+                                <label for="startDate"><b>Actual start date</b>
+                                    <a href='#' class='helphover' data-original-title='Start date' data-placement='top' data-content='Date the activity was started.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a>
+                                </label>
+
+
+                                <div class="input-append">
+                                    <input data-bind='datepicker:startDate.date' name='startDate' id='startDate' type='text' size='16' class='input-xlarge' readonly='readonly' targetField='startDate.date' data-validation-engine='validate[required]' />
+<span class='add-on open-datepicker'>
+  <i class='icon-th'>&nbsp;</i>
+</span>
+                                </div>
+
+                            </div>
+                            <div class="span6" data-bind="css:{required:transients.markedAsFinished}">
+                                <label for="endDate"><b>Actual end date</b>
+                                    <a href='#' class='helphover' data-original-title='End date' data-placement='top' data-content='Date the activity finished.'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a>
+                                </label>
+
+                                <div class="input-append">
+                                    <input data-bind='datepicker:endDate.date' name='endDate' id='endDate' type='text' size='16' class='input-xlarge' readonly='readonly' targetField='endDate.date' data-validation-engine='validate[future[startDate]]' />
+<span class='add-on open-datepicker'>
+  <i class='icon-th'>&nbsp;</i>
+</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row-fluid space-after">
+                            <div class="span6">
+                                <label for="theme"><b>Major theme</b></label>
+                                <select id="theme" data-bind="value:mainTheme, options:transients.themes, optionsCaption:'Choose..'" class="input-xlarge" style="width:90%">
+                                </select>
+                            </div>
+
+                            <div class="span6">
+                                <label><b>Progress</b></label>
+                                <label for="activityComplete"><input type="checkbox" id="activityComplete" data-bind="checked:transients.markedAsFinished" style="margin-right:1em;"><span>This activity is complete</span></label>
+
+                            </div>
+
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label for="site"><b>Site</b></label>
+                                <select id='site' style='width:90%' data-bind='options:transients.sites,optionsText:"name",optionsValue:"siteId",value:siteId,optionsCaption:"Choose a site..."'>&nbsp;</select>
+
+                            </div>
+
+                            <div class="span3">
+
+                                <button class="btn btn-info" style="margin-top:25px;" data-bind="visible:transients.newSiteSupported,click:createNewSite">Create new Site</button>
+                            </div>
+                        </div>
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+                        
+                        
+                        
+
+                        
+                    </span>
+                    <span class="span4">
+
+                        <img id="siteLocationImage" width="100%" data-bind="event:{error:siteLoadError}, attr:{src:transients.siteImgUrl}, visible:transients.siteImgUrl()"/>
+
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ko stopBinding: true -->
+
+    
+        
+        
+        
+        <div class="output-block" id="koBenchmarks_-_QLD">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Benchmarks - QLD</h3>
+            <!-- add the dynamic components -->
+            
+            
+        </div>
+    
+
+    
+        
+        
+        
+        <div class="output-block" id="koFloristic_Composition">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Floristic Composition</h3>
+            <!-- add the dynamic components -->
+            
+            
+        </div>
+    
+
+    
+        
+        
+        
+        <div class="output-block" id="ko100_x_50m_area_-_Ecologically_Dominant_Layer">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">100 x 50m area - Ecologically Dominant Layer</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12">Record details for the ecologically dominant stratum over the 100 x 50m survey area.</span></span></div>
+<div class="row-fluid space-after " >
+<div class="span6">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Eucalypt Large Tree DBH</label></span><input class="input-small" style="text-align:center" data-bind='value:data.eucalyptLargeTreeDBH' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Number of large eucalypt trees:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.numLargeEucalypt' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div><div class="span6">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Non-Eucalypt Large Tree DBH</label></span><input class="input-small" style="text-align:center" data-bind='value:data.nonEucalyptLargeTreeDBH' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Number of large non-eucalypt trees:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.numLargeNonEucalypt' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+<div class="row-fluid space-after " >
+<span class="span12">    <span  class="preLabel required"><label>Total large trees:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalLargeTrees' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div>
+<div class="row-fluid space-after " >
+<div class="span4">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Tree Canopy (EDL) Height (m):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.treeCanopyHeight' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div></div><div class="span4">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Tree subcanopy height (m):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.subcanopyHeight' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div><div class="span4">
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Emergent height (m):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.emergentHeight' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+<div class="row-fluid space-after " >
+<span class="span12">    <span  class="preLabel required"><label>Proportion of dominant canopy EDL species with evidence of recruitment (%):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.proportionDominantCanopySpeciesWithEvidenceOfRecruitment' data-validation-engine='validate[required,min[0],max[100],custom[number]]' type='number' class='input-mini'/></span></div>
+<div class="row-fluid space-after " >
+<span class="span12">    <span  class="preLabel required"><label>Total tree (defined as single stemmed over 2m) tree species richness (all trees species - not just EDL species):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalTreeSpeciesRichness' data-validation-engine='validate[required,min[0],custom[number]]' type='number' class='input-mini'/></span></div>
+
+            
+        </div>
+    
+
+    
+        
+        
+        
+        <div class="output-block" id="ko50_x_10m_area">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">50 x 10m area</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12"><h3>50 x 10m area</h3></span></span></div>
+<div class="row-fluid space-after " >
+<span class="span12">    <span  class="preLabel required"><label>Non-native plant cover (%):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.nonNativePlantCover' data-validation-engine='validate[required,min[0],max[100],custom[number]]' type='number' class='input-mini'/></span></div>
+<div class="row-fluid space-after " >
+<div class="span12">
+<div class="row-fluid"><span class="span12">    <span  class="span8"><h4>Shrub (defined as sungle stemmed below 2m or multi-stemmed from base or below 20cm) species richness:</h4></span></span></div><div class="row-fluid ">
+            <table class="table table-bordered shrubSpeciesRichness " >
+                <thead><tr><th>Species name</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'shrubSpeciesRichnessviewTmpl', foreach: data.shrubSpeciesRichness}"></tbody>
+                <script id="shrubSpeciesRichnessviewTmpl" type="text/html"><tr>
+                    <td><input  class="input-small" data-bind='value:speciesName'  type='text' class='input-small'/></td>
+                    <td><i data-bind='click:$root.removeshrubSpeciesRichnessRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr><td colspan="0" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addshrubSpeciesRichnessRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="shrubSpeciesRichnesstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="shrubSpeciesRichnesstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Number of unknown shrub species</label></span><input class="input-small" style="text-align:center" data-bind='value:data.numUnknownShrubSpecies' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+<div class="row-fluid space-after " >
+<div class="span12">
+<div class="row-fluid"><span class="span12">    <span  class="span8"><h4>Grass species richness</h4></span></span></div><div class="row-fluid ">
+            <table class="table table-bordered grassSpeciesRichness " >
+                <thead><tr><th>Species name</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'grassSpeciesRichnessviewTmpl', foreach: data.grassSpeciesRichness}"></tbody>
+                <script id="grassSpeciesRichnessviewTmpl" type="text/html"><tr>
+                    <td><input  class="input-small" data-bind='value:speciesName'  type='text' class='input-small'/></td>
+                    <td><i data-bind='click:$root.removegrassSpeciesRichnessRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr><td colspan="0" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addgrassSpeciesRichnessRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="grassSpeciesRichnesstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="grassSpeciesRichnesstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Number of unknown grass species</label></span><input class="input-small" style="text-align:center" data-bind='value:data.numUnknownGrassSpecies' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+<div class="row-fluid space-after " >
+<div class="span12">
+<div class="row-fluid"><span class="span12">    <span  class="span8"><h4>Forbs and others (non grass ground) species richness:</h4></span></span></div><div class="row-fluid ">
+            <table class="table table-bordered forbsAndOthersNonGrassGroundSpeciesRichness " >
+                <thead><tr><th>Species name</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'forbsAndOthersNonGrassGroundSpeciesRichnessviewTmpl', foreach: data.forbsAndOthersNonGrassGroundSpeciesRichness}"></tbody>
+                <script id="forbsAndOthersNonGrassGroundSpeciesRichnessviewTmpl" type="text/html"><tr>
+                    <td><input  class="input-small" data-bind='value:speciesName'  type='text' class='input-small'/></td>
+                    <td><i data-bind='click:$root.removeforbsAndOthersNonGrassGroundSpeciesRichnessRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr><td colspan="0" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addforbsAndOthersNonGrassGroundSpeciesRichnessRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="forbsAndOthersNonGrassGroundSpeciesRichnesstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="forbsAndOthersNonGrassGroundSpeciesRichnesstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Number of unknown forb species</label></span><input class="input-small" style="text-align:center" data-bind='value:data.numUnknownForbSpecies' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+
+            
+        </div>
+    
+
+    
+        
+        
+        
+        <div class="output-block" id="ko50_x_20m_area_-_Coarse_Woody_Debris">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">50 x 20m area - Coarse Woody Debris</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12"><h2>50 x 20m area - Coarse Woody Debris (all logs &gt; 10cm, &gt; 0.5m within 50 x 20m area measured to the plot boundary)</h2></span></span></div>
+<div class="row-fluid space-after " >
+<div class="span12">
+<div class="row-fluid ">
+            <table class="table table-bordered cwdLengths " >
+                <thead><tr><th>CWD Length:</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'cwdLengthsviewTmpl', foreach: data.cwdLengths}"></tbody>
+                <script id="cwdLengthsviewTmpl" type="text/html"><tr>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:cwdLength' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removecwdLengthsRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr>
+                    <td colspan='2'><span >Total:</span></td>
+                    <td><span  class="value" data-bind='text:data.totalCwdLength'></span></td>
+                    <td></td>
+                </tr>
+                <tr><td colspan="4" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addcwdLengthsRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="cwdLengthstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="cwdLengthstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+</div></div>
+
+            
+        </div>
+    
+
+    
+        
+        
+        <style type="text/css">
+        table.groundCover th {white-space:normal;}
+        table.groundCover tbody td:nth-child(2) {text-align:center;}
+        table.groundCover tbody td:nth-child(3) {text-align:center;}
+        table.groundCover tbody td:nth-child(4) {text-align:center;}
+        table.groundCover tbody td:nth-child(5) {text-align:center;}
+        table.groundCover tbody td:nth-child(6) {text-align:center;}
+        table.groundCover tbody td:nth-child(7) {text-align:center;}
+        table.groundCover td:last-child {width:4%;text-align:center;}
+        table.groundCover textarea {width:100%; box-sizing:border-box; }
+        table.groundCover select {width:100%; box-sizing:border-box; }
+    </style>
+        <div class="output-block" id="koFive_1_x_1m_plots">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Five 1 x 1m plots</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12"><h2>Five 1x1m plots</h2></span></span></div>
+<div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12">(* attributes are essential to assess as used in scoring, however assessment of all attributes improves your ability to more accurately visualise proportions on each of the attributes)</span></span></div>
+<div class="row-fluid ">
+            <table class="table table-bordered groundCover " >
+                <thead><tr><th>Ground cover</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>Mean</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'groundCoverviewTmpl', foreach: data.groundCover}"></tbody>
+                <script id="groundCoverviewTmpl" type="text/html"><tr>
+                    <td><span  data-bind='text:groundCoverType'></span></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:plot1' data-validation-engine='validate[min[0],max[100],custom[number]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:plot2' data-validation-engine='validate[min[0],max[100],custom[number]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:plot3' data-validation-engine='validate[min[0],max[100],custom[number]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:plot4' data-validation-engine='validate[min[0],max[100],custom[number]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:plot5' data-validation-engine='validate[min[0],max[100],custom[number]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:plotsMean' data-validation-engine='validate[min[0],max[100],custom[number]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removegroundCoverRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr>
+                    <td><span >Total (%)</span></td>
+                    <td><span  class="value" data-bind='text:data.totalPlot1'></span></td>
+                    <td><span  class="value" data-bind='text:data.totalPlot2'></span></td>
+                    <td><span  class="value" data-bind='text:data.totalPlot3'></span></td>
+                    <td><span  class="value" data-bind='text:data.totalPlot4'></span></td>
+                    <td><span  class="value" data-bind='text:data.totalPlot5'></span></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+            
+        </div>
+    
+
+    
+        
+        
+        
+        <div class="output-block" id="ko100m_Transect">
+            <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">100m Transect</h3>
+            <!-- add the dynamic components -->
+            <div class="row-fluid space-after " >
+<span class="span12">    <span  class="span12"><h3>100m Transect</h3></span></span></div>
+<div class="row-fluid space-after " >
+<div class="span12">
+<div class="row-fluid"><span class="span12">    <span  class="span8"><h4>Tree canopy cover</h4></span></span></div><div class="row-fluid"><span class="span12">    <span  class="span8">(Only assess Emergent (E) or Subcanopy (S) layers if the benchmark document stipulates that layers are present.)</span></span></div><div class="row-fluid"><span class="span12">    <span  class="span8">*If trees are in the same layer and continuous along the transect you can group them</span></span></div><div class="row-fluid ">
+            <table class="table table-bordered treeCanopyRecords " >
+                <thead><tr><th>Tree or tree group*</th><th>Distance (m)</th><th>Total</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'treeCanopyRecordsviewTmpl', foreach: data.treeCanopyRecords}"></tbody>
+                <script id="treeCanopyRecordsviewTmpl" type="text/html"><tr>
+                    <td><select data-bind='value:treeOrTreeGroup,options:transients.treeOrTreeGroupConstraints,optionsCaption:"Please select"'></select></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:distance' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:total' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removetreeCanopyRecordsRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr><td colspan="0" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addtreeCanopyRecordsRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="treeCanopyRecordstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="treeCanopyRecordstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total C:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalC' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total S:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalS' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total E:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalE' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+<div class="row-fluid space-after " >
+<div class="span12">
+<div class="row-fluid"><span class="span12">    <span  class="span8"><h4>Shrub canopy cover</h4></span></span></div><div class="row-fluid"><span class="span12">    <span  class="span8">* denote as native or exotic. Only native shrub cover is used in the scoring</span></span></div><div class="row-fluid ">
+            <table class="table table-bordered shrubCanopyRecords " >
+                <thead><tr><th>Shrubs*</th><th>Distance (m)</th><th>Total</th><th></th>
+                </tr></thead>
+                <tbody data-bind="template:{name:'shrubCanopyRecordsviewTmpl', foreach: data.shrubCanopyRecords}"></tbody>
+                <script id="shrubCanopyRecordsviewTmpl" type="text/html"><tr>
+                    <td><select data-bind='value:shrubType,options:transients.shrubTypeConstraints,optionsCaption:"Please select"'></select></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:distance' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><input class="input-small" style="text-align:center" data-bind='value:total' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></td>
+                    <td><i data-bind='click:$root.removeshrubCanopyRecordsRow' class='icon-remove'></i></td>
+                </tr></script>
+                <tfoot>
+                <tr><td colspan="0" style="text-align:left;">
+                        <button type="button" class="btn btn-small" data-bind="click:addshrubCanopyRecordsRow">
+                        <i class="icon-plus"></i> Add a row</button></td></tr> <script id="shrubCanopyRecordstemplate-upload" type="text/x-tmpl">{% %}</script>
+                       <script id="shrubCanopyRecordstemplate-download" type="text/x-tmpl">{% %}</script>                </tfoot>
+            </table>
+        </div>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total native:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalNative' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Total exotic:</label></span><input class="input-small" style="text-align:center" data-bind='value:data.totalExotic' data-validation-engine='validate[min[0],custom[number]]' type='number' class='input-mini'/></span></div></div></div>
+
+            
+        </div>
+    
+
+<!-- /ko -->
+
+</div>
+
+
+
+
+</div>
+
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
+
+
+
+<script src="static/N1Pu1Yy1dAP26vjRfEw0sZtbZhL03ir303dL4C7EaVF.js" type="text/javascript" ></script>
+
+<script src="static/gfz9yoFSoT3bDIgFJCbjPP9WLeFgekRHSp7KxcpYrwj.js" type="text/javascript" ></script>
+<script src="static/HpQC03jqzgdovdmQNni1bswagCkkBPaWGDIzgICGcvq.js" type="text/javascript" ></script>
+
+
+
+
+
+
+
+
+
+<!--[if gte IE 8]><script src="static/knxjs4G9Cquc79O3iYW107XikPB1Z1ii8QWrtBpzlSP.js" type="text/javascript" ></script><![endif]-->
+<script src="static/kSJb30BxnBzyoP0WndxrtZbaNWzT8x6LP2Cp7xI9PH4.js" type="text/javascript" ></script>
+<script src="static/4NNgUS6xThBV2iHZmalcTOp8ioBIjnh2KnVAGLqz5SX.js" type="text/javascript" ></script>
+<script src="static/MZjUSqmNLHqbPwhDcAMpejU18pr9ndMRCGKpPBHdSDL.js" type="text/javascript" ></script>
+<script src="static/w51VyweI3KQvr6P2DTUzBcR9OpWeX0ktL7UktpeA1k.js" type="text/javascript" ></script>
+
+
+
+
+
+<script src="static/7l2mDQFFpMnG14cXQPTKd94AN71T8yUF6dHUA2LCJIo.js" type="text/javascript" ></script>
+<script src="static/ZbrF5cz3bJrkAqBXLrAlOmoaIYntVDIKpviQs5E8Rhy.js" type="text/javascript" ></script>
+<script src="static/IZCc6ZgD3MepYbz4UqlDLzMDNNghSCivcfGebmF9V2d.js" type="text/javascript" ></script>
+<script type="text/javascript">
+            $(function(){
+
+                var viewModelName = "Benchmarks_-_QLDViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "Benchmarks - QLD";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === 'Benchmarks - QLD') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koBenchmarks_-_QLD"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+            $(function(){
+
+                var viewModelName = "Floristic_CompositionViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "Floristic Composition";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === 'Floristic Composition') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koFloristic_Composition"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+            $(function(){
+
+                var viewModelName = "100_x_50m_area_-_Ecologically_Dominant_LayerViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "100 x 50m area - Ecologically Dominant Layer";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                
+            self.data.eucalyptLargeTreeDBH = ko.observable();
+
+            self.data.numLargeEucalypt = ko.observable();
+
+            self.data.nonEucalyptLargeTreeDBH = ko.observable();
+
+            self.data.numLargeNonEucalypt = ko.observable();
+
+            self.data.totalLargeTrees = ko.observable();
+
+            self.data.treeCanopyHeight = ko.observable();
+
+            self.data.subcanopyHeight = ko.observable();
+
+            self.data.emergentHeight = ko.observable();
+
+            self.data.proportionDominantCanopySpeciesWithEvidenceOfRecruitment = ko.observable();
+
+            self.data.totalTreeSpeciesRichness = ko.observable();
+            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.data['eucalyptLargeTreeDBH'](orZero(data['eucalyptLargeTreeDBH']));
+                self.data['numLargeEucalypt'](orZero(data['numLargeEucalypt']));
+                self.data['nonEucalyptLargeTreeDBH'](orZero(data['nonEucalyptLargeTreeDBH']));
+                self.data['numLargeNonEucalypt'](orZero(data['numLargeNonEucalypt']));
+                self.data['totalLargeTrees'](orZero(data['totalLargeTrees']));
+                self.data['treeCanopyHeight'](orZero(data['treeCanopyHeight']));
+                self.data['subcanopyHeight'](orZero(data['subcanopyHeight']));
+                self.data['emergentHeight'](orZero(data['emergentHeight']));
+                self.data['proportionDominantCanopySpeciesWithEvidenceOfRecruitment'](orZero(data['proportionDominantCanopySpeciesWithEvidenceOfRecruitment']));
+                self.data['totalTreeSpeciesRichness'](orZero(data['totalTreeSpeciesRichness']));
+
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === '100 x 50m area - Ecologically Dominant Layer') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("ko100_x_50m_area_-_Ecologically_Dominant_Layer"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+            $(function(){
+
+                var viewModelName = "50_x_10m_areaViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var ShrubSpeciesRichnessRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.speciesName = ko.observable(orBlank(data['speciesName']));
+        };
+        var GrassSpeciesRichnessRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.speciesName = ko.observable(orBlank(data['speciesName']));
+        };
+        var ForbsAndOthersNonGrassGroundSpeciesRichnessRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.speciesName = ko.observable(orBlank(data['speciesName']));
+        };
+        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "50 x 10m area";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                
+            self.data.nonNativePlantCover = ko.observable();
+
+            self.data.shrubSpeciesRichness = ko.observableArray([]);
+            self.selectedshrubSpeciesRichnessRow = ko.observable();
+        
+
+            self.loadshrubSpeciesRichness = function (data, append) {
+                if (!append) {
+                    self.data.shrubSpeciesRichness([]);
+                }
+                if (data === undefined) {
+                    self.addshrubSpeciesRichnessRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.shrubSpeciesRichness.push(new ShrubSpeciesRichnessRow(obj));
+                    });
+                }
+            };
+
+            self.addshrubSpeciesRichnessRow = function () {
+                var newRow = new ShrubSpeciesRichnessRow();
+                self.data.shrubSpeciesRichness.push(newRow);
+                
+            };
+            self.removeshrubSpeciesRichnessRow = function (row) {
+                self.data.shrubSpeciesRichness.remove(row);
+                
+            };
+            self.shrubSpeciesRichnessrowCount = function () {
+                return self.data.shrubSpeciesRichness().length;
+            };
+
+            self.shrubSpeciesRichnessTableDataUploadVisible = ko.observable(false);
+            self.showshrubSpeciesRichnessTableDataUpload = function() {
+                self.shrubSpeciesRichnessTableDataUploadVisible(!self.shrubSpeciesRichnessTableDataUploadVisible());
+            };
+
+            self.shrubSpeciesRichnessTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadshrubSpeciesRichness(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "shrubSpeciesRichnesstemplate-upload",
+                    downloadTemplateId: "shrubSpeciesRichnesstemplate-download",
+                    formData:{type:'50 x 10m area', listName:'shrubSpeciesRichness'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.numUnknownShrubSpecies = ko.observable();
+
+            self.data.grassSpeciesRichness = ko.observableArray([]);
+            self.selectedgrassSpeciesRichnessRow = ko.observable();
+        
+
+            self.loadgrassSpeciesRichness = function (data, append) {
+                if (!append) {
+                    self.data.grassSpeciesRichness([]);
+                }
+                if (data === undefined) {
+                    self.addgrassSpeciesRichnessRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.grassSpeciesRichness.push(new GrassSpeciesRichnessRow(obj));
+                    });
+                }
+            };
+
+            self.addgrassSpeciesRichnessRow = function () {
+                var newRow = new GrassSpeciesRichnessRow();
+                self.data.grassSpeciesRichness.push(newRow);
+                
+            };
+            self.removegrassSpeciesRichnessRow = function (row) {
+                self.data.grassSpeciesRichness.remove(row);
+                
+            };
+            self.grassSpeciesRichnessrowCount = function () {
+                return self.data.grassSpeciesRichness().length;
+            };
+
+            self.grassSpeciesRichnessTableDataUploadVisible = ko.observable(false);
+            self.showgrassSpeciesRichnessTableDataUpload = function() {
+                self.grassSpeciesRichnessTableDataUploadVisible(!self.grassSpeciesRichnessTableDataUploadVisible());
+            };
+
+            self.grassSpeciesRichnessTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadgrassSpeciesRichness(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "grassSpeciesRichnesstemplate-upload",
+                    downloadTemplateId: "grassSpeciesRichnesstemplate-download",
+                    formData:{type:'50 x 10m area', listName:'grassSpeciesRichness'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.numUnknownGrassSpecies = ko.observable();
+
+            self.data.forbsAndOthersNonGrassGroundSpeciesRichness = ko.observableArray([]);
+            self.selectedforbsAndOthersNonGrassGroundSpeciesRichnessRow = ko.observable();
+        
+
+            self.loadforbsAndOthersNonGrassGroundSpeciesRichness = function (data, append) {
+                if (!append) {
+                    self.data.forbsAndOthersNonGrassGroundSpeciesRichness([]);
+                }
+                if (data === undefined) {
+                    self.addforbsAndOthersNonGrassGroundSpeciesRichnessRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.forbsAndOthersNonGrassGroundSpeciesRichness.push(new ForbsAndOthersNonGrassGroundSpeciesRichnessRow(obj));
+                    });
+                }
+            };
+
+            self.addforbsAndOthersNonGrassGroundSpeciesRichnessRow = function () {
+                var newRow = new ForbsAndOthersNonGrassGroundSpeciesRichnessRow();
+                self.data.forbsAndOthersNonGrassGroundSpeciesRichness.push(newRow);
+                
+            };
+            self.removeforbsAndOthersNonGrassGroundSpeciesRichnessRow = function (row) {
+                self.data.forbsAndOthersNonGrassGroundSpeciesRichness.remove(row);
+                
+            };
+            self.forbsAndOthersNonGrassGroundSpeciesRichnessrowCount = function () {
+                return self.data.forbsAndOthersNonGrassGroundSpeciesRichness().length;
+            };
+
+            self.forbsAndOthersNonGrassGroundSpeciesRichnessTableDataUploadVisible = ko.observable(false);
+            self.showforbsAndOthersNonGrassGroundSpeciesRichnessTableDataUpload = function() {
+                self.forbsAndOthersNonGrassGroundSpeciesRichnessTableDataUploadVisible(!self.forbsAndOthersNonGrassGroundSpeciesRichnessTableDataUploadVisible());
+            };
+
+            self.forbsAndOthersNonGrassGroundSpeciesRichnessTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadforbsAndOthersNonGrassGroundSpeciesRichness(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "forbsAndOthersNonGrassGroundSpeciesRichnesstemplate-upload",
+                    downloadTemplateId: "forbsAndOthersNonGrassGroundSpeciesRichnesstemplate-download",
+                    formData:{type:'50 x 10m area', listName:'forbsAndOthersNonGrassGroundSpeciesRichness'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.numUnknownForbSpecies = ko.observable();
+            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.data['nonNativePlantCover'](orZero(data['nonNativePlantCover']));
+                self.loadshrubSpeciesRichness(data.shrubSpeciesRichness);
+                self.data['numUnknownShrubSpecies'](orZero(data['numUnknownShrubSpecies']));
+                self.loadgrassSpeciesRichness(data.grassSpeciesRichness);
+                self.data['numUnknownGrassSpecies'](orZero(data['numUnknownGrassSpecies']));
+                self.loadforbsAndOthersNonGrassGroundSpeciesRichness(data.forbsAndOthersNonGrassGroundSpeciesRichness);
+                self.data['numUnknownForbSpecies'](orZero(data['numUnknownForbSpecies']));
+
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === '50 x 10m area') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("ko50_x_10m_area"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+            $(function(){
+
+                var viewModelName = "50_x_20m_area_-_Coarse_Woody_DebrisViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var CwdLengthsRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.cwdLength = ko.observable(orZero(data['cwdLength']));
+        };
+        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "50 x 20m area - Coarse Woody Debris";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                
+            self.data.cwdLengths = ko.observableArray([]);
+            self.selectedcwdLengthsRow = ko.observable();
+        
+
+            self.loadcwdLengths = function (data, append) {
+                if (!append) {
+                    self.data.cwdLengths([]);
+                }
+                if (data === undefined) {
+                    self.addcwdLengthsRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.cwdLengths.push(new CwdLengthsRow(obj));
+                    });
+                }
+            };
+
+            self.addcwdLengthsRow = function () {
+                var newRow = new CwdLengthsRow();
+                self.data.cwdLengths.push(newRow);
+                
+            };
+            self.removecwdLengthsRow = function (row) {
+                self.data.cwdLengths.remove(row);
+                
+            };
+            self.cwdLengthsrowCount = function () {
+                return self.data.cwdLengths().length;
+            };
+
+            self.cwdLengthsTableDataUploadVisible = ko.observable(false);
+            self.showcwdLengthsTableDataUpload = function() {
+                self.cwdLengthsTableDataUploadVisible(!self.cwdLengthsTableDataUploadVisible());
+            };
+
+            self.cwdLengthsTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadcwdLengths(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "cwdLengthstemplate-upload",
+                    downloadTemplateId: "cwdLengthstemplate-download",
+                    formData:{type:'50 x 20m area - Coarse Woody Debris', listName:'cwdLengths'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.totalCwdLength = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.cwdLengths().length; i++) {
+                    var value = self.data.cwdLengths()[i].cwdLength();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.loadcwdLengths(data.cwdLengths);
+
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === '50 x 20m area - Coarse Woody Debris') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("ko50_x_20m_area_-_Coarse_Woody_Debris"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+            $(function(){
+
+                var viewModelName = "Five_1_x_1m_plotsViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var GroundCoverRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.groundCoverType = ko.observable(orBlank(data['groundCoverType']));
+            this.plot1 = ko.observable(orZero(data['plot1']));
+            this.plot2 = ko.observable(orZero(data['plot2']));
+            this.plot3 = ko.observable(orZero(data['plot3']));
+            this.plot4 = ko.observable(orZero(data['plot4']));
+            this.plot5 = ko.observable(orZero(data['plot5']));
+                    self.plotsMean = ko.computed(function () {
+                        if (isNaN(Number(self.plot1())) || isNaN(Number(self.plot2())) || isNaN(Number(self.plot3())) || isNaN(Number(self.plot4())) || isNaN(Number(self.plot5()))) { return 0; }
+                        return Number(self.plot1()) + Number(self.plot2()) + Number(self.plot3()) + Number(self.plot4()) + Number(self.plot5());
+                    });
+        };
+        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "Five 1 x 1m plots";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                
+            self.data.groundCover = ko.observableArray([]);
+            self.selectedgroundCoverRow = ko.observable();
+        
+
+            self.loadgroundCover = function (data, append) {
+                if (!append) {
+                    self.data.groundCover([]);
+                }
+                if (data === undefined) {
+                                        self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Native Perennial ('decreaser') grass cover*"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Native other grass cover (if relevant)*"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Native forbs and other species (non-grass)"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Native shrubs (< 1m height)"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Non-native grass"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Non-native forbs and shrubs"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Litter*"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Rock"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Bare ground"}));
+                    self.data.groundCover.push(new GroundCoverRow({"groundCoverType":"% Cryptograms"}));
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.groundCover.push(new GroundCoverRow(obj));
+                    });
+                }
+            };
+
+            self.addgroundCoverRow = function () {
+                var newRow = new GroundCoverRow();
+                self.data.groundCover.push(newRow);
+                
+            };
+            self.removegroundCoverRow = function (row) {
+                self.data.groundCover.remove(row);
+                
+            };
+            self.groundCoverrowCount = function () {
+                return self.data.groundCover().length;
+            };
+
+            self.groundCoverTableDataUploadVisible = ko.observable(false);
+            self.showgroundCoverTableDataUpload = function() {
+                self.groundCoverTableDataUploadVisible(!self.groundCoverTableDataUploadVisible());
+            };
+
+            self.groundCoverTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadgroundCover(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "groundCovertemplate-upload",
+                    downloadTemplateId: "groundCovertemplate-download",
+                    formData:{type:'Five 1 x 1m plots', listName:'groundCover'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.totalPlot1 = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.groundCover().length; i++) {
+                    var value = self.data.groundCover()[i].plot1();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+
+            self.data.totalPlot2 = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.groundCover().length; i++) {
+                    var value = self.data.groundCover()[i].plot2();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+
+            self.data.totalPlot3 = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.groundCover().length; i++) {
+                    var value = self.data.groundCover()[i].plot3();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+
+            self.data.totalPlot4 = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.groundCover().length; i++) {
+                    var value = self.data.groundCover()[i].plot4();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+
+            self.data.totalPlot5 = ko.computed(function () {
+                var total = 0;
+                for(var i = 0; i < self.data.groundCover().length; i++) {
+                    var value = self.data.groundCover()[i].plot5();
+                        total = total + Number(value); 
+                }
+                return total;
+            });
+            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                                delete jsData.selectedgroundCoverRow;
+                delete jsData.groundCoverTableDataUploadOptions
+                delete jsData.groundCoverTableDataUploadVisible
+
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.loadgroundCover(data.groundCover);
+
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === 'Five 1 x 1m plots') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("koFive_1_x_1m_plots"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+            $(function(){
+
+                var viewModelName = "100m_TransectViewModel",
+                viewModelInstance = viewModelName + "Instance";
+
+            // load dynamic models - usually objects in a list
+                        var TreeCanopyRecordsRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.treeOrTreeGroup = ko.observable(orBlank(data['treeOrTreeGroup']));
+            self.transients.treeOrTreeGroupConstraints = ["","C","S","E"];
+            this.distance = ko.observable(orZero(data['distance']));
+            this.total = ko.observable(orZero(data['total']));
+        };
+        var ShrubCanopyRecordsRow = function (data) {
+            var self = this;
+            if (!data) data = {};
+            self.transients = {};
+            this.shrubType = ko.observable(orBlank(data['shrubType']));
+            self.transients.shrubTypeConstraints = ["","native","exotic"];
+            this.distance = ko.observable(orZero(data['distance']));
+            this.total = ko.observable(orZero(data['total']));
+        };
+        var speciesLists = [];
+        var site = {};
+
+
+                this[viewModelName] = function (output) {
+                    var self = this;
+                    self.name = "100m Transect";
+                self.outputId = orBlank(output.outputId);
+
+                self.data = {};
+                self.transients = {};
+                self.transients.dummy = ko.observable();
+
+                // add declarations for dynamic data
+                
+            self.data.treeCanopyRecords = ko.observableArray([]);
+            self.selectedtreeCanopyRecordsRow = ko.observable();
+        
+
+            self.loadtreeCanopyRecords = function (data, append) {
+                if (!append) {
+                    self.data.treeCanopyRecords([]);
+                }
+                if (data === undefined) {
+                    self.addtreeCanopyRecordsRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.treeCanopyRecords.push(new TreeCanopyRecordsRow(obj));
+                    });
+                }
+            };
+
+            self.addtreeCanopyRecordsRow = function () {
+                var newRow = new TreeCanopyRecordsRow();
+                self.data.treeCanopyRecords.push(newRow);
+                
+            };
+            self.removetreeCanopyRecordsRow = function (row) {
+                self.data.treeCanopyRecords.remove(row);
+                
+            };
+            self.treeCanopyRecordsrowCount = function () {
+                return self.data.treeCanopyRecords().length;
+            };
+
+            self.treeCanopyRecordsTableDataUploadVisible = ko.observable(false);
+            self.showtreeCanopyRecordsTableDataUpload = function() {
+                self.treeCanopyRecordsTableDataUploadVisible(!self.treeCanopyRecordsTableDataUploadVisible());
+            };
+
+            self.treeCanopyRecordsTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadtreeCanopyRecords(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "treeCanopyRecordstemplate-upload",
+                    downloadTemplateId: "treeCanopyRecordstemplate-download",
+                    formData:{type:'100m Transect', listName:'treeCanopyRecords'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.totalC = ko.observable();
+
+            self.data.totalS = ko.observable();
+
+            self.data.totalE = ko.observable();
+
+            self.data.shrubCanopyRecords = ko.observableArray([]);
+            self.selectedshrubCanopyRecordsRow = ko.observable();
+        
+
+            self.loadshrubCanopyRecords = function (data, append) {
+                if (!append) {
+                    self.data.shrubCanopyRecords([]);
+                }
+                if (data === undefined) {
+                    self.addshrubCanopyRecordsRow();
+                } else {
+                    $.each(data, function (i, obj) {
+                        self.data.shrubCanopyRecords.push(new ShrubCanopyRecordsRow(obj));
+                    });
+                }
+            };
+
+            self.addshrubCanopyRecordsRow = function () {
+                var newRow = new ShrubCanopyRecordsRow();
+                self.data.shrubCanopyRecords.push(newRow);
+                
+            };
+            self.removeshrubCanopyRecordsRow = function (row) {
+                self.data.shrubCanopyRecords.remove(row);
+                
+            };
+            self.shrubCanopyRecordsrowCount = function () {
+                return self.data.shrubCanopyRecords().length;
+            };
+
+            self.shrubCanopyRecordsTableDataUploadVisible = ko.observable(false);
+            self.showshrubCanopyRecordsTableDataUpload = function() {
+                self.shrubCanopyRecordsTableDataUploadVisible(!self.shrubCanopyRecordsTableDataUploadVisible());
+            };
+
+            self.shrubCanopyRecordsTableDataUploadOptions = {
+                    url:'/activity/ajaxUpload',
+                    done:function(e, data) {
+                        if (data.result.error) {
+                            self.uploadFailed(data.result.error);
+                        }
+                        else {
+                            self.loadshrubCanopyRecords(data.result.data, self.appendTableRows());
+                        }
+                    },
+                    fail:function(e, data) {
+                        var message = 'Please contact MERIT support and attach your spreadsheet to help us resolve the problem';
+                        self.uploadFailed(data);
+
+                    },
+                    uploadTemplateId: "shrubCanopyRecordstemplate-upload",
+                    downloadTemplateId: "shrubCanopyRecordstemplate-download",
+                    formData:{type:'100m Transect', listName:'shrubCanopyRecords'}
+            };
+            self.appendTableRows = ko.observable(true);
+            self.uploadFailed = function(message) {
+                        var text = "<span class='label label-important'>Important</span><h4>There was an error uploading your data.</h4>";
+                        text += "<p>"+message+"</p>";
+                        bootbox.alert(text)
+            };
+
+            self.data.totalNative = ko.observable();
+
+            self.data.totalExotic = ko.observable();
+            self.transients.site = site;
+
+                // this will be called when generating a savable model to remove transient properties
+                self.removeBeforeSave = function (jsData) {
+                    // add code to remove any transients added by the dynamic tags
+                
+                delete jsData.activityType;
+                delete jsData.transients;
+                return jsData;
+            };
+
+            // this returns a JS object ready for saving
+            self.modelForSaving = function () {
+                // get model as a plain javascript object
+                var jsData = ko.mapping.toJS(self, {'ignore':['transients']});
+                // get rid of any transient observables
+                return self.removeBeforeSave(jsData);
+            };
+
+            // this is a version of toJSON that just returns the model as it will be saved
+            // it is used for detecting when the model is modified (in a way that should invoke a save)
+            // the ko.toJSON conversion is preserved so we can use it to view the active model for debugging
+            self.modelAsJSON = function () {
+                return JSON.stringify(self.modelForSaving());
+            };
+
+            self.loadData = function (data) {
+                // load dynamic data
+                                self.loadtreeCanopyRecords(data.treeCanopyRecords);
+                self.data['totalC'](orZero(data['totalC']));
+                self.data['totalS'](orZero(data['totalS']));
+                self.data['totalE'](orZero(data['totalE']));
+                self.loadshrubCanopyRecords(data.shrubCanopyRecords);
+                self.data['totalNative'](orZero(data['totalNative']));
+                self.data['totalExotic'](orZero(data['totalExotic']));
+
+
+                // if there is no data in tables then add an empty row for the user to add data
+                if (typeof self.addRow === 'function' && self.rowCount() === 0) {
+                    self.addRow();
+                }
+                self.transients.dummy.notifySubscribers();
+            };
+        };
+
+
+        var savedData = activity;
+        if (!savedData.outputs) {
+            savedData.outputs = [];
+        }
+        var savedOutput = {};
+        if (savedData) {
+
+            $.each(savedData.outputs, function(i, tmpOutput) {
+                if (tmpOutput.name === '100m Transect') {
+                        savedOutput = tmpOutput;
+                    }
+                });
+            }
+
+            window[viewModelInstance] = new this[viewModelName](savedOutput);
+            var output = savedOutput.data ? savedOutput.data : {};
+
+            window[viewModelInstance].loadData(output);
+            window[viewModelInstance].dirtyFlag = ko.dirtyFlag(window[viewModelInstance], false);
+
+            ko.applyBindings(window[viewModelInstance], document.getElementById("ko100m_Transect"));
+
+            // this resets the baseline for detecting changes to the model
+            // - shouldn't be required if everything behaves itself but acts as a backup for
+            //   any binding side-effects
+            // - note that it is not foolproof as applying the bindings happens asynchronously and there
+            //   is no easy way to detect its completion
+            window[viewModelInstance].dirtyFlag.reset();
+
+            // register with the master controller so this model can participate in the save cycle
+            master.register(viewModelInstance, window[viewModelInstance].modelForSaving,
+            window[viewModelInstance].dirtyFlag.isDirty, window[viewModelInstance].dirtyFlag.reset);
+        });
+
+            
+
+
+    /* Master controller for page. This handles saving each model as required. */
+    var Master = function () {
+        var self = this;
+        this.subscribers = [];
+        // client models register their name and methods to participate in saving
+        self.register = function (modelInstanceName, getMethod, isDirtyMethod, resetMethod) {
+            this.subscribers.push({
+                model: modelInstanceName,
+                get: getMethod,
+                isDirty: isDirtyMethod,
+                reset: resetMethod
+            });
+        };
+        // master isDirty flag for the whole page - can control button enabling
+        this.isDirty  = function () {
+            var dirty = false;
+            $.each(this.subscribers, function(i, obj) {
+                dirty = dirty || obj.isDirty();
+            });
+            return dirty;
+        };
+        /**
+         * Makes an ajax call to save any sections that have been modified. This includes the activity
+         * itself and each output.
+         *
+         * Modified outputs are injected as a list into the activity object. If there is nothing to save
+         * in the activity itself, then the root is an object that is empty except for the outputs list.
+         *
+         * NOTE that the model for each section must register itself to be included in this save.
+         *
+         * Validates the entire page before saving.
+         * @return -1 if the page was not modified, 0 if validation failed, 1 if validation succeeded (or was not requested).
+         */
+        this.save = function (validate) {
+            // Ensure any active change is committed - the knockout binding typically fires on blur.
+            $( document.activeElement ).blur();
+
+            if (validate === undefined) {
+                validate = true;
+            }
+            var activityData, outputs = [];
+
+            var success = true;
+            if (validate) {
+                success = $('#validation-container').validationEngine('validate');
+            }
+            if (!self.isDirty()) {
+                mobileBindings.onSaveActivity(-1, null);
+                return -1;
+            }
+            if (success) {
+                $.each(this.subscribers, function(i, obj) {
+                    if (obj.model === 'activityModel') {
+                        activityData = obj.get();
+                    } else {
+                        outputs.push(obj.get());
+                    }
+                });
+
+                if (activityData === undefined) { activityData = {}}
+                activityData.outputs = outputs;
+
+                var toSave = JSON.stringify(activityData);
+                mobileBindings.onSaveActivity(1, toSave);
+
+            }
+            else {
+                mobileBindings.onSaveActivity(0, null);
+            }
+            return success?1:0;
+        };
+
+        this.reset = function () {
+            $.each(this.subscribers, function(i, obj) {
+                if (obj.isDirty()) {
+                    obj.reset();
+                }
+            });
+        };
+
+        this.addSite = function(site) {
+            var viewModel = ko.dataFor(document.getElementById('site'));
+            viewModel.transients.sites.push(site);
+            viewModel.siteId(site.siteId);
+        }
+    };
+
+    if (mobileBindings == undefined) {
+        var mobileBindings = {
+        
+            loadActivity:function(){return "{}"},
+        
+        
+            loadSites:function(){return "[]"},
+        
+        
+            loadThemes:function(){return "[]"},
+        
+
+        supportsNewSite:function() { return true; },
+        onSaveActivity:function(){},
+        createNewSite:function(){}
+    };
+}
+var master = new Master();
+var activity = JSON.parse(mobileBindings.loadActivity());
+var sites = JSON.parse(mobileBindings.loadSites());
+var themes = JSON.parse(mobileBindings.loadThemes());
+
+$(function(){
+
+var scroll = false;
+
+$('#validation-container').validationEngine('attach', {scroll: scroll});
+
+$('.helphover').popover({animation: true, trigger:'hover'});
+
+$('#reset').click(function () {
+master.reset();
+});
+
+
+function ViewModel (act, sites, themes) {
+var self = this;
+var today = new Date().toISOStringNoMillis();
+
+self.activityId = act.activityId;
+self.description = ko.observable(act.description);
+self.notes = ko.observable(act.notes);
+self.startDate = ko.observable(act.startDate || today).extend({simpleDate: false});
+self.endDate = ko.observable(act.endDate).extend({simpleDate: false});
+self.plannedStartDate = ko.observable(act.plannedStartDate).extend({simpleDate: false});
+self.plannedEndDate = ko.observable(act.plannedEndDate).extend({simpleDate: false});
+self.eventPurpose = ko.observable(act.eventPurpose);
+self.fieldNotes = ko.observable(act.fieldNotes);
+self.associatedProgram = ko.observable(act.associatedProgram);
+self.associatedSubProgram = ko.observable(act.associatedSubProgram);
+self.progress = ko.observable(act.progress);
+self.mainTheme = ko.observable(act.mainTheme);
+self.type = ko.observable(act.type);
+self.siteId = ko.observable(act.siteId);
+self.projectId = act.projectId;
+self.transients = {};
+self.transients.sites = ko.observableArray(sites);
+self.transients.photoPoints = ko.computed(function() {
+    var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
+     if (site) {
+         return site.photoPoints ? site.photoPoints : site.poi;
+     }
+     return [];
+});
+self.transients.activityProgressValues = ['planned','started','finished'];
+self.transients.themes = themes?themes:[];
+self.transients.markedAsFinished = ko.observable(act.progress === 'finished');
+self.transients.markedAsFinished.subscribe(function (finished) {
+    self.progress(finished ? 'finished' : 'started');
+    if (finished || !self.endDate()) {
+        self.endDate(today);
+    }
+});
+self.transients.siteImgUrl = ko.computed(function() {
+    if (self.siteId()) {
+         var site = $.grep(self.transients.sites(), function(site, index) { return site.siteId == self.siteId(); })[0];
+         if (site) {
+            var lat,lon;
+            if (site.centroidLat !== undefined && site.centroidLon !== undefined) {
+                lat = site.centroidLat;
+                lon = site.centroidLon;
+            }
+            else if (site.extent && site.extent.geometry && site.extent.geometry.centre) {
+                lat = site.extent.geometry.centre[1];
+                lon = site.extent.geometry.centre[0];
+            }
+            if (lat !== undefined && lon !== undefined) {
+                $('#siteLocationImage').show();
+                return fcConfig.googleStaticUrl+lat+","+lon;
+            }
+         }
+    }
+    return "";
+});
+self.siteLoadError = function(data, event) {
+    $('#siteLocationImage').hide();
+};
+
+self.transients.newSiteSupported = ko.observable( mobileBindings.supportsNewSite());
+
+self.modelForSaving = function () {
+    // get model as a plain javascript object
+    var jsData = ko.toJS(self);
+    delete jsData.transients;
+    return jsData;
+};
+self.modelAsJSON = function () {
+    return JSON.stringify(self.modelForSaving());
+};
+
+self.save = function (callback, key) {
+};
+
+self.createNewSite = function() {
+    mobileBindings.createNewSite();
+}
+
+self.notImplemented = function () {
+    alert("Not implemented yet.")
+};
+
+self.attachPhotoPoint = function(e) {
+    console.log(e);
+};
+self.dirtyFlag = ko.dirtyFlag(self, false);
+
+// make sure progress moves to started if we save any data (unless already finished)
+// (do this here so the model becomes dirty)
+self.progress(self.transients.markedAsFinished() ? 'finished' : 'started');
+}
+
+
+var viewModel = new ViewModel(activity, sites, themes);
+
+ko.applyBindings(viewModel);
+
+master.register('activityModel', viewModel.modelForSaving, viewModel.dirtyFlag.isDirty, viewModel.dirtyFlag.reset);
+
+
+});
+
+
+</script>
+</body>
+</html>
