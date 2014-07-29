@@ -31,7 +31,7 @@
         self.projects = [[NSMutableArray alloc]init];
         NSString * ver = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
         NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-        version = [[NSString alloc] initWithFormat:@"App beta version - %@ (%@)",ver,build];
+        version = [[NSString alloc] initWithFormat:@"App version - %@ (%@)",ver,build];
     }
    // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:114.0/255.0 green:169.0/255.0 blue:81.0/255.0 alpha:1]];
 
