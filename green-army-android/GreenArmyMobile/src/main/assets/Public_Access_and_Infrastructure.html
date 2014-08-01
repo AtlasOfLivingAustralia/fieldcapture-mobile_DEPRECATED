@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -200,7 +200,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.structuresInstalledConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'structuresInstalled'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.structuresInstalled" data-bind="value:$data,checked:$parent.data.structuresInstalled,attr:{id: 'structuresInstalled'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'structuresInstalled'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.structuresInstalled" data-bind="value:$data,checked:$parent.data.structuresInstalled,attr:{'id': 'structuresInstalled'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'structuresInstalled'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>No. of access management structures installed:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of access management structures installed during this activity'>
@@ -217,7 +217,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.accessManagementMethodConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'accessManagementMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.accessManagementMethod" data-bind="value:$data,checked:$parent.data.accessManagementMethod,attr:{id: 'accessManagementMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'accessManagementMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.accessManagementMethod" data-bind="value:$data,checked:$parent.data.accessManagementMethod,attr:{'id': 'accessManagementMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'accessManagementMethod'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Area (Ha) protected by access management structure(s):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The area in hectares being protected by installed access control measures.'>
@@ -227,7 +227,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.accessControlPurposeConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'accessControlPurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.accessControlPurpose" data-bind="value:$data,checked:$parent.data.accessControlPurpose,attr:{id: 'accessControlPurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'accessControlPurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.accessControlPurpose" data-bind="value:$data,checked:$parent.data.accessControlPurpose,attr:{'id': 'accessControlPurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'accessControlPurpose'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div></div>
@@ -331,7 +331,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 

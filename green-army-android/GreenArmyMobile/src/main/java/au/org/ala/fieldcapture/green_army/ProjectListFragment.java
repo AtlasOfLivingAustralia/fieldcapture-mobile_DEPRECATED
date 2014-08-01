@@ -117,7 +117,7 @@ public class ProjectListFragment extends Fragment implements LoaderManager.Loade
         if (data.getCount() == 0) {
             noProjects = true;
             // Force a refresh from the server.
-            FieldCaptureContent.requestSync(getActivity(), true);
+            //FieldCaptureContent.requestSync(getActivity(), true);
             noProjectsMessage.setVisibility(View.VISIBLE);
             noNetworkWarning.setVisibility(StatusFragment.isNetworkAvaialble(getActivity())?View.GONE:View.VISIBLE);
 

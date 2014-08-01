@@ -25,6 +25,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     private static final int PROJECT_SITES = 5;
     private static final int SYNC = 6;
     private static final int USER = 7;
+    private static final int ALL = 8;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -70,7 +71,9 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         if (uri.equals(FieldCaptureContent.deleteAllUri())) {
             int count = 0;
             for (int key : config.keySet()) {
-                count += mDb.delete(config.get(key).get(TABLE_KEY), null, null);
+                if (ALL != key) {
+                    count += mDb.delete(config.get(key).get(TABLE_KEY), null, null);
+                }
             }
             return count;
         }
@@ -90,18 +93,44 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
     @Override
     protected void notifyChange() {
         Uri toNotify = notifyUri.get();
-        if (toNotify == null) {
-            toNotify = FieldCaptureContent.allProjectsUri();
-        }
 
-        String table = configForUri(toNotify, TABLE_KEY);
-        if ("activity".equals(table)) {
-            getContext().getContentResolver().notifyChange(Uri.parse(FieldCaptureContent.ACTIVITY_URI), null);
+        try {
+            if (toNotify == null) {
+                toNotify = FieldCaptureContent.allProjectsUri();
+            }
+
+            if (toNotify.equals(FieldCaptureContent.deleteAllUri())) {
+                for (int key : config.keySet()) {
+                    if (ALL != key) {
+                        String tableUri = config.get(key).get(URI_KEY);
+                        if (tableUri != null) {
+                            getContext().getContentResolver().notifyChange(Uri.parse(tableUri), null);
+                        }
+                    }
+                }
+
+            } else if (toNotify.equals(FieldCaptureContent.deleteUri())) {
+                int[] toDelete = new int[] {PROJECTS, ACTIVITIES, SITES};
+
+                for (int key : toDelete) {
+                    String tableUri = config.get(key).get(URI_KEY);
+
+                    if (tableUri != null) {
+                        getContext().getContentResolver().notifyChange(Uri.parse(tableUri), null);
+                    }
+                }
+            } else {
+                String table = configForUri(toNotify, TABLE_KEY);
+                if ("activity".equals(table)) {
+                    getContext().getContentResolver().notifyChange(Uri.parse(FieldCaptureContent.ACTIVITY_URI), null);
+                } else {
+                    getContext().getContentResolver().notifyChange(toNotify, null);
+                }
+            }
         }
-        else {
-            getContext().getContentResolver().notifyChange(toNotify, null);
+        finally {
+            notifyUri.remove();
         }
-        notifyUri.remove();
     }
 
     @Override
@@ -148,6 +177,7 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
 
     private static final String TABLE_KEY = "table";
     private static final String TYPE_KEY = "type";
+    private static final String URI_KEY = "uri";
 
     private static Map<Integer, Map<String, String>> config;
     static {
@@ -155,16 +185,19 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         Map<String, String> projectConfig = new HashMap<String, String>(2);
         projectConfig.put(TABLE_KEY, "project");
         projectConfig.put(TYPE_KEY, "vnd.android.cursor.dir/project");
+        projectConfig.put(URI_KEY, FieldCaptureContent.PROJECTS_URI);
         config.put(PROJECTS, projectConfig);
 
         Map<String, String> activityConfig = new HashMap<String, String>(2);
         activityConfig.put(TABLE_KEY, "activity");
         activityConfig.put(TYPE_KEY, "vnd.android.cursor.dir/activity");
+        activityConfig.put(URI_KEY, FieldCaptureContent.ACTIVITIES_URI);
         config.put(ACTIVITIES, activityConfig);
 
         Map<String, String> siteConfig = new HashMap<String, String>(2);
         siteConfig.put(TABLE_KEY, "site");
         siteConfig.put(TYPE_KEY, "vnd.android.cursor.dir/site");
+        siteConfig.put(URI_KEY, FieldCaptureContent.SITE_URI);
         config.put(SITES, siteConfig);
 
         Map<String, String> projectSitesConfig = new HashMap<String, String>(2);
@@ -181,6 +214,12 @@ public class FieldCaptureContentProvider extends SQLiteContentProvider {
         userConfig.put(TABLE_KEY, FieldCaptureContent.USER);
         userConfig.put(TYPE_KEY, "vnd.android.cursor.dir/user");
         config.put(USER, userConfig);
+
+        Map<String, String> allConfig = new HashMap<String, String>(2);
+        allConfig.put(TABLE_KEY, "");
+        allConfig.put(TYPE_KEY, "vnd.android.cursor.dir/all");
+        config.put(ALL, allConfig);
+
     }
 
     private String configForUri(Uri uri, String key) {

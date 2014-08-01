@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -81,10 +82,16 @@ public class ProjectListActivity extends FragmentActivity
             public void onClick(DialogInterface dialog, int which) {
                 getContentResolver().setIsSyncable(account, FieldCaptureContent.AUTHORITY, 0);
 
+
                 preferenceStorage.clear();
+
                 // This will delete everything.
                 getContentResolver().delete(FieldCaptureContent.deleteAllUri(), null, null);
-                checkFirstUse();
+
+                // Reinstate the first use flag so the EULA screen is not re-displayed.
+                preferenceStorage.setFirstUse(false);
+
+                checkLogin();
             }
         }).setNegativeButton(R.string.no, null).show();
 

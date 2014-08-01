@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -209,7 +209,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.erosionTypeConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'erosionType'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.erosionType" data-bind="value:$data,checked:$parent.data.erosionType,attr:{id: 'erosionType'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'erosionType'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.erosionType" data-bind="value:$data,checked:$parent.data.erosionType,attr:{'id': 'erosionType'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'erosionType'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span><span class="span4">    <span  class="checkbox-list-label  preLabel"><label>Erosion management method(s) used:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of method used in this management action to manage erosion on the subject area'>
@@ -217,7 +217,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.erosionTreatmentMethodConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'erosionTreatmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.erosionTreatmentMethod" data-bind="value:$data,checked:$parent.data.erosionTreatmentMethod,attr:{id: 'erosionTreatmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'erosionTreatmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.erosionTreatmentMethod" data-bind="value:$data,checked:$parent.data.erosionTreatmentMethod,attr:{'id': 'erosionTreatmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'erosionTreatmentMethod'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span><span class="span4">    <span  class="checkbox-list-label  preLabel"><label>Erosion control structure(s) installed:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type(s) of structure installed during this activity to control erosion on the subject site'>
@@ -225,7 +225,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.erosionControlStructuresConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'erosionControlStructures'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.erosionControlStructures" data-bind="value:$data,checked:$parent.data.erosionControlStructures,attr:{id: 'erosionControlStructures'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'erosionControlStructures'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.erosionControlStructures" data-bind="value:$data,checked:$parent.data.erosionControlStructures,attr:{'id': 'erosionControlStructures'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'erosionControlStructures'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div>
@@ -274,7 +274,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 

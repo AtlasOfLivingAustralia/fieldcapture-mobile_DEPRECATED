@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -213,7 +213,7 @@
             <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Management Practice Change Details</h3>
             <!-- add the dynamic components -->
             <div class="row-fluid space-after " >
-<span class="span12">    <span  class="span12">Please insert multiple rows as required if multiple industries are applicable. Area and numbers of people and farming entities should be entered only once for each industry type.</span></span></div>
+<span class="span12">    <span  class="span12">Please insert multiple rows as required if multiple industries are applicable. Select only the 3 most appropriate options in each multi-select cell of each row. Area and numbers of people and farming entities should be entered only once for each industry type.</span></span></div>
 <div class="row-fluid output-section">
             <table class="table table-bordered practiceChange " >
                 <thead><tr><th class="required">Industry:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of industry in which changed practices are implemented'>
@@ -238,21 +238,21 @@
                     <td>
             <ul class="checkbox-list" data-bind="foreach: transients.changePurposeConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'changePurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="changePurpose" data-bind="value:$data,checked:$parent.changePurpose,attr:{id: 'changePurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'changePurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="changePurpose" data-bind="value:$data,checked:$parent.changePurpose,attr:{'id': 'changePurpose'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'changePurpose'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </td>
                     <td>
             <ul class="checkbox-list" data-bind="foreach: transients.targetOutcomesConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'targetOutcomes'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="targetOutcomes" data-bind="value:$data,checked:$parent.targetOutcomes,attr:{id: 'targetOutcomes'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'targetOutcomes'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="targetOutcomes" data-bind="value:$data,checked:$parent.targetOutcomes,attr:{'id': 'targetOutcomes'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'targetOutcomes'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </td>
                     <td>
             <ul class="checkbox-list" data-bind="foreach: transients.practiceChangeActionConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'practiceChangeAction'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="practiceChangeAction" data-bind="value:$data,checked:$parent.practiceChangeAction,attr:{id: 'practiceChangeAction'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'practiceChangeAction'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="practiceChangeAction" data-bind="value:$data,checked:$parent.practiceChangeAction,attr:{'id': 'practiceChangeAction'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'practiceChangeAction'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </td>
@@ -287,7 +287,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.productivityBenefitsConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'productivityBenefits'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.productivityBenefits" data-bind="value:$data,checked:$parent.data.productivityBenefits,attr:{id: 'productivityBenefits'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'productivityBenefits'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.productivityBenefits" data-bind="value:$data,checked:$parent.data.productivityBenefits,attr:{'id': 'productivityBenefits'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'productivityBenefits'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1],maxCheckbox[3]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div></div>
@@ -307,7 +307,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 

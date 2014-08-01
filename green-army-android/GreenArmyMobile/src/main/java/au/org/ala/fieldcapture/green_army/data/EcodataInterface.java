@@ -48,8 +48,7 @@ public class EcodataInterface extends WebService {
         public boolean success;
     }
 
-    //private static final String FIELDCAPTURE_URL = "http://152.83.195.62:8087/fieldcapture/mobile";
-    private static final String FIELDCAPTURE_URL = "https://fieldcapture-test.ala.org.au/mobile";
+    private static final String FIELDCAPTURE_URL = "https://fieldcapture.ala.org.au/mobile";
 
     /** If you use this constructor, methods requiring authentication won't work. (only the login will work...) */
     public EcodataInterface() {
@@ -123,7 +122,7 @@ public class EcodataInterface extends WebService {
 
     public List<JSONObject> getProjectsForUser() {
 
-        String url = FIELDCAPTURE_URL + "/userProjects";
+        String url = FIELDCAPTURE_URL + "/userProjects?program=Green Army";
 
         RestTemplate restTemplate = getRestTemplate(true);
 

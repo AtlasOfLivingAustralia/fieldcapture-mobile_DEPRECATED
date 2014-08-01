@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -221,7 +221,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.partnerTypeConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'partnerType'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.partnerType" data-bind="value:$data,checked:$parent.data.partnerType,attr:{id: 'partnerType'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'partnerType'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.partnerType" data-bind="value:$data,checked:$parent.data.partnerType,attr:{'id': 'partnerType'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'partnerType'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div><div class="span4">
@@ -230,7 +230,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.treatmentObjectiveConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'treatmentObjective'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.treatmentObjective" data-bind="value:$data,checked:$parent.data.treatmentObjective,attr:{id: 'treatmentObjective'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'treatmentObjective'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.treatmentObjective" data-bind="value:$data,checked:$parent.data.treatmentObjective,attr:{'id': 'treatmentObjective'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'treatmentObjective'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div><div class="span4">
@@ -255,7 +255,7 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th>No. unknown:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Unknown number of individual pest animals removed during this activity. THIS BOX SHOULD NOT BE CHECKED IF THE NUMBER IS KNOWN.'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th class="required">Area covered by treatment (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area covered by treatment (Ha): *'>
+</a></th><th class="required">Area covered by treatment (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area covered by treatment (Ha)'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th>Estimated pest density before treatment (No./Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Estimated density of pest animals per hectare prior to treatment action'>
   <i class='icon-question-sign'>&nbsp;</i>
@@ -265,7 +265,7 @@
                 <script id="pestManagementviewTmpl" type="text/html"><tr>
                     <td>
 <span class="input-prepend input-append" data-bind="with:targetSpecies">
-    <span class="add-on" data-bind="visible:!transients.editing(), css:{'btn-success':name()}"><i class="icon-white" data-bind="css:{'icon-ok':listId()!='unmatched' && name(), 'icon-question-sign':listId()=='unmatched' || listId() == 'error-unmatched'}"></i></span><span class="add-on" data-bind="visible:transients.editing()"><img src="static/Xo2jbaJ5EFqa59u9g4c4ybpCpw3wFWKhQdzZwNmmktO.gif" alt="saving icon" /></span><input type="text" data-bind="value:transients.textFieldValue,event:{focusout:focusLost},autocomplete:{url:'https://fieldcapture-test.ala.org.au/search/species', render: renderItem, listId: list, result:speciesSelected, valueChangeCallback:textFieldChanged}"  data-validation-engine='validate[required]'/>
+    <span class="add-on" data-bind="visible:!transients.editing(), css:{'btn-success':name()}"><i class="icon-white" data-bind="css:{'icon-ok':listId()!='unmatched' && name(), 'icon-question-sign':listId()=='unmatched' || listId() == 'error-unmatched'}"></i></span><span class="add-on" data-bind="visible:transients.editing()"><img src="static/Xo2jbaJ5EFqa59u9g4c4ybpCpw3wFWKhQdzZwNmmktO.gif" alt="saving icon" /></span><input type="text" data-bind="value:transients.textFieldValue,event:{focusout:focusLost},autocomplete:{url:'https://fieldcapture.ala.org.au/search/species', render: renderItem, listId: list, result:speciesSelected, valueChangeCallback:textFieldChanged}"  data-validation-engine='validate[required]'/>
     <span class="add-on" data-bind="visible: !transients.editing() && name()">
         <a href="#" data-bind="popover: {title: name, content: transients.speciesInformation}"><i class="icon-info-sign"></i></a>
     </span>
@@ -317,7 +317,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.purposeOfFenceConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'purposeOfFence'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.purposeOfFence" data-bind="value:$data,checked:$parent.data.purposeOfFence,attr:{id: 'purposeOfFence'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'purposeOfFence'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.purposeOfFence" data-bind="value:$data,checked:$parent.data.purposeOfFence,attr:{'id': 'purposeOfFence'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'purposeOfFence'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div></div>
@@ -370,7 +370,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 
@@ -412,7 +412,7 @@
             if (!data) data = {};
             self.transients = {};
             this.pestManagementMethod = ko.observable(orBlank(data['pestManagementMethod']));
-            self.transients.pestManagementMethodConstraints = ["Bait & trap","Bait only","Biological control agents","Exclusion fencing","Fumigation","Harbour destruction","Positive competition","Spotlight cull","Trap & cull","Trap & remove","Other (specify in notes)"];
+            self.transients.pestManagementMethodConstraints = ["Crown of Thorns Starfish injection","Bait & trap","Bait only","Biological control agents","Exclusion fencing","Fumigation","Harbour destruction","Positive competition","Spotlight cull","Trap & cull","Trap & remove","Other (specify in notes)"];
             this.treatmentIncentiveMethod = ko.observable(orBlank(data['treatmentIncentiveMethod']));
             self.transients.treatmentIncentiveMethodConstraints = ["Bounty-based cull","Non-bounty-based cull","No incentive program applicable","Other (specify in notes)"];
             this.targetSpecies =  new SpeciesViewModel(data['targetSpecies'], speciesLists);

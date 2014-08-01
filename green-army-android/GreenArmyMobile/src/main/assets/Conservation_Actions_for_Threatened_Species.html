@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -214,11 +214,11 @@
             <h3 data-bind="css:{modified:dirtyFlag.isDirty},attr:{title:'Has been modified'}">Conservation Works Details</h3>
             <!-- add the dynamic components -->
             <div class="row-fluid space-after output-section" >
-<span class="span4">    <span  class="preLabel required"><label>Species: *<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Species targeted for these conservation works / measures (start typing a  scientific or common name for a species)'>
+<span class="span4">    <span  class="preLabel required"><label>Species:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Species targeted for these conservation works / measures (start typing a  scientific or common name for a species)'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span>
 <span class="input-prepend input-append" data-bind="with:data.targetSpecies">
-    <span class="add-on" data-bind="visible:!transients.editing(), css:{'btn-success':name()}"><i class="icon-white" data-bind="css:{'icon-ok':listId()!='unmatched' && name(), 'icon-question-sign':listId()=='unmatched' || listId() == 'error-unmatched'}"></i></span><span class="add-on" data-bind="visible:transients.editing()"><img src="static/Xo2jbaJ5EFqa59u9g4c4ybpCpw3wFWKhQdzZwNmmktO.gif" alt="saving icon" /></span><input type="text" data-bind="value:transients.textFieldValue,event:{focusout:focusLost},autocomplete:{url:'https://fieldcapture-test.ala.org.au/search/species', render: renderItem, listId: list, result:speciesSelected, valueChangeCallback:textFieldChanged}"  data-validation-engine='validate[required]'/>
+    <span class="add-on" data-bind="visible:!transients.editing(), css:{'btn-success':name()}"><i class="icon-white" data-bind="css:{'icon-ok':listId()!='unmatched' && name(), 'icon-question-sign':listId()=='unmatched' || listId() == 'error-unmatched'}"></i></span><span class="add-on" data-bind="visible:transients.editing()"><img src="static/Xo2jbaJ5EFqa59u9g4c4ybpCpw3wFWKhQdzZwNmmktO.gif" alt="saving icon" /></span><input type="text" data-bind="value:transients.textFieldValue,event:{focusout:focusLost},autocomplete:{url:'https://fieldcapture.ala.org.au/search/species', render: renderItem, listId: list, result:speciesSelected, valueChangeCallback:textFieldChanged}"  data-validation-engine='validate[required]'/>
     <span class="add-on" data-bind="visible: !transients.editing() && name()">
         <a href="#" data-bind="popover: {title: name, content: transients.speciesInformation}"><i class="icon-info-sign"></i></a>
     </span>
@@ -255,7 +255,7 @@
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th class="required">No. of Agreement mechanisms:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The number of agreement mechanisms implemented as a result of the project'>
   <i class='icon-question-sign'>&nbsp;</i>
-</a></th><th class="required">Area under Agreement (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area covered by conservation agreement (Ha): *'>
+</a></th><th class="required">Area under Agreement (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area covered by conservation agreement (Ha):'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></th><th></th>
                 </tr></thead>
@@ -320,7 +320,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 

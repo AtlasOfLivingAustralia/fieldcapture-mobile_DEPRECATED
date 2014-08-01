@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -211,7 +211,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.stockManagementReasonConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'stockManagementReason'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.stockManagementReason" data-bind="value:$data,checked:$parent.data.stockManagementReason,attr:{id: 'stockManagementReason'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'stockManagementReason'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.stockManagementReason" data-bind="value:$data,checked:$parent.data.stockManagementReason,attr:{'id': 'stockManagementReason'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'stockManagementReason'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel required"><label>Area managed (Ha):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='Area in hectares where grazing is used as a management tool under this activity'>
@@ -260,7 +260,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 

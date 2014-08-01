@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -208,7 +208,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.hydrologicalStructuresOnsiteConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'hydrologicalStructuresOnsite'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.hydrologicalStructuresOnsite" data-bind="value:$data,checked:$parent.data.hydrologicalStructuresOnsite,attr:{id: 'hydrologicalStructuresOnsite'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'hydrologicalStructuresOnsite'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.hydrologicalStructuresOnsite" data-bind="value:$data,checked:$parent.data.hydrologicalStructuresOnsite,attr:{'id': 'hydrologicalStructuresOnsite'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'hydrologicalStructuresOnsite'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div><div class="span6">
@@ -225,7 +225,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.waterTransportMethodConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'waterTransportMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.waterTransportMethod" data-bind="value:$data,checked:$parent.data.waterTransportMethod,attr:{id: 'waterTransportMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'waterTransportMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.waterTransportMethod" data-bind="value:$data,checked:$parent.data.waterTransportMethod,attr:{'id': 'waterTransportMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'waterTransportMethod'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 checkbox-list-label  preLabel required"><label>What is extracted / imported water being used for?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The use(s) for which managed water under this management action will be applied'>
@@ -233,7 +233,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.transportedWaterUseConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'transportedWaterUse'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.transportedWaterUse" data-bind="value:$data,checked:$parent.data.transportedWaterUse,attr:{id: 'transportedWaterUse'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'transportedWaterUse'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.transportedWaterUse" data-bind="value:$data,checked:$parent.data.transportedWaterUse,attr:{'id': 'transportedWaterUse'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'transportedWaterUse'+'-'+($parentContext.$index?$parentContext.$index():'')}"  data-validation-engine='validate[minCheckbox[1]]'/><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 checkbox-list-label  preLabel"><label>What environmental benefits are expected to be gained by this water management action?:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The environmental benefits/outcomes expected to be realised as a result of this water management action'>
@@ -241,7 +241,7 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.waterMgtEnvironBenefitConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'waterMgtEnvironBenefit'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.waterMgtEnvironBenefit" data-bind="value:$data,checked:$parent.data.waterMgtEnvironBenefit,attr:{id: 'waterMgtEnvironBenefit'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'waterMgtEnvironBenefit'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.waterMgtEnvironBenefit" data-bind="value:$data,checked:$parent.data.waterMgtEnvironBenefit,attr:{'id': 'waterMgtEnvironBenefit'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'waterMgtEnvironBenefit'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div></div>
@@ -263,7 +263,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 

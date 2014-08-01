@@ -28,7 +28,7 @@
 <script type="text/javascript">
     var fcConfig = {
         bieUrl: "http://bie.ala.org.au",
-        speciesProfileUrl: "https://fieldcapture-test.ala.org.au/proxy/speciesProfile",
+        speciesProfileUrl: "https://fieldcapture.ala.org.au/proxy/speciesProfile",
         googleStaticUrl:"http://maps.googleapis.com/maps/api/staticmap?maptype=terrian&zoom=12&sensor=false&size=350x250&markers=color:red%7C"
         },
         here = document.location.href;
@@ -200,18 +200,20 @@
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.evidenceOfPreviousPestTreatmentConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'evidenceOfPreviousPestTreatment'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.evidenceOfPreviousPestTreatment" data-bind="value:$data,checked:$parent.data.evidenceOfPreviousPestTreatment,attr:{id: 'evidenceOfPreviousPestTreatment'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'evidenceOfPreviousPestTreatment'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.evidenceOfPreviousPestTreatment" data-bind="value:$data,checked:$parent.data.evidenceOfPreviousPestTreatment,attr:{'id': 'evidenceOfPreviousPestTreatment'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'evidenceOfPreviousPestTreatment'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div><div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Recommended initial or follow-up treatment method:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The type of treatment method recommended for initial or follow up treatment'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span><select class="span8" data-bind='value:data.recommendedPestTreatment,options:transients.recommendedPestTreatmentConstraints,optionsCaption:"Please select"'></select></span></div></div><div class="span6">
-<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Effectiveness of Previous Treatment (No. killed):</label></span><input class="input-small" style="text-align:center" data-bind='value:data.effectivenessOfPreviousPestTreatment' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span8"><font color='blue'>'<b>NB.:</b> The following methods pertain only to how evidence of previous treatments was obtained.</font>'</span></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 checkbox-list-label  preLabel"><label>Previous treatment effectiveness assessment method:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The method used to assess the effectiveness of previous pest animal treatment. &lt;font color=&apos;blue&apos;&gt;&apos;&lt;b&gt;NB.:&lt;/b&gt; This pertains to evidence of previous treatments only.&lt;/font&gt;&apos;'>
+<div class="row-fluid"><span class="span12">    <span  class="span4 preLabel"><label>Effectiveness of Previous Treatment (No. killed):<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The effectiveness of the last treatment activity as a proportion of the area and density of the infestation that existed before the previous treatment activity, expressed as the number of individuals killed / removed from the population'>
+  <i class='icon-question-sign'>&nbsp;</i>
+</a></label></span><input class="input-small" style="text-align:center" data-bind='value:data.effectivenessOfPreviousWeedTreatment' data-validation-engine='validate[custom[number],min[0]]' type='number' class='input-mini'/></span></div><div class="row-fluid"><span class="span12">    <span  class="span8"><font color='blue'>'<b>NB.:</b> The following methods pertain only to how evidence of previous treatments was obtained.</font>'</span></span></div><div class="row-fluid"><span class="span12">    <span  class="span4 checkbox-list-label  preLabel"><label>Previous treatment effectiveness assessment method:<a href='#' class='helphover' data-original-title='' data-placement='top' data-content='The method used to assess the effectiveness of previous pest animal treatment. &lt;font color=&apos;blue&apos;&gt;&apos;&lt;b&gt;NB.:&lt;/b&gt; This pertains to evidence of previous treatments only.&lt;/font&gt;&apos;'>
   <i class='icon-question-sign'>&nbsp;</i>
 </a></label></span>
             <ul class="checkbox-list" data-bind="foreach: transients.previousPestTreatmentAssessmentMethodConstraints">
                 <li>
-                    <label data-bind="attr:{for: 'previousPestTreatmentAssessmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.previousPestTreatmentAssessmentMethod" data-bind="value:$data,checked:$parent.data.previousPestTreatmentAssessmentMethod,attr:{id: 'previousPestTreatmentAssessmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
+                    <label data-bind="attr:{'for': 'previousPestTreatmentAssessmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():'')}"><input type="checkbox" name="data.previousPestTreatmentAssessmentMethod" data-bind="value:$data,checked:$parent.data.previousPestTreatmentAssessmentMethod,attr:{'id': 'previousPestTreatmentAssessmentMethod'+$index()+'-'+($parentContext.$index?$parentContext.$index():''), 'name': 'previousPestTreatmentAssessmentMethod'+'-'+($parentContext.$index?$parentContext.$index():'')}" /><span data-bind="text:$data"/></label></span>
                 </li>
             </ul>
         </span></div></div></div>
@@ -274,7 +276,7 @@
                 <script id="pestObservationMonitoringDetailsviewTmpl" type="text/html"><tr>
                     <td>
 <span class="input-prepend input-append" data-bind="with:pestSpecies">
-    <span class="add-on" data-bind="visible:!transients.editing(), css:{'btn-success':name()}"><i class="icon-white" data-bind="css:{'icon-ok':listId()!='unmatched' && name(), 'icon-question-sign':listId()=='unmatched' || listId() == 'error-unmatched'}"></i></span><span class="add-on" data-bind="visible:transients.editing()"><img src="static/Xo2jbaJ5EFqa59u9g4c4ybpCpw3wFWKhQdzZwNmmktO.gif" alt="saving icon" /></span><input type="text" data-bind="value:transients.textFieldValue,event:{focusout:focusLost},autocomplete:{url:'https://fieldcapture-test.ala.org.au/search/species', render: renderItem, listId: list, result:speciesSelected, valueChangeCallback:textFieldChanged}"  data-validation-engine='validate[required]'/>
+    <span class="add-on" data-bind="visible:!transients.editing(), css:{'btn-success':name()}"><i class="icon-white" data-bind="css:{'icon-ok':listId()!='unmatched' && name(), 'icon-question-sign':listId()=='unmatched' || listId() == 'error-unmatched'}"></i></span><span class="add-on" data-bind="visible:transients.editing()"><img src="static/Xo2jbaJ5EFqa59u9g4c4ybpCpw3wFWKhQdzZwNmmktO.gif" alt="saving icon" /></span><input type="text" data-bind="value:transients.textFieldValue,event:{focusout:focusLost},autocomplete:{url:'https://fieldcapture.ala.org.au/search/species', render: renderItem, listId: list, result:speciesSelected, valueChangeCallback:textFieldChanged}"  data-validation-engine='validate[required]'/>
     <span class="add-on" data-bind="visible: !transients.editing() && name()">
         <a href="#" data-bind="popover: {title: name, content: transients.speciesInformation}"><i class="icon-info-sign"></i></a>
     </span>
@@ -341,7 +343,7 @@
 
 </div>
 
-<script src="static/Ttgu9fflIR2OzMMsmkluFvyNHUlZnRJc1rPIIvryZ5N.js" type="text/javascript" ></script>
+<script src="static/pwoPVwK3608Vp0cqNMIzQ5Rhzn4oIMx0F3ZUBjEEC8S.js" type="text/javascript" ></script>
 
 
 
@@ -515,7 +517,6 @@
             this.populationEstimateConfidence = ko.observable(orZero(data['populationEstimateConfidence']));
             this.pestPopulationMobility = ko.observable(orBlank(data['pestPopulationMobility']));
             self.transients.pestPopulationMobilityConstraints = ["Resident","Transient","Uncertain"];
-            this.pestObservationNotes = ko.observable(orBlank(data['pestObservationNotes']));
         };
         var speciesLists = [];
         var site = {};
@@ -594,6 +595,8 @@
                         text += "<p>"+message+"</p>";
                         bootbox.alert(text)
             };
+
+            self.data.pestObservationNotes = ko.observable();
             self.transients.site = site;
 
                 // this will be called when generating a savable model to remove transient properties
@@ -627,6 +630,7 @@
                 // load dynamic data
                                 self.data['assessorName'](data['assessorName']);
                 self.loadpestObservationMonitoringDetails(data.pestObservationMonitoringDetails);
+                self.data['pestObservationNotes'](data['pestObservationNotes']);
 
 
                 // if there is no data in tables then add an empty row for the user to add data
