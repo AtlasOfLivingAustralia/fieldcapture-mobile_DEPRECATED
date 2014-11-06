@@ -135,8 +135,8 @@
     [GASettings resetAllFields];
     [self.sqlLite deleteAllTables];
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-    [self.loginViewController setModalPresentationStyle:UIMinimumKeepAliveTimeout];
-    [self.window.rootViewController presentViewController:loginViewController animated:NO completion:nil];
+//    [self.loginViewController setModalPresentationStyle:UIMinimumKeepAliveTimeout];
+    [self.window.rootViewController presentViewController:self.loginViewController animated:NO completion:nil];
 }
 
 -(NSString *) uploadChangedActivities : (NSError **) e{

@@ -67,7 +67,7 @@
         [locationMgr startUpdatingLocation];
         
         UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-        refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Recalculate distance between your location and site"];
+        refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Recalculating distance between your location and site"];
         [refresh addTarget:self action:@selector(refreshProjects)
           forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refresh;
@@ -448,12 +448,14 @@
         NSString *kmStr = [[NSString alloc] initWithFormat:@"%.2f km", km];
 
         if([activity.distance isEqualToString:kDetailLargeDistanceNumber])
-            detailText = [[NSString alloc]initWithFormat:@"%@\n%@",plannedDateStr,activity.description];
-        else
-            detailText = [[NSString alloc]initWithFormat:@"%@\n%@,%@",plannedDateStr,kmStr,activity.description];
+            detailText = [[NSString alloc]initWithFormat:@"%@, %@",plannedDateStr,activity.description];
+        else{
+            detailText = [[NSString alloc]initWithFormat:@"%@, %@",plannedDateStr,activity.description];
+            cell.textLabel.text = [[NSString alloc]initWithFormat:@"%@ - %@ ",cell.textLabel.text,kmStr];
+        }
     }
     else {
-        detailText = [[NSString alloc]initWithFormat:@"%@\n%@",plannedDateStr,activity.description];
+        detailText = [[NSString alloc]initWithFormat:@"%@, %@",plannedDateStr,activity.description];
     }
     
     cell.detailTextLabel.text = detailText;
