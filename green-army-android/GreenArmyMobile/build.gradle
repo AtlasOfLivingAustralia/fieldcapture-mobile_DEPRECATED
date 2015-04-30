@@ -25,9 +25,9 @@ android {
 
         release {
             debuggable false
-            jniDebugBuild false
+            jniDebuggable false
             signingConfig signingConfigs.merit
-            runProguard true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
