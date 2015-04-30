@@ -310,6 +310,9 @@ public class EnterActivityData extends Fragment implements LoaderManager.LoaderC
         mIsWebViewAvailable = true;
 
         webView = getWebView();
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        }
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
