@@ -1,4 +1,8 @@
+/green-army-android.iml
+/GreenArmyMobile/GreenArmyMobile.iml
+/.idea
 .gradle
 /local.properties
 /.idea/workspace.xml
+/build
 .DS_Store
